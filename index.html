@@ -380,11 +380,11 @@
                         <div class="carousel-container" id="adCarousel">
                             <div class="carousel-track" id="carouselTrack">
                                 <div class="carousel-slide">
-                                    <img class="im1" src="./adimg/5.jpg" alt="إعلان 1" fetchpriority="high"
+                                    <img class="im1" src="./adimg/1.jpg" alt="إعلان 1" fetchpriority="high"
                                         decoding="sync">
                                 </div>
                                 <div class="carousel-slide">
-                                    <img class="im2" src="./adimg/7.jpg" alt="إعلان 2" fetchpriority="high"
+                                    <img class="im2" src="./adimg/2.jpg" alt="إعلان 2" fetchpriority="high"
                                         decoding="sync">
                                 </div>
                             </div>
@@ -399,8 +399,8 @@
                         <!-- Preserving legacy .ads .box for any legacy script checks -->
                         <div class="ads" style="display: none;">
                             <div class="box" id="legacyAdsBox">
-                                <span style="--i:1"><img class="im1" src="./adimg/5.jpg"></span>
-                                <span style="--i:2"><img class="im2" src="./adimg/7.jpg"></span>
+                                <span style="--i:1"><img class="im1" src="./adimg/1.jpg"></span>
+                                <span style="--i:2"><img class="im2" src="./adimg/2.jpg"></span>
                             </div>
                         </div>
                     </div>
@@ -1833,33 +1833,30 @@
                     startAutoplay();
                 }
 
-                // 1. Immediate Instant Initialization from Config or DOM (Zero Delay)
+                window.renderAdCarousel = renderCarousel;
+
+                // 1. Immediate Instant Initialization (Zero Delay)
                 var initialConfigImgs = (window.hotspotConfig && Array.isArray(window.hotspotConfig['ad-images']) && window.hotspotConfig['ad-images'].length > 0)
                     ? window.hotspotConfig['ad-images']
-                    : ['5.jpg', '7.jpg'];
+                    : ['1.jpg', '2.jpg'];
                 renderCarousel(initialConfigImgs);
 
-                // 2. Dynamic Discovery from adimg/ folder via API (Server/Dev/Live Backend mode)
+                // 2. Smart Sync for adimg folder (Supports 1.jpg to 7.jpg as in previous project)
                 fetch('/api/v1/ad-images')
                     .then(res => res.json())
                     .then(data => {
                         if (data && data.success && Array.isArray(data.images) && data.images.length > 0) {
                             renderCarousel(data.images);
                         } else {
-                            runStaticProbeDiscovery();
+                            probeSevenAdImages();
                         }
                     })
                     .catch(() => {
-                        runStaticProbeDiscovery();
+                        probeSevenAdImages();
                     });
 
-                // 3. Smart Static Auto-Probing for Pure MikroTik RouterOS (Runs non-blocking in background)
-                function runStaticProbeDiscovery() {
-                    const candidateNames = [];
-                    for (let i = 1; i <= 20; i++) {
-                        candidateNames.push(i + '.jpg', i + '.png', i + '.webp', i + '.jpeg');
-                    }
-
+                function probeSevenAdImages() {
+                    const candidateNames = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg'];
                     const foundImages = [];
                     let finished = 0;
 
@@ -2252,6 +2249,12 @@
             // Apply configuration dynamically from config.js
             try {
                 var applyConfigOptions = function(configObj) {
+                    if (configObj['ad-images'] && Array.isArray(configObj['ad-images']) && configObj['ad-images'].length > 0) {
+                        if (typeof window.renderAdCarousel === 'function') {
+                            window.renderAdCarousel(configObj['ad-images']);
+                        }
+                    }
+
                     if (configObj.speeds && Array.isArray(configObj.speeds)) {
                         applyDynamicSpeeds(configObj.speeds, configObj['enable-ultra-speed'] !== false);
                     } else {
