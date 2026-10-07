@@ -97,15 +97,21 @@ Config({
   "price-button": true,          // إظهار زر قائمة أسعار الكروت (true: نعم / false: لا)
   "sell-point-button": true,     // إظهار زر نقاط البيع وأماكن التوزيع (true: نعم / false: لا)
   "loan-button": true,           // إظهار زر خدمة الاستدانة / كرت سلف (true: نعم / false: لا)
-  "app-store-status-button": false,
+  "app-store-status-button": false, // إظهار زر متجر البرامج بشاشة الحالة
+  "esterahah-button": true,      // إظهار زر الاستراحة في شاشة الحالة
+  "mobasher-button": true,       // إظهار زر البث المباشر في شاشة الحالة
+  "app-detector-button": true,   // إظهار زر تنزيل تطبيق كشف استهلاك النت
+  "app-octopus-button": true,    // إظهار زر تنزيل تطبيق الاستراحة الأخطبوط
   "show-date-field": false,
 
   // =========================================================================
-  // 9. الروابط الخارجية (البث المباشر / الاستراحة / متجر البرامج)
+  // 9. الروابط الخارجية (البث المباشر / الاستراحة / متجر البرامج والتطبيقات)
   // =========================================================================
-  "redirect-to-esterahah": "",   // رابط صفحة الاستراحة / الترفيه (اختياري)
-  "redirect-to-mobasher": "",    // رابط البث المباشر والمباريات (اختياري)
+  "redirect-to-esterahah": "http://30.10.10.10",   // رابط صفحة الاستراحة / الترفيه (اختياري)
+  "redirect-to-mobasher": "http://30.10.10.10:88",    // رابط البث المباشر والمباريات (اختياري)
   "app-store-base-url": "",
+  "app-detector-url": "https://play.google.com/store/apps/details?id=com.glasswire.android", // رابط تطبيق كشف استهلاك النت
+  "app-octopus-url": "https://play.google.com/store/apps/details?id=com.alokhtoboot.plus",   // رابط تطبيق الاستراحة الأخطبوط
   "app-store-base-url-ext": "",
 
   // =========================================================================

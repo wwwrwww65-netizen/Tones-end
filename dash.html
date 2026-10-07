@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>لوحة التحكم الشاملة - إدارة إعدادات config.js</title>
+    <title>لوحة التحكم - إدارة إعدادات الشبكة</title>
 
     <!-- Google Font & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,9 +18,9 @@
     <style>
         :root {
             --bg-body: #070b14;
-            --bg-card: rgba(14, 21, 38, 0.88);
-            --bg-card-hover: rgba(20, 30, 54, 0.96);
-            --bg-input: rgba(8, 12, 23, 0.8);
+            --bg-card: rgba(14, 21, 38, 0.92);
+            --bg-card-hover: rgba(20, 30, 54, 0.98);
+            --bg-input: rgba(8, 12, 23, 0.85);
             --primary: #3b82f6;
             --primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
             --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
@@ -62,7 +62,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1360px;
             margin: 0 auto;
         }
 
@@ -72,14 +72,14 @@
             backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 24px 30px;
+            padding: 22px 28px;
             margin-bottom: 24px;
             box-shadow: var(--shadow-card);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 18px;
             position: relative;
             overflow: hidden;
         }
@@ -97,24 +97,24 @@
         .header-brand {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 16px;
         }
 
         .brand-icon {
-            width: 58px;
-            height: 58px;
+            width: 54px;
+            height: 54px;
             border-radius: 14px;
             background: var(--primary-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 24px;
             color: #fff;
             box-shadow: var(--shadow-glow);
         }
 
         .brand-text h1 {
-            font-size: 1.65rem;
+            font-size: 1.55rem;
             font-weight: 800;
             background: linear-gradient(to right, #60a5fa, #c084fc);
             -webkit-background-clip: text;
@@ -205,104 +205,65 @@
         }
 
         .btn-icon {
-            width: 38px;
-            height: 38px;
-            padding: 0;
-            border-radius: var(--radius-sm);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            padding: 6px 10px;
         }
 
-        /* STATS OVERVIEW BAR */
-        .stats-grid {
+        /* STATS BAR */
+        .stats-bar {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
             margin-bottom: 24px;
         }
 
         .stat-card {
             background: var(--bg-card);
-            backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             padding: 16px 20px;
             display: flex;
             align-items: center;
-            gap: 16px;
-            box-shadow: var(--shadow-card);
+            gap: 14px;
             transition: var(--transition);
         }
 
         .stat-card:hover {
             border-color: var(--border-active);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            color: #fff;
-            flex-shrink: 0;
+            font-size: 18px;
         }
 
-        .stat-info .stat-num {
-            font-size: 1.45rem;
-            font-weight: 800;
-            color: #fff;
-            line-height: 1.2;
-        }
+        .stat-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .stat-purple { background: rgba(139, 92, 246, 0.15); color: #c084fc; }
+        .stat-emerald { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+        .stat-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
 
-        .stat-info .stat-label {
+        .stat-info h4 {
             font-size: 0.82rem;
             color: var(--text-muted);
+            font-weight: 600;
         }
 
-        /* SECTION NAV TABS */
-        .dash-nav-tabs {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-            scrollbar-width: thin;
-        }
-
-        .dash-tab-btn {
-            background: rgba(14, 21, 38, 0.7);
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 10px 18px;
-            border-radius: var(--radius-md);
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .dash-tab-btn:hover, .dash-tab-btn.active {
-            background: var(--primary);
+        .stat-info .stat-value {
+            font-size: 1.35rem;
+            font-weight: 800;
             color: #fff;
-            border-color: var(--primary);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
         }
 
-        /* GRID SYSTEM */
+        /* GRID LAYOUT */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 24px;
-            margin-bottom: 24px;
+            gap: 20px;
         }
 
         .col-12 { grid-column: span 12; }
@@ -310,40 +271,41 @@
         .col-6 { grid-column: span 6; }
         .col-4 { grid-column: span 4; }
 
-        @media (max-width: 1024px) {
-            .col-8, .col-6, .col-4 { grid-column: span 12; }
+        @media (max-width: 992px) {
+            .col-8, .col-6, .col-4 {
+                grid-column: span 12;
+            }
         }
 
         /* CARDS */
         .card {
             background: var(--bg-card);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(14px);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 24px;
             box-shadow: var(--shadow-card);
+            overflow: hidden;
             transition: var(--transition);
             display: flex;
             flex-direction: column;
         }
 
         .card:hover {
-            border-color: var(--border-active);
+            border-color: rgba(255, 255, 255, 0.14);
         }
 
         .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 14px;
+            padding: 18px 24px;
             border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             gap: 12px;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .card-title {
-            font-size: 1.18rem;
+            font-size: 1.12rem;
             font-weight: 800;
             color: #fff;
             display: flex;
@@ -352,15 +314,16 @@
         }
 
         .card-title i {
-            color: var(--primary);
-            font-size: 1.25rem;
+            color: #60a5fa;
+            font-size: 1.15rem;
         }
 
         .card-body {
+            padding: 22px 24px;
             flex: 1;
         }
 
-        /* FORM CONTROLS */
+        /* FORM ELEMENTS */
         .form-group {
             margin-bottom: 18px;
         }
@@ -370,18 +333,16 @@
         }
 
         .form-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.92rem;
+            display: block;
+            font-size: 0.88rem;
             font-weight: 700;
-            color: var(--text-main);
+            color: var(--text-muted);
             margin-bottom: 8px;
         }
 
         .form-label i {
-            color: var(--primary);
-            font-size: 0.95rem;
+            margin-left: 4px;
+            color: #60a5fa;
         }
 
         .form-control {
@@ -389,109 +350,37 @@
             background: var(--bg-input);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 12px 16px;
             color: #fff;
-            font-size: 0.95rem;
+            padding: 11px 16px;
+            font-size: 0.94rem;
             transition: var(--transition);
+            outline: none;
         }
 
         .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(14, 21, 38, 0.95);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            background: rgba(10, 16, 32, 0.95);
         }
 
         textarea.form-control {
-            min-height: 95px;
             resize: vertical;
-        }
-
-        select.form-control {
-            cursor: pointer;
+            min-height: 80px;
+            line-height: 1.6;
         }
 
         .form-hint {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text-dim);
             margin-top: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
-        /* TOGGLE SWITCHES */
-        .feature-toggle-card {
-            background: rgba(10, 15, 29, 0.65);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 16px;
-            margin-bottom: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            transition: var(--transition);
-        }
-
-        .feature-toggle-card:hover {
-            border-color: var(--border-active);
-            background: rgba(14, 21, 38, 0.85);
-        }
-
-        .feature-toggle-info {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .feature-toggle-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            background: rgba(59, 130, 246, 0.12);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 19px;
-            flex-shrink: 0;
-        }
-
-        .feature-toggle-title {
-            font-weight: 700;
-            font-size: 0.96rem;
-            color: #fff;
-        }
-
-        .feature-toggle-desc {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-        }
-
+        /* TOGGLE SWITCH */
         .switch-container {
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .status-badge {
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-weight: 700;
-        }
-
-        .status-badge.active {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .status-badge.inactive {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            justify-content: space-between;
+            gap: 12px;
         }
 
         .switch {
@@ -515,9 +404,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #334155;
-            transition: 0.3s;
+            background-color: rgba(255, 255, 255, 0.15);
+            transition: .3s;
             border-radius: 34px;
+            border: 1px solid var(--border-color);
         }
 
         .slider:before {
@@ -526,19 +416,87 @@
             height: 20px;
             width: 20px;
             left: 4px;
-            bottom: 4px;
+            bottom: 3px;
             background-color: white;
-            transition: 0.3s;
+            transition: .3s;
             border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         input:checked + .slider {
             background: var(--emerald-gradient);
+            border-color: #10b981;
         }
 
         input:checked + .slider:before {
-            transform: translateX(24px);
+            transform: translateX(23px);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .status-badge.active {
+            background: rgba(16, 185, 129, 0.18);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+
+        .status-badge.inactive {
+            background: rgba(239, 68, 68, 0.18);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+
+        /* FEATURE TOGGLE CARD */
+        .feature-toggle-card {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+
+        .feature-toggle-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--border-active);
+        }
+
+        .feature-toggle-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .feature-toggle-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .feature-toggle-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .feature-toggle-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
         }
 
         /* TABLES */
@@ -551,115 +509,114 @@
         .custom-table {
             width: 100%;
             border-collapse: collapse;
-            background: rgba(10, 15, 29, 0.55);
-            font-size: 0.92rem;
+            font-size: 0.88rem;
+            text-align: right;
         }
 
         .custom-table th {
-            background: rgba(18, 26, 47, 0.9);
-            padding: 14px 16px;
-            text-align: right;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            padding: 12px 14px;
             font-weight: 700;
-            color: var(--text-main);
             border-bottom: 1px solid var(--border-color);
             white-space: nowrap;
         }
 
         .custom-table td {
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             vertical-align: middle;
         }
 
-        .custom-table tr:hover td {
-            background: rgba(59, 130, 246, 0.05);
+        .custom-table tr:last-child td {
+            border-bottom: none;
         }
 
-        /* DYNAMIC CHIPS / LISTS */
+        .custom-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* CHIPS */
         .chips-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            padding: 12px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            min-height: 52px;
+            gap: 8px;
+            margin-top: 8px;
         }
 
         .chip-item {
-            background: rgba(37, 99, 235, 0.2);
-            border: 1px solid rgba(37, 99, 235, 0.4);
-            border-radius: var(--radius-sm);
-            padding: 6px 12px;
-            display: inline-flex;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.84rem;
+            color: #93c5fd;
+            display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.88rem;
-            color: #93c5fd;
         }
 
         .chip-remove {
-            color: #f87171;
             cursor: pointer;
-            font-size: 0.95rem;
+            color: #f87171;
+            font-weight: bold;
+            transition: var(--transition);
         }
 
         .chip-remove:hover {
-            color: #ef4444;
+            transform: scale(1.2);
         }
 
-        /* BOTTOM CTA BAR */
+        /* BOTTOM ACTION BAR */
         .bottom-bar {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
+            position: sticky;
+            bottom: 16px;
+            margin-top: 26px;
+            background: rgba(14, 21, 38, 0.95);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(59, 130, 246, 0.35);
             border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: var(--shadow-card);
+            padding: 16px 24px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), var(--shadow-glow);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 10px;
-            position: sticky;
-            bottom: 16px;
+            gap: 16px;
             z-index: 100;
         }
 
         .bottom-info {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
         }
 
         .bottom-info-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(16, 185, 129, 0.15);
-            color: #10b981;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--emerald-gradient);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 18px;
         }
 
         .bottom-info-text h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 0.98rem;
+            font-weight: 800;
             color: #fff;
         }
 
         .bottom-info-text p {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
         }
 
-        /* MODALS */
-        .modal {
-            display: none;
+        /* MODAL */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -667,41 +624,49 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
-            z-index: 9999;
+            display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
             padding: 20px;
         }
 
-        .modal.show {
-            display: flex;
-            animation: fadeIn 0.2s ease-out;
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .modal-box {
             background: #0f172a;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: var(--radius-lg);
             width: 100%;
-            max-width: 750px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-            overflow: hidden;
+            max-width: 760px;
+            max-height: 88vh;
             display: flex;
             flex-direction: column;
-            max-height: 90vh;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            transform: scale(0.94);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.show .modal-box {
+            transform: scale(1);
         }
 
         .modal-head {
-            padding: 20px 24px;
+            padding: 18px 24px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: rgba(14, 21, 38, 0.8);
+            justify-content: space-between;
         }
 
         .modal-head h3 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 800;
             color: #fff;
             display: flex;
@@ -709,68 +674,56 @@
             gap: 10px;
         }
 
-        .modal-head h3 i {
-            color: var(--primary);
-        }
-
         .modal-close {
-            background: transparent;
+            background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 1.5rem;
+            font-size: 22px;
             cursor: pointer;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: var(--transition);
         }
 
         .modal-close:hover {
             color: #fff;
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .modal-body {
-            padding: 24px;
+            padding: 20px 24px;
             overflow-y: auto;
             flex: 1;
         }
 
-        .modal-foot {
+        .modal-footer {
             padding: 16px 24px;
             border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: flex-end;
             gap: 12px;
-            background: rgba(14, 21, 38, 0.8);
+            background: rgba(255, 255, 255, 0.02);
         }
 
-        /* CODE BLOCK */
-        .code-preview {
-            background: #050811;
+        .code-preview-block {
+            background: #090d16;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             padding: 16px;
-            color: #93c5fd;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.88rem;
-            max-height: 480px;
-            overflow: auto;
+            font-size: 0.86rem;
+            color: #38bdf8;
+            white-space: pre-wrap;
             direction: ltr;
             text-align: left;
-            white-space: pre;
+            max-height: 480px;
+            overflow-y: auto;
             line-height: 1.5;
         }
 
-        /* TOAST */
+        /* TOAST NOTIFICATION */
         .toast-container {
             position: fixed;
-            bottom: 24px;
+            bottom: 90px;
             left: 24px;
-            z-index: 10000;
+            z-index: 2000;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -778,118 +731,93 @@
 
         .toast {
             background: #1e293b;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 14px 20px;
             color: #fff;
-            font-size: 0.92rem;
-            font-weight: 600;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-radius: var(--radius-md);
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 12px;
-            min-width: 280px;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-right: 4px solid #3b82f6;
             animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .toast.success { border-left: 4px solid #10b981; }
-        .toast.info { border-left: 4px solid #3b82f6; }
-        .toast.warning { border-left: 4px solid #f59e0b; }
-        .toast.error { border-left: 4px solid #ef4444; }
+        .toast.success { border-color: #10b981; }
+        .toast.warning { border-color: #f59e0b; }
+        .toast.error { border-color: #ef4444; }
 
         @keyframes slideIn {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .dash-header { padding: 18px 20px; }
-            .brand-text h1 { font-size: 1.3rem; }
-            .header-actions { width: 100%; justify-content: stretch; }
-            .header-actions .btn { flex: 1; }
-            .bottom-bar { position: relative; bottom: 0; flex-direction: column; text-align: center; }
-            .bottom-info { flex-direction: column; }
-            .bottom-bar .btn { width: 100%; }
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
     </style>
 </head>
 
 <body>
+
     <div class="container">
 
         <!-- HEADER -->
         <header class="dash-header">
             <div class="header-brand">
                 <div class="brand-icon">
-                    <i class="fas fa-sliders-h"></i>
+                    <i class="fas fa-sliders"></i>
                 </div>
                 <div class="brand-text">
-                    <h1 id="headerNetworkName">لوحة إدارة config.js <span style="font-size: 0.85rem; color: #10b981; font-weight: 700; vertical-align: middle;"><i class="fas fa-circle-check"></i> جاهز</span></h1>
-                    <p>تحكم كامل بنسبة 100% بكافة إعدادات المشروع واستخراج ملف config.js بنفس البنية والملاحظات</p>
+                    <h1>لوحة تحكم إعدادات الشبكة <span id="headerNetworkName" style="font-size: 1.1rem; color: #93c5fd;"></span></h1>
+                    <p>إدارة وتخصيص إعدادات ملف <code>config/config.js</code> وتصديره مباشرة</p>
                 </div>
             </div>
 
             <div class="header-actions">
-                <button class="btn btn-outline btn-sm" onclick="openImportModal()">
+                <button class="btn btn-outline" onclick="openImportModal()">
                     <i class="fas fa-file-import"></i> استيراد ملف
                 </button>
-                <button class="btn btn-outline btn-sm" onclick="openCodeModal()">
-                    <i class="fas fa-code"></i> عرض الكود
-                </button>
-                <a href="/" target="_blank" class="btn btn-outline btn-sm">
-                    <i class="fas fa-external-link-alt"></i> فتح صفحة الدخول
+                <a href="/index.html" class="btn btn-outline" target="_blank">
+                    <i class="fas fa-arrow-up-right-from-square"></i> معاينة الصفحة
                 </a>
                 <button class="btn btn-primary" onclick="saveDirectToServer()">
-                    <i class="fas fa-floppy-disk"></i> حفظ مباشر في المشروع
+                    <i class="fas fa-floppy-disk"></i> حفظ التغييرات
                 </button>
             </div>
         </header>
 
-        <!-- STATS OVERVIEW -->
-        <div class="stats-grid">
+        <!-- STATS BAR -->
+        <div class="stats-bar">
             <div class="stat-card">
-                <div class="stat-icon" style="background: var(--primary-gradient);">
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
+                <div class="stat-icon stat-blue"><i class="fas fa-gauge-high"></i></div>
                 <div class="stat-info">
-                    <div class="stat-num" id="statSpeedsCount">0</div>
-                    <div class="stat-label">سرعات الإنترنت</div>
+                    <h4>السرعات المتاحة</h4>
+                    <div class="stat-value" id="statSpeedsCount">5</div>
                 </div>
             </div>
-
             <div class="stat-card">
-                <div class="stat-icon" style="background: var(--accent-gradient);">
-                    <i class="fas fa-ticket-alt"></i>
-                </div>
+                <div class="stat-icon stat-purple"><i class="fas fa-ticket"></i></div>
                 <div class="stat-info">
-                    <div class="stat-num" id="statProfilesCount">0</div>
-                    <div class="stat-label">باقات الكروت (profiles)</div>
+                    <h4>باقات الكروت</h4>
+                    <div class="stat-value" id="statProfilesCount">7</div>
                 </div>
             </div>
-
             <div class="stat-card">
-                <div class="stat-icon" style="background: var(--emerald-gradient);">
-                    <i class="fas fa-store"></i>
-                </div>
+                <div class="stat-icon stat-emerald"><i class="fas fa-shop"></i></div>
                 <div class="stat-info">
-                    <div class="stat-num" id="statSalesCount">0</div>
-                    <div class="stat-label">نقاط البيع والموزعين</div>
+                    <h4>نقاط البيع والتوزيع</h4>
+                    <div class="stat-value" id="statSalesCount">2</div>
                 </div>
             </div>
-
             <div class="stat-card">
-                <div class="stat-icon" style="background: var(--amber-gradient);">
-                    <i class="fas fa-images"></i>
-                </div>
+                <div class="stat-icon stat-amber"><i class="fas fa-photo-film"></i></div>
                 <div class="stat-info">
-                    <div class="stat-num" id="statImagesCount">0</div>
-                    <div class="stat-label">صور البنر الإعلاني</div>
+                    <h4>صور البنر الإعلاني</h4>
+                    <div class="stat-value" id="statImagesCount">2</div>
                 </div>
             </div>
         </div>
@@ -897,12 +825,12 @@
         <!-- MAIN DASHBOARD FORM -->
         <div class="dashboard-grid">
 
-            <!-- 1. البيانات الأساسية للشبكة -->
+            <!-- 1. هوية الشبكة وأرقام التواصل -->
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-network-wired"></i> 1. البيانات الأساسية للشبكة
+                            <i class="fas fa-network-wired"></i> 1. اسم الشبكة وأرقام التواصل
                         </h2>
                     </div>
                     <div class="card-body">
@@ -911,85 +839,68 @@
                                 <i class="fas fa-signature"></i> اسم الشبكة ("network-name")
                             </label>
                             <input type="text" class="form-control" id="networkNameInput" placeholder="مثال: تونس نت" oninput="appConfig['network-name'] = this.value; updateHeaderName();">
-                            <div class="form-hint"><i class="fas fa-info-circle"></i> الاسم الذي يظهر في أعلى الصفحة والترويسة وشريط المتصفح</div>
+                            <div class="form-hint"><i class="fas fa-info-circle"></i> يظهر في أعلى الصفحة والترويسة وشريط المتصفح</div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label" for="serviceNumberInput">
-                                <i class="fas fa-phone-alt"></i> رقم خدمة العملاء / الدعم الفني ("service-number")
+                                <i class="fas fa-phone-alt"></i> رقم الهاتف والواتساب / الدعم الفني ("service-number")
                             </label>
                             <input type="text" class="form-control" id="serviceNumberInput" placeholder="مثال: 772131004" oninput="appConfig['service-number'] = this.value;">
                             <div class="form-hint"><i class="fas fa-info-circle"></i> رقم الاتصال والواتساب المعتمد في كامل المنظومة</div>
                         </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="newsLineInput">
-                                <i class="fas fa-bullhorn"></i> نص الشريط الإخباري المتحرك ("news-line")
-                            </label>
-                            <textarea class="form-control" id="newsLineInput" rows="3" placeholder="اكتب هنا الآية القرآنية أو الإعلان..." oninput="appConfig['news-line'] = this.value;"></textarea>
-                            <div class="form-hint"><i class="fas fa-info-circle"></i> النص الذي يتحرك في الشريط الإخباري أسفل الترويسة</div>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. إعدادات الإعلانات وبنر الصور -->
+            <!-- 2. الشريط الإخباري المتحرك -->
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-images"></i> 2. إعدادات الإعلانات وبنر الصور
+                            <i class="fas fa-bullhorn"></i> 2. الشريط الإخباري المتحرك ("news-line")
                         </h2>
                     </div>
                     <div class="card-body">
-                        <!-- ad-images chips -->
                         <div class="form-group">
-                            <label class="form-label"><i class="fas fa-film"></i> قائمة صور البنر في مجلد adimg ("ad-images")</label>
-                            <div class="chips-container" id="adImagesChips"></div>
-                            <div style="display: flex; gap: 8px; margin-top: 8px;">
-                                <input type="text" class="form-control" id="newAdImgInput" placeholder="اسم الصورة مثل 3.jpg" style="padding: 8px 12px;">
-                                <button class="btn btn-primary btn-sm" onclick="addAdImage()"><i class="fas fa-plus"></i> إضافة</button>
-                            </div>
-                            <div class="form-hint"><i class="fas fa-info-circle"></i> تظهر الصور فورياً في السلايدر (تدعم 1.jpg إلى 7.jpg)</div>
-                        </div>
-
-                        <div class="feature-toggle-card">
-                            <div class="feature-toggle-info">
-                                <div class="feature-toggle-icon" style="color: #3b82f6; background: rgba(59, 130, 246, 0.15);"><i class="fas fa-window-maximize"></i></div>
-                                <div>
-                                    <div class="feature-toggle-title">تفعيل عرض صورة الإعلان المنبثق ("popup-adv-img-type")</div>
-                                    <div class="feature-toggle-desc">عرض إعلان صورة منبثق عند فتح الصفحة</div>
-                                </div>
-                            </div>
-                            <div class="switch-container">
-                                <span class="status-badge" id="badgePopupImg">مفعل</span>
-                                <label class="switch">
-                                    <input type="checkbox" id="popupAdvImgTypeToggle" onchange="updateBoolean('popup-adv-img-type', this.checked, 'badgePopupImg')">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-                            <div class="form-group">
-                                <label class="form-label" for="popupAdvTimeInput"><i class="fas fa-stopwatch"></i> مدة ظهور الإعلان بالثواني ("popup-adv-time")</label>
-                                <input type="number" class="form-control" id="popupAdvTimeInput" min="0" oninput="appConfig['popup-adv-time'] = parseInt(this.value) || 0;">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="popupAdvRepeatInput"><i class="fas fa-clock"></i> تكرار الإعلان بالدقائق ("popup-adv-repeat-after")</label>
-                                <input type="number" class="form-control" id="popupAdvRepeatInput" min="0" oninput="appConfig['popup-adv-repeat-after'] = parseInt(this.value) || 0;">
-                            </div>
+                            <label class="form-label" for="newsLineInput">
+                                <i class="fas fa-align-right"></i> نص الشريط المتحرك (آيات قرآنية، تنبيهات، إعلانات)
+                            </label>
+                            <textarea class="form-control" id="newsLineInput" rows="4" placeholder="اكتب هنا الآية القرآنية أو الإعلان..." oninput="appConfig['news-line'] = this.value;"></textarea>
+                            <div class="form-hint"><i class="fas fa-info-circle"></i> النص الذي يتحرك في الشريط الإخباري في صفحتي الدخول والحالة</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 3. نظام النقاط والمكافآت -->
+            <!-- 3. صور الإعلانات -->
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-images"></i> 3. صور الإعلانات والبنرات ("ad-images")
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-film"></i> قائمة صور البنر في مجلد adimg</label>
+                            <div class="chips-container" id="adImagesChips"></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                                <input type="text" class="form-control" id="newAdImgInput" placeholder="اسم الصورة مثل 3.jpg" style="padding: 8px 12px;">
+                                <button class="btn btn-primary btn-sm" onclick="addAdImage()"><i class="fas fa-plus"></i> إضافة صورة</button>
+                            </div>
+                            <div class="form-hint"><i class="fas fa-info-circle"></i> تظهر الصور فورياً في سلايدر الإعلانات أعلى الصفحة</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. نظام النقاط والمكافآت -->
             <div class="col-6">
                 <div class="card" style="border-color: rgba(234, 179, 8, 0.3);">
                     <div class="card-header">
                         <h2 class="card-title" style="color: #fbbf24;">
-                            <i class="fas fa-award"></i> 3. نظام النقاط والمكافآت (Loyalty System)
+                            <i class="fas fa-award"></i> 4. نظام النقاط والمكافآت (Shabakaty Loyalty)
                         </h2>
                     </div>
                     <div class="card-body">
@@ -998,7 +909,7 @@
                                 <div class="feature-toggle-icon" style="color: #fbbf24; background: rgba(234, 179, 8, 0.15);"><i class="fas fa-coins"></i></div>
                                 <div>
                                     <div class="feature-toggle-title">تشغيل نظام النقاط بالكامل ("enable-loyalty-system")</div>
-                                    <div class="feature-toggle-desc">true: تشغيل وعرض نظام النقاط / false: إخفاؤه وتعطيله كلياً كأنه غير موجود</div>
+                                    <div class="feature-toggle-desc">true: تفعيل وعرض نظام النقاط والإشعارات / false: إخفاؤه وتعطيله كلياً</div>
                                 </div>
                             </div>
                             <div class="switch-container">
@@ -1010,117 +921,27 @@
                             </div>
                         </div>
                         <div class="form-hint" style="line-height: 1.7; color: var(--text-muted);">
-                            <i class="fas fa-lightbulb" style="color: #fbbf24;"></i> عند تعطيله يتم حظر تحميل كافة سكربتات نظام النقاط مما يوفر الرام والبيانات للمشتركين.
+                            <i class="fas fa-lightbulb" style="color: #fbbf24;"></i> عند تشغيله تظهر بطاقات تسجيل النقاط واستبدال الكروت ونوافذ المكافآت للمشتركين.
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 4. إعدادات تسجيل الدخول ونوع الكرت -->
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <i class="fas fa-id-card"></i> 4. إعدادات تسجيل الدخول ونوع الكرت
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-                            <div class="form-group">
-                                <label class="form-label" for="loginTypeSelect"><i class="fas fa-user-tag"></i> نوع الدخول ("login-type")</label>
-                                <select class="form-control" id="loginTypeSelect" onchange="appConfig['login-type'] = this.value;">
-                                    <option value="User">User (مستخدم فقط)</option>
-                                    <option value="UserPass">UserPass (مستخدم وكلمة مرور)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label" for="loginChapSelect"><i class="fas fa-lock"></i> تشفير الدخول ("login-chap")</label>
-                                <select class="form-control" id="loginChapSelect" onchange="appConfig['login-chap'] = parseInt(this.value);">
-                                    <option value="0">0 (عادي - عادي)</option>
-                                    <option value="1">1 (CHAP مشفر)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px;">
-                            <div class="form-group">
-                                <label class="form-label" for="inputTypeSelect"><i class="fas fa-keyboard"></i> نوع لوحة المفاتيح ("input-type")</label>
-                                <select class="form-control" id="inputTypeSelect" onchange="appConfig['input-type'] = this.value;">
-                                    <option value="tel">tel (أرقام سريعة للهاتف)</option>
-                                    <option value="text">text (نصوص وحروف)</option>
-                                    <option value="number">number (أرقام فقط)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label" for="inputAutocompleteSelect"><i class="fas fa-history"></i> الإكمال التلقائي ("input-autocomplete")</label>
-                                <select class="form-control" id="inputAutocompleteSelect" onchange="appConfig['input-autocomplete'] = this.value;">
-                                    <option value="on">on (مفعل للكروت المحفوظة)</option>
-                                    <option value="off">off (معطل)</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. سرعات الإنترنت والتحكم بها -->
+            <!-- 5. سرعات الإنترنت والتحكم بها (Speeds) -->
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-tachometer-alt-fast"></i> 5. إعدادات وقائمة سرعات الإنترنت ("speeds")
+                            <i class="fas fa-tachometer-alt-fast"></i> 5. قائمة سرعات الإنترنت ("speeds")
                         </h2>
                         <button class="btn btn-primary btn-sm" onclick="addNewSpeed()">
                             <i class="fas fa-plus"></i> إضافة سرعة جديدة
                         </button>
                     </div>
                     <div class="card-body">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px;">
-                            <div class="feature-toggle-card" style="margin-bottom: 0;">
-                                <div class="feature-toggle-info">
-                                    <div class="feature-toggle-icon"><i class="fas fa-toggle-on"></i></div>
-                                    <div>
-                                        <div class="feature-toggle-title">ميزة اختيار السرعة ("login-speeds-mode")</div>
-                                        <div class="feature-toggle-desc">تفعيل اختيار السرعة قبل الدخول</div>
-                                    </div>
-                                </div>
-                                <div class="switch-container">
-                                    <span class="status-badge" id="badgeSpeedMode">مفعل</span>
-                                    <label class="switch">
-                                        <input type="checkbox" id="loginSpeedsModeToggle" onchange="updateBoolean('login-speeds-mode', this.checked, 'badgeSpeedMode')">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="feature-toggle-card" style="margin-bottom: 0;">
-                                <div class="feature-toggle-info">
-                                    <div class="feature-toggle-icon" style="color: #a855f7; background: rgba(168, 85, 247, 0.15);"><i class="fas fa-bolt"></i></div>
-                                    <div>
-                                        <div class="feature-toggle-title">السرعة الخامسة العالية ("enable-ultra-speed")</div>
-                                        <div class="feature-toggle-desc">إظهار سرعة 1M/8M للمشتركين</div>
-                                    </div>
-                                </div>
-                                <div class="switch-container">
-                                    <span class="status-badge" id="badgeUltraSpeed">مفعل</span>
-                                    <label class="switch">
-                                        <input type="checkbox" id="enableUltraSpeedToggle" onchange="updateBoolean('enable-ultra-speed', this.checked, 'badgeUltraSpeed')">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group" style="margin-bottom: 0;">
-                                <label class="form-label"><i class="fas fa-redo"></i> محاولات تغيير السرعة ("speed-trychange")</label>
-                                <input type="number" class="form-control" id="speedTrychangeInput" min="1" oninput="appConfig['speed-trychange'] = parseInt(this.value) || 1;">
-                            </div>
-
-                            <div class="form-group" style="margin-bottom: 0;">
-                                <label class="form-label"><i class="fas fa-ban"></i> حظر التغيير بالدقائق ("speed-trychange-timeout")</label>
-                                <input type="number" class="form-control" id="speedTrychangeTimeoutInput" min="1" oninput="appConfig['speed-trychange-timeout'] = parseInt(this.value) || 1;">
-                            </div>
+                        <div style="background: rgba(59, 130, 246, 0.08); border: 1px dashed rgba(59, 130, 246, 0.35); border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 16px; font-size: 0.88rem; color: #93c5fd; line-height: 1.7;">
+                            <i class="fas fa-info-circle"></i> <strong>إدارة السرعات الديناميكية:</strong>
+                            يمكنك إضافة أي عدد من السرعات (سادسة، سابعة، ثامنة... بلا قيود). كل سرعة تضيفها هنا تظهر وتعمل فورياً للمشتركين في شاشة تسجيل الدخول وشاشة الحالة وشاشة تغيير السرعة دون الحاجة لأي مفتاح تفعيل إضافي!
                         </div>
 
                         <!-- Speeds Table -->
@@ -1129,7 +950,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 50px; text-align: center;">#</th>
-                                        <th style="width: 32%;">اسم السرعة الظاهر (name)</th>
+                                        <th style="width: 32%;">اسم السرعة الظاهر للمشترك (name)</th>
                                         <th style="width: 32%;">قيمة الميكروتك (Rate Limit - value)</th>
                                         <th style="width: 110px; text-align: center;">الافتراضية</th>
                                         <th style="width: 120px; text-align: center;">(الموصى بها)</th>
@@ -1143,105 +964,152 @@
                 </div>
             </div>
 
-            <!-- 6. معالجة وتصحيح أرقام الكروت المدخلة -->
-            <div class="col-6">
+            <!-- 6. أزرار القائمة والاستراحة والبث المباشر والتطبيقات -->
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-spell-check"></i> 6. معالجة وتصحيح أرقام الكروت
+                            <i class="fas fa-link"></i> 6. أزرار الاستراحة والبث المباشر وتحميل التطبيقات وأزرار القائمة
                         </h2>
                     </div>
                     <div class="card-body">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <!-- Links -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
                             <div class="form-group">
-                                <label class="form-label"><i class="fas fa-eraser"></i> إزالة المسافات ("input-rm-white-spaces")</label>
-                                <select class="form-control" id="rmWhiteSpacesSelect" onchange="appConfig['input-rm-white-spaces'] = parseInt(this.value);">
-                                    <option value="0">0 (تعطيل)</option>
-                                    <option value="1">1 (تفعيل التلقائي)</option>
-                                </select>
+                                <label class="form-label" for="esterahahInput"><i class="fas fa-coffee" style="color: #a855f7;"></i> رابط صفحة الاستراحة / الترفيه ("redirect-to-esterahah")</label>
+                                <input type="url" class="form-control" id="esterahahInput" placeholder="مثال: http://30.10.10.10" oninput="appConfig['redirect-to-esterahah'] = this.value;">
+                                <div class="form-hint">يظهر في زر (الاستراحة) بشاشة الحالة</div>
                             </div>
+
                             <div class="form-group">
-                                <label class="form-label"><i class="fas fa-font"></i> تحويل لأرقام إنجليزية ("input-to-arabic-numbers")</label>
-                                <select class="form-control" id="toArabicNumbersSelect" onchange="appConfig['input-to-arabic-numbers'] = parseInt(this.value);">
-                                    <option value="1">1 (تحويل ١٢٣ إلى 123 تلقائياً)</option>
-                                    <option value="0">0 (تعطيل)</option>
-                                </select>
+                                <label class="form-label" for="mobasherInput"><i class="fas fa-tv" style="color: #ef4444;"></i> رابط البث المباشر والمباريات ("redirect-to-mobasher")</label>
+                                <input type="url" class="form-control" id="mobasherInput" placeholder="مثال: http://30.10.10.10:88" oninput="appConfig['redirect-to-mobasher'] = this.value;">
+                                <div class="form-hint">يظهر في زر (البث المباشر) بشاشة الحالة</div>
                             </div>
+
                             <div class="form-group">
-                                <label class="form-label"><i class="fas fa-arrow-down-a-z"></i> حروف صغيرة ("input-to-lower")</label>
-                                <select class="form-control" id="toLowerSelect" onchange="appConfig['input-to-lower'] = parseInt(this.value);">
-                                    <option value="0">0 (تعطيل)</option>
-                                    <option value="1">1 (تفعيل)</option>
-                                </select>
+                                <label class="form-label" for="appDetectorUrlInput"><i class="fas fa-shield-virus" style="color: #10b981;"></i> رابط تطبيق كشف استهلاك النت ("app-detector-url")</label>
+                                <input type="url" class="form-control" id="appDetectorUrlInput" placeholder="رابط متجر Google Play..." oninput="appConfig['app-detector-url'] = this.value;">
+                                <div class="form-hint">يظهر في زر (تطبيق كشف التطبيقات)</div>
                             </div>
+
                             <div class="form-group">
-                                <label class="form-label"><i class="fas fa-arrow-up-a-z"></i> حروف كبيرة ("input-to-upper")</label>
-                                <select class="form-control" id="toUpperSelect" onchange="appConfig['input-to-upper'] = parseInt(this.value);">
-                                    <option value="0">0 (تعطيل)</option>
-                                    <option value="1">1 (تفعيل)</option>
-                                </select>
+                                <label class="form-label" for="appOctopusUrlInput"><i class="fas fa-gamepad" style="color: #f59e0b;"></i> رابط تطبيق الاستراحة الأخطبوط ("app-octopus-url")</label>
+                                <input type="url" class="form-control" id="appOctopusUrlInput" placeholder="رابط متجر Google Play..." oninput="appConfig['app-octopus-url'] = this.value;">
+                                <div class="form-hint">يظهر في زر (تطبيق الاستراحة الأخطبوط)</div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label"><i class="fas fa-hashtag"></i> أرقام فقط ("input-only-numbers")</label>
-                                <select class="form-control" id="onlyNumbersSelect" onchange="appConfig['input-only-numbers'] = parseInt(this.value);">
-                                    <option value="0">0 (قبول حروف وأرقام)</option>
-                                    <option value="1">1 (أرقام فقط)</option>
-                                </select>
+                        </div>
+
+                        <!-- Buttons Visibility Toggles -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+                            <div class="feature-toggle-card">
+                                <div class="feature-toggle-info">
+                                    <div class="feature-toggle-icon" style="color: #a855f7; background: rgba(168, 85, 247, 0.15);"><i class="fas fa-coffee"></i></div>
+                                    <div>
+                                        <div class="feature-toggle-title">زر الاستراحة</div>
+                                        <div class="feature-toggle-desc">("esterahah-button")</div>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="esterahahButtonToggle" onchange="updateBoolean('esterahah-button', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label"><i class="fas fa-keyboard"></i> لوحة هاتف عند ("input-to-tel-type-when")</label>
-                                <select class="form-control" id="toTelTypeWhenSelect" onchange="appConfig['input-to-tel-type-when'] = parseInt(this.value);">
-                                    <option value="0">0 (افتراضي)</option>
-                                    <option value="1">1 (تبديل)</option>
-                                </select>
+
+                            <div class="feature-toggle-card">
+                                <div class="feature-toggle-info">
+                                    <div class="feature-toggle-icon" style="color: #ef4444; background: rgba(239, 68, 68, 0.15);"><i class="fas fa-tv"></i></div>
+                                    <div>
+                                        <div class="feature-toggle-title">زر البث المباشر</div>
+                                        <div class="feature-toggle-desc">("mobasher-button")</div>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="mobasherButtonToggle" onchange="updateBoolean('mobasher-button', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="feature-toggle-card">
+                                <div class="feature-toggle-info">
+                                    <div class="feature-toggle-icon" style="color: #10b981; background: rgba(16, 185, 129, 0.15);"><i class="fas fa-shield-virus"></i></div>
+                                    <div>
+                                        <div class="feature-toggle-title">زر تطبيق كشف النت</div>
+                                        <div class="feature-toggle-desc">("app-detector-button")</div>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="appDetectorButtonToggle" onchange="updateBoolean('app-detector-button', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="feature-toggle-card">
+                                <div class="feature-toggle-info">
+                                    <div class="feature-toggle-icon" style="color: #f59e0b; background: rgba(245, 158, 11, 0.15);"><i class="fas fa-gamepad"></i></div>
+                                    <div>
+                                        <div class="feature-toggle-title">زر تطبيق الاستراحة الأخطبوط</div>
+                                        <div class="feature-toggle-desc">("app-octopus-button")</div>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="appOctopusButtonToggle" onchange="updateBoolean('app-octopus-button', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="feature-toggle-card">
+                                <div class="feature-toggle-info">
+                                    <div class="feature-toggle-icon" style="color: #3b82f6; background: rgba(59, 130, 246, 0.15);"><i class="fas fa-tags"></i></div>
+                                    <div>
+                                        <div class="feature-toggle-title">زر قائمة الأسعار</div>
+                                        <div class="feature-toggle-desc">("price-button")</div>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="priceButtonToggle" onchange="updateBoolean('price-button', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="feature-toggle-card">
+                                <div class="feature-toggle-info">
+                                    <div class="feature-toggle-icon" style="color: #10b981; background: rgba(16, 185, 129, 0.15);"><i class="fas fa-map-marker-alt"></i></div>
+                                    <div>
+                                        <div class="feature-toggle-title">زر نقاط البيع</div>
+                                        <div class="feature-toggle-desc">("sell-point-button")</div>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="sellPointButtonToggle" onchange="updateBoolean('sell-point-button', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="feature-toggle-card">
+                                <div class="feature-toggle-info">
+                                    <div class="feature-toggle-icon" style="color: #f59e0b; background: rgba(245, 158, 11, 0.15);"><i class="fas fa-hand-holding-dollar"></i></div>
+                                    <div>
+                                        <div class="feature-toggle-title">زر كرت سلف</div>
+                                        <div class="feature-toggle-desc">("loan-button")</div>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="loanButtonToggle" onchange="updateBoolean('loan-button', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 7. إعدادات الكوكيز وحفظ الكرت -->
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <i class="fas fa-cookie-bite"></i> 7. الكوكيز وتذكر الكروت
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label class="form-label"><i class="fas fa-save"></i> حفظ كرت المستخدم في المتصفح ("enable-hot-cookie")</label>
-                            <select class="form-control" id="enableHotCookieSelect" onchange="appConfig['enable-hot-cookie'] = parseInt(this.value);">
-                                <option value="1">1 (مفعل - حفظ الكرت لتسهيل الدخول التلقائي)</option>
-                                <option value="0">0 (معطل)</option>
-                            </select>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
-                            <div class="form-group">
-                                <label class="form-label"><i class="fas fa-trash-alt"></i> مسح كوكيز الراوتر ("clear-router-cookie")</label>
-                                <select class="form-control" id="clearRouterCookieSelect" onchange="appConfig['clear-router-cookie'] = parseInt(this.value);">
-                                    <option value="1">1 (مسح عند الخروج)</option>
-                                    <option value="0">0 (إبقاء)</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label"><i class="fas fa-broom"></i> مسح كوكيز الصفحة ("clear-hot-cookie")</label>
-                                <select class="form-control" id="clearHotCookieSelect" onchange="appConfig['clear-hot-cookie'] = parseInt(this.value);">
-                                    <option value="1">1 (مسح عند الخروج)</option>
-                                    <option value="0">0 (إبقاء)</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 8. نظام مكافحة التخمين والحظر التلقائي (HotBlocker) -->
+            <!-- 7. نظام مكافحة التخمين والحظر التلقائي (HotBlocker) -->
             <div class="col-12">
                 <div class="card" style="border-color: rgba(239, 68, 68, 0.3);">
                     <div class="card-header">
                         <h2 class="card-title" style="color: #f87171;">
-                            <i class="fas fa-shield-halved"></i> 8. نظام مكافحة التخمين والحظر التلقائي (HotBlocker)
+                            <i class="fas fa-shield-halved"></i> 7. نظام مكافحة التخمين والحظر التلقائي (HotBlocker)
                         </h2>
                     </div>
                     <div class="card-body">
@@ -1254,7 +1122,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label"><i class="fas fa-calculator"></i> عدد المحاولات قبل الحظر ("try-count")</label>
+                                <label class="form-label"><i class="fas fa-calculator"></i> الحد الأقصى للمحاولات قبل الحظر ("try-count")</label>
                                 <input type="number" class="form-control" id="tryCountInput" min="1" oninput="appConfig['try-count'] = parseInt(this.value) || 20;">
                             </div>
                             <div class="form-group">
@@ -1270,130 +1138,18 @@
                         <div class="form-group">
                             <label class="form-label" for="warnMessageInput"><i class="fas fa-comment-dots"></i> نص رسالة التحذير للعميل ("warn-message")</label>
                             <textarea class="form-control" id="warnMessageInput" rows="2" oninput="appConfig['warn-message'] = this.value;"></textarea>
-                            <div class="form-hint"><i class="fas fa-info-circle"></i> المتغيرات المتاحة: <code>{{tryCounter}}</code>، <code>{{tryCount}}</code>، <code>{{restTryCount}}</code>، <code>{{blockTime}}</code></div>
+                            <div class="form-hint"><i class="fas fa-info-circle"></i> المتغيرات التلقائية: <code>{{tryCounter}}</code>، <code>{{tryCount}}</code>، <code>{{restTryCount}}</code>، <code>{{blockTime}}</code></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 9. إظهار وإخفاء أزرار القائمة والشاشات -->
+            <!-- 8. نافذة باقات وأسعار الكروت (profiles) -->
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-sliders"></i> 9. إظهار وإخفاء أزرار القائمة
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="feature-toggle-card">
-                            <div class="feature-toggle-info">
-                                <div class="feature-toggle-icon"><i class="fas fa-tags"></i></div>
-                                <div>
-                                    <div class="feature-toggle-title">زر أسعار الكروت ("price-button")</div>
-                                    <div class="feature-toggle-desc">إظهار زر قائمة أسعار الكروت</div>
-                                </div>
-                            </div>
-                            <div class="switch-container">
-                                <span class="status-badge" id="badgePriceBtn">مفعل</span>
-                                <label class="switch">
-                                    <input type="checkbox" id="priceBtnToggle" onchange="updateBoolean('price-button', this.checked, 'badgePriceBtn')">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="feature-toggle-card">
-                            <div class="feature-toggle-info">
-                                <div class="feature-toggle-icon"><i class="fas fa-store"></i></div>
-                                <div>
-                                    <div class="feature-toggle-title">زر نقاط البيع ("sell-point-button")</div>
-                                    <div class="feature-toggle-desc">إظهار زر مراكز التوزيع والمحلات</div>
-                                </div>
-                            </div>
-                            <div class="switch-container">
-                                <span class="status-badge" id="badgeSellBtn">مفعل</span>
-                                <label class="switch">
-                                    <input type="checkbox" id="sellPointBtnToggle" onchange="updateBoolean('sell-point-button', this.checked, 'badgeSellBtn')">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="feature-toggle-card">
-                            <div class="feature-toggle-info">
-                                <div class="feature-toggle-icon"><i class="fas fa-hand-holding-dollar"></i></div>
-                                <div>
-                                    <div class="feature-toggle-title">زر خدمة الاستدانة ("loan-button")</div>
-                                    <div class="feature-toggle-desc">إظهار زر كرت سلف / العروض</div>
-                                </div>
-                            </div>
-                            <div class="switch-container">
-                                <span class="status-badge" id="badgeLoanBtn">مفعل</span>
-                                <label class="switch">
-                                    <input type="checkbox" id="loanBtnToggle" onchange="updateBoolean('loan-button', this.checked, 'badgeLoanBtn')">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="feature-toggle-card">
-                            <div class="feature-toggle-info">
-                                <div class="feature-toggle-icon"><i class="fas fa-calendar-alt"></i></div>
-                                <div>
-                                    <div class="feature-toggle-title">حقل التاريخ ("show-date-field")</div>
-                                    <div class="feature-toggle-desc">إظهار حقل التاريخ في الصفحة</div>
-                                </div>
-                            </div>
-                            <div class="switch-container">
-                                <span class="status-badge" id="badgeDateField">معطل</span>
-                                <label class="switch">
-                                    <input type="checkbox" id="showDateFieldToggle" onchange="updateBoolean('show-date-field', this.checked, 'badgeDateField')">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 10. الروابط الخارجية -->
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <i class="fas fa-link"></i> 10. الروابط الخارجية
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label class="form-label" for="esterahahInput"><i class="fas fa-coffee"></i> رابط الاستراحة ("redirect-to-esterahah")</label>
-                            <input type="url" class="form-control" id="esterahahInput" placeholder="https://..." oninput="appConfig['redirect-to-esterahah'] = this.value;">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="mobasherInput"><i class="fas fa-tv"></i> رابط البث المباشر والمباريات ("redirect-to-mobasher")</label>
-                            <input type="url" class="form-control" id="mobasherInput" placeholder="https://..." oninput="appConfig['redirect-to-mobasher'] = this.value;">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="appStoreBaseUrlInput"><i class="fas fa-store"></i> رابط متجر التطبيقات ("app-store-base-url")</label>
-                            <input type="url" class="form-control" id="appStoreBaseUrlInput" placeholder="رابط اختياري للمتجر..." oninput="appConfig['app-store-base-url'] = this.value;">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="appStoreBaseUrlExtInput"><i class="fas fa-cube"></i> امتداد المتجر ("app-store-base-url-ext")</label>
-                            <input type="text" class="form-control" id="appStoreBaseUrlExtInput" placeholder="امتداد اختياري..." oninput="appConfig['app-store-base-url-ext'] = this.value;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 11. جدول باقات وأسعار الكروت (profiles) -->
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <i class="fas fa-tags"></i> 11. جدول باقات وأسعار الكروت ("profiles")
+                            <i class="fas fa-tags"></i> 8. نافذة باقات وأسعار الكروت ("profiles")
                         </h2>
                         <button class="btn btn-primary btn-sm" onclick="addNewProfile()">
                             <i class="fas fa-plus"></i> إضافة باقة
@@ -1417,12 +1173,12 @@
                 </div>
             </div>
 
-            <!-- 12. نقاط البيع ومراكز توزيع الكروت (sell-points) -->
+            <!-- 9. نقاط البيع ومراكز توزيع الكروت (sell-points) -->
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-map-marker-alt"></i> 12. نقاط البيع ومراكز التوزيع ("sell-points")
+                            <i class="fas fa-map-marker-alt"></i> 9. نقاط البيع ومراكز التوزيع ("sell-points")
                         </h2>
                         <button class="btn btn-primary btn-sm" onclick="addNewSellPoint()">
                             <i class="fas fa-plus"></i> إضافة نقطة بيع
@@ -1445,12 +1201,12 @@
                 </div>
             </div>
 
-            <!-- 13. نصوص جديدنا والعروض -->
+            <!-- 10. نصوص جديدنا والعروض -->
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-gift"></i> 13. نصوص جديدنا والعروض والتنبيهات
+                            <i class="fas fa-gift"></i> 10. نصوص جديدنا والعروض والتنبيهات
                         </h2>
                     </div>
                     <div class="card-body">
@@ -1520,45 +1276,49 @@
 
     </div>
 
-    <!-- MODAL: SHOW / COPY CODE -->
-    <div class="modal" id="codeModal">
+    <!-- CODE PREVIEW MODAL -->
+    <div class="modal-overlay" id="codeModal">
         <div class="modal-box" style="max-width: 800px;">
             <div class="modal-head">
                 <h3><i class="fas fa-code"></i> كود ملف config.js المولد مطابق 100%</h3>
                 <button class="modal-close" onclick="closeModal('codeModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="code-preview" id="codeContainer"></div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+                    هذا الكود يتم إنتاجه بنفس التنسيق والتعليقات والترتيب الأصلي لملف <code>config/config.js</code>:
+                </p>
+                <div class="code-preview-block" id="codeContainer" title="انقر لتحديد النص بالكامل" onclick="window.getSelection().selectAllChildren(this)" style="cursor: pointer;"></div>
             </div>
-            <div class="modal-foot">
+            <div class="modal-footer">
                 <button class="btn btn-outline" onclick="closeModal('codeModal')">إغلاق</button>
                 <button class="btn btn-primary" onclick="copyConfigCode()"><i class="fas fa-copy"></i> نسخ الكود</button>
-                <button class="btn btn-success" onclick="downloadConfigFile()"><i class="fas fa-download"></i> تحميل الملف</button>
+                <button class="btn btn-success" onclick="downloadConfigFile()"><i class="fas fa-file-arrow-down"></i> تحميل الملف</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL: IMPORT CONFIG -->
-    <div class="modal" id="importModal">
+    <!-- IMPORT MODAL -->
+    <div class="modal-overlay" id="importModal">
         <div class="modal-box" style="max-width: 600px;">
             <div class="modal-head">
                 <h3><i class="fas fa-file-import"></i> استيراد ملف config.js</h3>
                 <button class="modal-close" onclick="closeModal('importModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
-                    اختر ملف <code>config.js</code> أو الصق محتواه بالأسفل لاستيراد وتعبئة كافة الحقول والسرعات تلقائياً:
-                </p>
-                <input type="file" id="fileUploadInput" accept=".js,.json,.txt" class="form-control" onchange="handleFileImport(event)">
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-file-upload"></i> اختر ملف config.js من جهازك:</label>
+                    <input type="file" id="configFileUpload" accept=".js" class="form-control" onchange="handleFileImport(event)">
+                </div>
 
-                <div style="margin-top: 16px;">
-                    <label class="form-label">أو الصق الكود مباشرة هنا:</label>
-                    <textarea class="form-control" id="rawCodeImport" style="min-height: 140px; font-family: monospace; font-size: 0.85rem;" placeholder="Config({ ... });"></textarea>
+                <div style="text-align: center; margin: 15px 0; color: var(--text-muted); font-size: 0.85rem;">- أو الصق كود الملف هنا -</div>
+
+                <div class="form-group">
+                    <textarea class="form-control" id="rawCodeImport" rows="6" placeholder="الصق محتوى ملف config.js هنا بالكامل..."></textarea>
                 </div>
             </div>
-            <div class="modal-foot">
+            <div class="modal-footer">
                 <button class="btn btn-outline" onclick="closeModal('importModal')">إلغاء</button>
-                <button class="btn btn-primary" onclick="importFromRawText()"><i class="fas fa-check"></i> استيراد وتطبيق</button>
+                <button class="btn btn-primary" onclick="importFromRawText()"><i class="fas fa-check"></i> تطبيق واستيراد</button>
             </div>
         </div>
     </div>
@@ -1566,9 +1326,9 @@
     <!-- TOAST CONTAINER -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- MAIN JAVASCRIPT ENGINE -->
+    <!-- SCRIPT LOGIC -->
     <script>
-        // DEFAULT APP CONFIG (Exact match to config/config.js)
+        // MASTER CONFIG OBJECT (Preserves ALL technical properties silently in memory)
         let appConfig = {
             "network-name": "  تونس نت  ",
             "service-number": "772131004",
@@ -1613,10 +1373,16 @@
             "sell-point-button": true,
             "loan-button": true,
             "app-store-status-button": false,
+            "esterahah-button": true,
+            "mobasher-button": true,
+            "app-detector-button": true,
+            "app-octopus-button": true,
             "show-date-field": false,
-            "redirect-to-esterahah": "",
-            "redirect-to-mobasher": "",
+            "redirect-to-esterahah": "http://30.10.10.10",
+            "redirect-to-mobasher": "http://30.10.10.10:88",
             "app-store-base-url": "",
+            "app-detector-url": "https://play.google.com/store/apps/details?id=com.glasswire.android",
+            "app-octopus-url": "https://play.google.com/store/apps/details?id=com.alokhtoboot.plus",
             "app-store-base-url-ext": "",
             "profiles": [
                 { price: "100 ريال", time: "0 ساعات" },
@@ -1667,69 +1433,46 @@
             // 1. Basic Info
             document.getElementById('networkNameInput').value = appConfig['network-name'] || '';
             document.getElementById('serviceNumberInput').value = appConfig['service-number'] || '';
+
+            // 2. News Line
             document.getElementById('newsLineInput').value = appConfig['news-line'] || '';
 
-            // 2. Ads
+            // 3. Ads
             renderAdImagesChips();
-            document.getElementById('popupAdvTimeInput').value = appConfig['popup-adv-time'] ?? 5;
-            document.getElementById('popupAdvRepeatInput').value = appConfig['popup-adv-repeat-after'] ?? 120;
-            setToggle('popupAdvImgTypeToggle', 'badgePopupImg', Boolean(appConfig['popup-adv-img-type']));
 
-            // 3. Loyalty
+            // 4. Loyalty
             setToggle('enableLoyaltyToggle', 'badgeLoyalty', Boolean(appConfig['enable-loyalty-system']));
 
-            // 4. Login Type
-            document.getElementById('loginTypeSelect').value = appConfig['login-type'] || 'User';
-            document.getElementById('loginChapSelect').value = String(appConfig['login-chap'] ?? 0);
-            document.getElementById('inputTypeSelect').value = appConfig['input-type'] || 'tel';
-            document.getElementById('inputAutocompleteSelect').value = appConfig['input-autocomplete'] || 'on';
-
-            // 5. Speeds Mode
-            setToggle('loginSpeedsModeToggle', 'badgeSpeedMode', Boolean(appConfig['login-speeds-mode'] !== false));
-            setToggle('enableUltraSpeedToggle', 'badgeUltraSpeed', Boolean(appConfig['enable-ultra-speed'] !== false));
-            document.getElementById('speedTrychangeInput').value = appConfig['speed-trychange'] ?? 3;
-            document.getElementById('speedTrychangeTimeoutInput').value = appConfig['speed-trychange-timeout'] ?? 3;
+            // 5. Speeds Table
             renderSpeedsTable();
 
-            // 6. Input Processing
-            document.getElementById('rmWhiteSpacesSelect').value = String(appConfig['input-rm-white-spaces'] ?? 0);
-            document.getElementById('toArabicNumbersSelect').value = String(appConfig['input-to-arabic-numbers'] ?? 1);
-            document.getElementById('toLowerSelect').value = String(appConfig['input-to-lower'] ?? 0);
-            document.getElementById('toUpperSelect').value = String(appConfig['input-to-upper'] ?? 0);
-            document.getElementById('onlyNumbersSelect').value = String(appConfig['input-only-numbers'] ?? 0);
-            document.getElementById('toTelTypeWhenSelect').value = String(appConfig['input-to-tel-type-when'] ?? 0);
+            // 6. External Links & Buttons
+            document.getElementById('esterahahInput').value = appConfig['redirect-to-esterahah'] || '';
+            document.getElementById('mobasherInput').value = appConfig['redirect-to-mobasher'] || '';
+            document.getElementById('appDetectorUrlInput').value = appConfig['app-detector-url'] || '';
+            document.getElementById('appOctopusUrlInput').value = appConfig['app-octopus-url'] || '';
+            document.getElementById('esterahahButtonToggle').checked = appConfig['esterahah-button'] !== false;
+            document.getElementById('mobasherButtonToggle').checked = appConfig['mobasher-button'] !== false;
+            document.getElementById('appDetectorButtonToggle').checked = appConfig['app-detector-button'] !== false;
+            document.getElementById('appOctopusButtonToggle').checked = appConfig['app-octopus-button'] !== false;
+            document.getElementById('priceButtonToggle').checked = Boolean(appConfig['price-button']);
+            document.getElementById('sellPointButtonToggle').checked = Boolean(appConfig['sell-point-button']);
+            document.getElementById('loanButtonToggle').checked = Boolean(appConfig['loan-button']);
 
-            // 7. Cookies
-            document.getElementById('enableHotCookieSelect').value = String(appConfig['enable-hot-cookie'] ?? 1);
-            document.getElementById('clearRouterCookieSelect').value = String(appConfig['clear-router-cookie'] ?? 1);
-            document.getElementById('clearHotCookieSelect').value = String(appConfig['clear-hot-cookie'] ?? 1);
-
-            // 8. HotBlocker
+            // 7. HotBlocker
             document.getElementById('enableHotBlockerSelect').value = String(appConfig['enable-hot-blocker'] ?? 1);
             document.getElementById('tryCountInput').value = appConfig['try-count'] ?? 20;
             document.getElementById('warnWhenInput').value = appConfig['warn-when'] ?? 10;
             document.getElementById('blockTimeInput').value = appConfig['block-time'] ?? 1;
             document.getElementById('warnMessageInput').value = appConfig['warn-message'] || '';
 
-            // 9. Menu Buttons
-            setToggle('priceBtnToggle', 'badgePriceBtn', Boolean(appConfig['price-button'] !== false));
-            setToggle('sellPointBtnToggle', 'badgeSellBtn', Boolean(appConfig['sell-point-button'] !== false));
-            setToggle('loanBtnToggle', 'badgeLoanBtn', Boolean(appConfig['loan-button'] !== false));
-            setToggle('showDateFieldToggle', 'badgeDateField', Boolean(appConfig['show-date-field']));
-
-            // 10. External Links
-            document.getElementById('esterahahInput').value = appConfig['redirect-to-esterahah'] || '';
-            document.getElementById('mobasherInput').value = appConfig['redirect-to-mobasher'] || '';
-            document.getElementById('appStoreBaseUrlInput').value = appConfig['app-store-base-url'] || '';
-            document.getElementById('appStoreBaseUrlExtInput').value = appConfig['app-store-base-url-ext'] || '';
-
-            // 11. Profiles
+            // 8. Profiles (Prices)
             renderProfilesTable();
 
-            // 12. Sell Points
+            // 9. Sell Points
             renderSellPointsTable();
 
-            // 13. News & Offers
+            // 10. News & Offers
             document.getElementById('newsTitleInput').value = appConfig['news-title'] || '';
             document.getElementById('newsContentInput').value = appConfig['news-content'] || '';
             document.getElementById('newsCodeInput').value = appConfig['news-code'] || '';
@@ -1744,7 +1487,7 @@
         // TOGGLE HELPER
         function setToggle(inputId, badgeId, isChecked) {
             const input = document.getElementById(inputId);
-            const badge = document.getElementById(badgeId);
+            const badge = badgeId ? document.getElementById(badgeId) : null;
             if (input) input.checked = isChecked;
             if (badge) {
                 badge.textContent = isChecked ? 'مفعل' : 'معطل';
@@ -1754,10 +1497,12 @@
 
         function updateBoolean(key, value, badgeId) {
             appConfig[key] = Boolean(value);
-            const badge = document.getElementById(badgeId);
-            if (badge) {
-                badge.textContent = value ? 'مفعل' : 'معطل';
-                badge.className = `status-badge ${value ? 'active' : 'inactive'}`;
+            if (badgeId) {
+                const badge = document.getElementById(badgeId);
+                if (badge) {
+                    badge.textContent = value ? 'مفعل' : 'معطل';
+                    badge.className = `status-badge ${value ? 'active' : 'inactive'}`;
+                }
             }
             showToast(`تم ${value ? 'تفعيل' : 'تعطيل'} الإعداد`, 'info');
         }
@@ -1816,7 +1561,7 @@
             }
         }
 
-        // SPEEDS TABLE
+        // SPEEDS TABLE (FULL UNRESTRICTED DYNAMIC SUPPORT)
         function renderSpeedsTable() {
             const tbody = document.getElementById('speedsTableBody');
             tbody.innerHTML = '';
@@ -1830,7 +1575,7 @@
                         <input type="text" class="form-control" style="padding: 8px 12px;" value="${s.name || ''}" placeholder="اسم السرعة" oninput="appConfig.speeds[${idx}].name = this.value;">
                     </td>
                     <td>
-                        <input type="text" class="form-control" style="padding: 8px 12px; font-family: monospace; direction: ltr;" value="${s.value || ''}" placeholder="مثل: 256k/700k" oninput="appConfig.speeds[${idx}].value = this.value;">
+                        <input type="text" class="form-control" style="padding: 8px 12px; font-family: monospace; direction: ltr;" value="${s.value || ''}" placeholder="مثل: 256k/700k أو 1M/5M" oninput="appConfig.speeds[${idx}].value = this.value;">
                     </td>
                     <td style="text-align: center;">
                         <input type="radio" name="defaultSpeedRadio" ${s.default ? 'checked' : ''} onchange="setDefaultSpeed(${idx})" style="width: 18px; height: 18px; cursor: pointer; accent-color: #3b82f6;">
@@ -1839,7 +1584,7 @@
                         <input type="checkbox" ${s.recommended ? 'checked' : ''} onchange="appConfig.speeds[${idx}].recommended = this.checked;" style="width: 18px; height: 18px; cursor: pointer; accent-color: #f59e0b;">
                     </td>
                     <td style="text-align: center;">
-                        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteSpeed(${idx})"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteSpeed(${idx})" title="حذف"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1849,12 +1594,13 @@
 
         function addNewSpeed() {
             if (!appConfig.speeds) appConfig.speeds = [];
+            const newIndex = appConfig.speeds.length + 1;
             appConfig.speeds.push({
-                name: `سرعة جديدة ${appConfig.speeds.length + 1}`,
+                name: `سرعة جديدة ${newIndex}`,
                 value: "512k/2M"
             });
             renderSpeedsTable();
-            showToast('تمت إضافة سرعة جديدة', 'success');
+            showToast(`تمت إضافة السرعة ${newIndex} بنجاح!`, 'success');
         }
 
         function setDefaultSpeed(idx) {
@@ -1890,7 +1636,7 @@
                         <input type="text" class="form-control" style="padding: 8px 12px;" value="${p.time || ''}" placeholder="الوقت مثل: 0 ساعات أو مفتوح" oninput="appConfig.profiles[${idx}].time = this.value;">
                     </td>
                     <td style="text-align: center;">
-                        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteProfile(${idx})"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteProfile(${idx})" title="حذف"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1930,7 +1676,7 @@
                         <input type="text" class="form-control" style="padding: 8px 12px;" value="${sp.name || ''}" placeholder="اسم المحل أو رقم التوزيع" oninput="appConfig['sell-points'][${idx}].name = this.value;">
                     </td>
                     <td style="text-align: center;">
-                        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteSellPoint(${idx})"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteSellPoint(${idx})" title="حذف"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1941,10 +1687,10 @@
         function addNewSellPoint() {
             if (!appConfig['sell-points']) appConfig['sell-points'] = [];
             appConfig['sell-points'].push({
-                name: "نقطة بيع جديدة / الموقع"
+                name: "نقطة بيع جديدة"
             });
             renderSellPointsTable();
-            showToast('تمت إضافة نقطة بيع', 'success');
+            showToast('تمت إضافة نقطة بيع جديدة', 'success');
         }
 
         function deleteSellPoint(idx) {
@@ -1955,28 +1701,26 @@
             }
         }
 
-        // =========================================================================
-        // EXACT CONFIG.JS CODE GENERATOR (100% IDENTICAL TO config/config.js)
-        // =========================================================================
+        // ACCURATE 100% CONFIG.JS CODE GENERATOR
         function generateConfigJSCode() {
-            const jsonStr = (val) => JSON.stringify(val ?? "");
+            const jsonStr = (val) => JSON.stringify(val);
 
-            // Profiles formatting
-            const profilesRows = (appConfig.profiles || []).map(p =>
-                `    { price: ${jsonStr(p.price || '')}, time: ${jsonStr(p.time || '')} },`
-            ).join('\n');
-
-            // Sell-points formatting
-            const sellPointsRows = (appConfig['sell-points'] || []).map(sp =>
-                `    { name: ${jsonStr(sp.name || '')} },`
-            ).join('\n');
-
-            // Speeds formatting
+            // Speeds rows
             const speedsRows = (appConfig.speeds || []).map(s => {
-                let parts = [`name: ${jsonStr(s.name || '')}`, `value: ${jsonStr(s.value || '')}`];
+                const parts = [`name: ${jsonStr(s.name || '')}`, `value: ${jsonStr(s.value || '')}`];
                 if (s.default) parts.push('default: true');
                 if (s.recommended) parts.push('recommended: true');
                 return `    { ${parts.join(', ')} },`;
+            }).join('\n');
+
+            // Profiles rows
+            const profilesRows = (appConfig.profiles || []).map(p => {
+                return `    { price: ${jsonStr(p.price || '')}, time: ${jsonStr(p.time || '')} },`;
+            }).join('\n');
+
+            // Sell points rows
+            const sellPointsRows = (appConfig['sell-points'] || []).map(sp => {
+                return `    { name: ${jsonStr(sp.name || '')} },`;
             }).join('\n');
 
             // Ad Images array
@@ -2077,15 +1821,21 @@ ${speedsRows}
   "price-button": ${Boolean(appConfig['price-button'])},          // إظهار زر قائمة أسعار الكروت (true: نعم / false: لا)
   "sell-point-button": ${Boolean(appConfig['sell-point-button'])},     // إظهار زر نقاط البيع وأماكن التوزيع (true: نعم / false: لا)
   "loan-button": ${Boolean(appConfig['loan-button'])},           // إظهار زر خدمة الاستدانة / كرت سلف (true: نعم / false: لا)
-  "app-store-status-button": ${Boolean(appConfig['app-store-status-button'])},
+  "app-store-status-button": ${Boolean(appConfig['app-store-status-button'])}, // إظهار زر متجر البرامج بشاشة الحالة
+  "esterahah-button": ${Boolean(appConfig['esterahah-button'] !== false)},      // إظهار زر الاستراحة في شاشة الحالة
+  "mobasher-button": ${Boolean(appConfig['mobasher-button'] !== false)},       // إظهار زر البث المباشر في شاشة الحالة
+  "app-detector-button": ${Boolean(appConfig['app-detector-button'] !== false)},   // إظهار زر تنزيل تطبيق كشف استهلاك النت
+  "app-octopus-button": ${Boolean(appConfig['app-octopus-button'] !== false)},    // إظهار زر تنزيل تطبيق الاستراحة الأخطبوط
   "show-date-field": ${Boolean(appConfig['show-date-field'])},
 
   // =========================================================================
-  // 9. الروابط الخارجية (البث المباشر / الاستراحة / متجر البرامج)
+  // 9. الروابط الخارجية (البث المباشر / الاستراحة / متجر البرامج والتطبيقات)
   // =========================================================================
-  "redirect-to-esterahah": ${jsonStr(appConfig['redirect-to-esterahah'] || "")},   // رابط صفحة الاستراحة / الترفيه (اختياري)
-  "redirect-to-mobasher": ${jsonStr(appConfig['redirect-to-mobasher'] || "")},    // رابط البث المباشر والمباريات (اختياري)
+  "redirect-to-esterahah": ${jsonStr(appConfig['redirect-to-esterahah'] || "http://30.10.10.10")},   // رابط صفحة الاستراحة / الترفيه (اختياري)
+  "redirect-to-mobasher": ${jsonStr(appConfig['redirect-to-mobasher'] || "http://30.10.10.10:88")},    // رابط البث المباشر والمباريات (اختياري)
   "app-store-base-url": ${jsonStr(appConfig['app-store-base-url'] || "")},
+  "app-detector-url": ${jsonStr(appConfig['app-detector-url'] || "https://play.google.com/store/apps/details?id=com.glasswire.android")}, // رابط تطبيق كشف استهلاك النت
+  "app-octopus-url": ${jsonStr(appConfig['app-octopus-url'] || "https://play.google.com/store/apps/details?id=com.alokhtoboot.plus")},   // رابط تطبيق الاستراحة الأخطبوط
   "app-store-base-url-ext": ${jsonStr(appConfig['app-store-base-url-ext'] || "")},
 
   // =========================================================================
@@ -2150,14 +1900,55 @@ ${sellPointsRows}
             showToast('تم تحميل ملف config.js المولد بنجاح!', 'success');
         }
 
-        // COPY CODE
+        // COPY CODE WITH ROBUST FALLBACK (Works inside iframes, mobile, and desktop)
         function copyConfigCode() {
             const code = generateConfigJSCode();
-            navigator.clipboard.writeText(code).then(() => {
-                showToast('تم نسخ كود config.js إلى الحافظة بنجاح!', 'success');
-            }).catch(() => {
-                showToast('يرجى النسخ اليدوي من نافذة عرض الكود', 'warning');
-            });
+            
+            // 1. Try modern clipboard API if available
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showToast('تم نسخ كود config.js إلى الحافظة بنجاح!', 'success');
+                    return;
+                }).catch(() => {
+                    fallbackCopyText(code);
+                });
+            } else {
+                fallbackCopyText(code);
+            }
+        }
+
+        function fallbackCopyText(text) {
+            try {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.top = "0";
+                textArea.style.left = "0";
+                textArea.style.width = "2em";
+                textArea.style.height = "2em";
+                textArea.style.padding = "0";
+                textArea.style.border = "none";
+                textArea.style.outline = "none";
+                textArea.style.boxShadow = "none";
+                textArea.style.background = "transparent";
+                textArea.style.opacity = "0";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                if (successful) {
+                    showToast('تم نسخ كود config.js إلى الحافظة بنجاح!', 'success');
+                } else {
+                    openCodeModal();
+                    showToast('تم فتح نافذة الكود للنسخ المباشر', 'info');
+                }
+            } catch (err) {
+                openCodeModal();
+                showToast('تم فتح نافذة الكود لتتمكن من نسخه بسهولة', 'info');
+            }
         }
 
         // PARSE CONFIG CODE

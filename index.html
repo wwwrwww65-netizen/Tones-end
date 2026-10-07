@@ -429,6 +429,42 @@
                 var lnBtns = document.querySelectorAll('[data-loan-button]');
                 for (var lnb = 0; lnb < lnBtns.length; lnb++) lnBtns[lnb].style.display = 'none';
             }
+            if (cfg['esterahah-button'] === false) {
+                var estBtns = document.querySelectorAll('[data-esterahah-button]');
+                for (var eb = 0; eb < estBtns.length; eb++) estBtns[eb].style.display = 'none';
+            }
+            if (cfg['mobasher-button'] === false) {
+                var mobBtns = document.querySelectorAll('[data-mobasher-button]');
+                for (var mb = 0; mb < mobBtns.length; mb++) mobBtns[mb].style.display = 'none';
+            }
+            if (cfg['app-detector-button'] === false) {
+                var detBtns = document.querySelectorAll('[data-app-detector-button]');
+                for (var db = 0; db < detBtns.length; db++) detBtns[db].style.display = 'none';
+            }
+            if (cfg['app-octopus-button'] === false) {
+                var octBtns = document.querySelectorAll('[data-app-octopus-button]');
+                for (var ob = 0; ob < octBtns.length; ob++) octBtns[ob].style.display = 'none';
+            }
+            if (cfg['app-store-status-button'] === true) {
+                var storeBtns = document.querySelectorAll('[data-app-store-status-button]');
+                for (var sb = 0; sb < storeBtns.length; sb++) storeBtns[sb].style.display = '';
+            }
+            if (cfg['redirect-to-esterahah']) {
+                var estLinks = document.querySelectorAll('[data-esterahah-link]');
+                for (var el = 0; el < estLinks.length; el++) estLinks[el].setAttribute('href', cfg['redirect-to-esterahah']);
+            }
+            if (cfg['redirect-to-mobasher']) {
+                var mobLinks = document.querySelectorAll('[data-mobasher-link]');
+                for (var ml = 0; ml < mobLinks.length; ml++) mobLinks[ml].setAttribute('href', cfg['redirect-to-mobasher']);
+            }
+            if (cfg['app-detector-url']) {
+                var detLinks = document.querySelectorAll('[data-app-detector-link]');
+                for (var dl = 0; dl < detLinks.length; dl++) detLinks[dl].setAttribute('href', cfg['app-detector-url']);
+            }
+            if (cfg['app-octopus-url']) {
+                var octLinks = document.querySelectorAll('[data-app-octopus-link]');
+                for (var ol = 0; ol < octLinks.length; ol++) octLinks[ol].setAttribute('href', cfg['app-octopus-url']);
+            }
         }
         function Config(a) {
             hotspotConfig = a;
@@ -1553,14 +1589,14 @@
 
                         <!-- Entertainment Direct Links -->
                         <div class="entertainment-links">
-                            <a class="stream-card-link" href="http://30.10.10.10" target="_blank">
+                            <a class="stream-card-link" href="http://30.10.10.10" target="_blank" data-esterahah-button data-esterahah-link>
                                 <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor;">
                                     <path
                                         d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z" />
                                 </svg>
                                 <span>الاستراحة</span>
                             </a>
-                            <a class="stream-card-link" href="http://30.10.10.10:88" target="_blank">
+                            <a class="stream-card-link" href="http://30.10.10.10:88" target="_blank" data-mobasher-button data-mobasher-link>
                                 <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor;">
                                     <path
                                         d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zm-11-2l6-4-6-4v8z" />
@@ -1571,13 +1607,13 @@
 
                         <!-- User Requested App Download Links -->
                         <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
-                            <a class="stream-card-link" href="https://play.google.com/store/apps/details?id=com.glasswire.android" target="_blank" style="justify-content: center;">
+                            <a class="stream-card-link" href="https://play.google.com/store/apps/details?id=com.glasswire.android" target="_blank" style="justify-content: center;" data-app-detector-button data-app-detector-link>
                                 <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor; margin-left: 6px;">
                                     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
                                 </svg>
                                 <span style="font-size: 0.78rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">تنزيل تطبيق كشف التطبيقات التي تستهلك النت</span>
                             </a>
-                            <a class="stream-card-link" href="https://play.google.com/store/apps/details?id=com.alokhtoboot.plus" target="_blank" style="justify-content: center;">
+                            <a class="stream-card-link" href="https://play.google.com/store/apps/details?id=com.alokhtoboot.plus" target="_blank" style="justify-content: center;" data-app-octopus-button data-app-octopus-link>
                                 <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor; margin-left: 6px;">
                                     <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                                 </svg>
