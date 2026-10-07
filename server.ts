@@ -182,6 +182,35 @@ app.get('/api/v1/ad-images', (req, res) => {
   }
 });
 
+// Save config endpoint for dash.html dashboard
+app.post('/api/v1/save-config', (req, res) => {
+  try {
+    const { content } = req.body;
+    if (typeof content !== 'string' || !content.trim()) {
+      return res.status(400).json({ success: false, message: 'محتوى الكود غير صالح' });
+    }
+    const configPath = path.join(__dirname, 'config', 'config.js');
+    fs.writeFileSync(configPath, content, 'utf8');
+    return res.json({ success: true, message: 'تم حفظ ملف config.js بنجاح' });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, message: err?.message || 'فشل حفظ الملف' });
+  }
+});
+
+// Read raw config.js endpoint for dash.html dashboard
+app.get('/api/v1/load-config', (req, res) => {
+  try {
+    const configPath = path.join(__dirname, 'config', 'config.js');
+    if (fs.existsSync(configPath)) {
+      const content = fs.readFileSync(configPath, 'utf8');
+      return res.json({ success: true, content });
+    }
+    return res.status(404).json({ success: false, message: 'الملف غير موجود' });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, message: err?.message || 'فشل قراءة الملف' });
+  }
+});
+
 app.use('/fonts', express.static(path.join(__dirname, 'fonts')));
 app.use('/adimg', express.static(path.join(__dirname, 'adimg')));
 app.use('/img', express.static(path.join(__dirname, 'img')));
