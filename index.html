@@ -73,6 +73,258 @@
         img {
             -webkit-user-drag: none;
         }
+
+        /* ==========================================================================
+           2026 ULTRA-MODERN STATUS DASHBOARD CARDS & METER (Matching Visual Design)
+           ========================================================================== */
+        .status-modern-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+            width: 100%;
+        }
+
+        /* ==========================================================================
+           2026 ULTRA-MODERN STATUS DASHBOARD CARDS & METER (Maroon Glass Theme)
+           ========================================================================== */
+        .status-modern-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+            width: 100%;
+        }
+
+        .status-main-meter-card {
+            background: linear-gradient(145deg, rgba(136, 19, 55, 0.45) 0%, rgba(50, 10, 20, 0.5) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.8px solid #f43f5e;
+            border-radius: 24px;
+            padding: 20px 22px;
+            box-shadow: 0 0 16px rgba(244, 63, 94, 0.45), 0 0 35px rgba(225, 29, 72, 0.25), inset 0 0 14px rgba(244, 63, 94, 0.18), 0 12px 30px -6px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-main-meter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #fb7185, transparent);
+            box-shadow: 0 0 10px #fb7185;
+        }
+
+        .meter-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+
+        .meter-info-side {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: right;
+        }
+
+        .meter-label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fecdd3;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meter-main-value-wrap {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .meter-val-large {
+            font-size: 1.65rem;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.2;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+        }
+
+        .meter-ring-side {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .circular-progress-wrap {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-ring-svg {
+            width: 76px;
+            height: 76px;
+            transform: rotate(-90deg);
+            display: block;
+        }
+
+        .ring-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.15);
+            stroke-width: 6.5;
+        }
+
+        .ring-fill {
+            fill: none;
+            stroke: #fbbf24;
+            stroke-width: 7;
+            stroke-linecap: round;
+            stroke-dasharray: 201.06;
+            stroke-dashoffset: 50.26;
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.4s ease;
+        }
+
+        .ring-percent-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #fbbf24;
+            letter-spacing: -0.5px;
+            direction: ltr;
+            text-align: center;
+            line-height: 1;
+            pointer-events: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .meter-consumption-capsule {
+            background: rgba(25, 5, 12, 0.48);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            border-radius: 40px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.18), inset 0 2px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        .capsule-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            text-align: center;
+        }
+
+        .capsule-label {
+            font-size: 0.86rem;
+            color: #f1f5f9;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .capsule-val.emerald {
+            color: #34d399;
+            font-weight: 900;
+            font-size: 1.05rem;
+            text-shadow: 0 0 12px rgba(52, 211, 153, 0.5);
+        }
+
+        .capsule-val.rose {
+            color: #fb7185;
+            font-weight: 900;
+            font-size: 1.05rem;
+            text-shadow: 0 0 12px rgba(251, 113, 133, 0.5);
+        }
+
+        .capsule-center-badge {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(159, 18, 57, 0.92) 0%, rgba(60, 10, 20, 0.98) 100%);
+            border: 2px solid #fb7185;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.82rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 18px rgba(244, 63, 94, 0.6), inset 0 0 10px rgba(244, 63, 94, 0.3);
+            flex-shrink: 0;
+        }
+
+        .status-pill-metric-card {
+            background: linear-gradient(145deg, rgba(136, 19, 55, 0.45) 0%, rgba(50, 10, 20, 0.5) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.8px solid #f43f5e;
+            border-radius: 35px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 0 14px rgba(244, 63, 94, 0.38), 0 0 28px rgba(225, 29, 72, 0.2), inset 0 0 12px rgba(244, 63, 94, 0.15), 0 8px 24px -6px rgba(0, 0, 0, 0.45);
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .status-pill-metric-card:hover {
+            border-color: #fb7185;
+            box-shadow: 0 0 22px rgba(244, 63, 94, 0.65), 0 0 40px rgba(225, 29, 72, 0.35), inset 0 0 15px rgba(244, 63, 94, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .pill-metric-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pill-metric-label {
+            font-size: 1rem;
+            color: #fecdd3;
+            font-weight: 700;
+        }
+
+        .pill-metric-val {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .pill-indicator-dot {
+            color: #fb7185;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.95;
+        }
     </style>
     <script>
         var hotspotConfig = window.hotspotConfig || {};
@@ -1395,68 +1647,69 @@
                         </select>
                         <span id="update" style="display: none;"></span>
 
-                        <!-- Live Metrics Dashboard -->
-                        <div style="margin-top: 14px;">
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: var(--accent-gold);">
-                                    <path
-                                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                                </svg>
-                                <span style="font-size: 0.95rem; font-weight: 800; color: #ffffff;">معلومات واستهلاك
-                                    الكرت</span>
-                            </div>
-                            <div class="status-grid-metrics">
-                                <div class="metric-card-glass">
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
-                                        </svg>
-                                        <span>التنزيل (Download)</span>
-                                    </span>
-                                    <span class="metric-val cyan" id="bytes_out">-</span>
+                        <!-- Live Modern Metrics Dashboard (Matching Visual Design Reference) -->
+                        <div class="status-modern-dashboard" style="margin-top: 14px;">
+
+                            <!-- 1. Top Card: Remaining Download Meter & Consumption Capsule -->
+                            <div class="status-main-meter-card" remain_bytes_total>
+                                <!-- Top Row: Label, Value & Circular Ring Meter -->
+                                <div class="meter-top-row">
+                                    <div class="meter-info-side">
+                                        <div class="meter-label">
+                                            <span>التحميل المتبقي :</span>
+                                        </div>
+                                        <div class="meter-main-value-wrap">
+                                            <span class="meter-val-large" id="remain_bytes_total">1.15 جيجابايت</span>
+                                        </div>
+                                    </div>
+                                    <div class="meter-ring-side">
+                                        <div class="circular-progress-wrap">
+                                            <svg viewBox="0 0 80 80" class="progress-ring-svg">
+                                                <circle class="ring-bg" cx="40" cy="40" r="32" />
+                                                <circle class="ring-fill" id="remainProgressCircle" cx="40" cy="40" r="32" />
+                                            </svg>
+                                            <span class="ring-percent-text" id="remainPercentText">75%</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="metric-card-glass">
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z" />
-                                        </svg>
-                                        <span>الرفع (Upload)</span>
-                                    </span>
-                                    <span class="metric-val emerald" id="bytes_in">-</span>
-                                </div>
-                                <div class="metric-card-glass full-width" remain_bytes_total>
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.24l6 3.75v7.52l-6 3.75-6-3.75V7.99l6-3.75z" />
-                                        </svg>
-                                        <span>التحميل المتبقي</span>
-                                    </span>
-                                    <span class="metric-val gold" id="remain_bytes_total">مفتوح</span>
-                                </div>
-                                <div class="metric-card-glass">
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
-                                        </svg>
-                                        <span>الوقت المستهلك</span>
-                                    </span>
-                                    <span class="metric-val" id="uptime">-</span>
-                                </div>
-                                <div class="metric-card-glass" session_time_left>
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zM12 11.5l-4-4V4h8v3.5l-4 4z" />
-                                        </svg>
-                                        <span>الوقت المتبقي</span>
-                                    </span>
-                                    <span class="metric-val gold" id="session_time_left">مفتوح</span>
+
+                                <!-- Bottom Row: Capsule Sub-Card for Download, Consumption Badge & Upload -->
+                                <div class="meter-consumption-capsule">
+                                    <div class="capsule-col download-side">
+                                        <span class="capsule-label">التحميل</span>
+                                        <span class="capsule-val emerald" id="bytes_out">21 ميجابايت</span>
+                                    </div>
+                                    <div class="capsule-center-badge">
+                                        <span>استهلاك</span>
+                                    </div>
+                                    <div class="capsule-col upload-side">
+                                        <span class="capsule-label">الرفع</span>
+                                        <span class="capsule-val rose" id="bytes_in">6 ميجابايت</span>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- 2. Middle Pill Card: Remaining Time (الوقت المتبقي) -->
+                            <div class="status-pill-metric-card" session_time_left>
+                                <div class="pill-metric-content">
+                                    <span class="pill-metric-label">الوقت المتبقي :</span>
+                                    <span class="pill-metric-val" id="session_time_left">13 ساعة 48 دقيقة 6 ثانية</span>
+                                </div>
+                                <div class="pill-indicator-dot">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <circle cx="12" cy="12" r="8" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- 3. Bottom Pill Card: Connected Since / Uptime (متصل منذ) -->
+                            <div class="status-pill-metric-card">
+                                <div class="pill-metric-content">
+                                    <span class="pill-metric-label">متصل منذ :</span>
+                                    <span class="pill-metric-val" id="uptime">11 دقيقة 54 ثانية</span>
+                                </div>
+                            </div>
+
                         </div>
 
                         <!-- Session Action Controls -->
@@ -3684,6 +3937,78 @@
                 });
                 observer.observe(marqueeEl, { childList: true, characterData: true, subtree: true });
             }
+        })();
+
+        // 2026 Dynamic Status Percentage Ring Calculation & Animation
+        (function initStatusMeterProgress() {
+            function updateProgressRing() {
+                const remainEl = document.getElementById('remain_bytes_total');
+                const outEl = document.getElementById('bytes_out');
+                const inEl = document.getElementById('bytes_in');
+                const ring = document.getElementById('remainProgressCircle');
+                const percentText = document.getElementById('remainPercentText');
+
+                if (!remainEl || !ring || !percentText) return;
+
+                const remainTxt = (remainEl.textContent || '').trim();
+                if (!remainTxt || remainTxt === '-' || remainTxt.indexOf('مفتوح') !== -1) {
+                    percentText.textContent = '100%';
+                    ring.style.strokeDashoffset = '0';
+                    ring.style.stroke = '#10b981';
+                    percentText.style.color = '#10b981';
+                    return;
+                }
+
+                function parseBytesToMB(str) {
+                    if (!str) return 0;
+                    const clean = str.replace(/,/g, '.');
+                    const numMatch = clean.match(/[\d\.]+/);
+                    if (!numMatch) return 0;
+                    const num = parseFloat(numMatch[0]);
+                    if (isNaN(num)) return 0;
+                    if (/جيجا|GB|G/i.test(clean)) return num * 1024;
+                    if (/ميجا|MB|M/i.test(clean)) return num;
+                    if (/كيلو|KB|K/i.test(clean)) return num / 1024;
+                    if (/بايت|B/i.test(clean)) return num / (1024 * 1024);
+                    return num;
+                }
+
+                const remainMB = parseBytesToMB(remainTxt);
+                const usedMB = parseBytesToMB(outEl ? outEl.textContent : '') + parseBytesToMB(inEl ? inEl.textContent : '');
+
+                if (remainMB > 0) {
+                    const totalMB = remainMB + (usedMB > 0 ? usedMB : 0);
+                    let percent = Math.round((remainMB / totalMB) * 100);
+                    percent = Math.max(1, Math.min(100, percent));
+
+                    percentText.textContent = percent + '%';
+                    const circumference = 201.06;
+                    const offset = circumference - (percent / 100) * circumference;
+                    ring.style.strokeDashoffset = offset;
+
+                    if (percent > 50) {
+                        ring.style.stroke = '#f97316';
+                        percentText.style.color = '#f97316';
+                    } else if (percent > 20) {
+                        ring.style.stroke = '#eab308';
+                        percentText.style.color = '#eab308';
+                    } else {
+                        ring.style.stroke = '#ef4444';
+                        percentText.style.color = '#ef4444';
+                    }
+                }
+            }
+
+            const targetNodes = ['remain_bytes_total', 'bytes_out', 'bytes_in'].map(id => document.getElementById(id)).filter(Boolean);
+            if (window.MutationObserver) {
+                const observer = new MutationObserver(updateProgressRing);
+                targetNodes.forEach(node => {
+                    observer.observe(node, { childList: true, characterData: true, subtree: true });
+                });
+            }
+
+            setInterval(updateProgressRing, 2000);
+            setTimeout(updateProgressRing, 400);
         })();
     </script>
     <script src="js/loyalty-system/loyalty-integration.js"></script>
