@@ -1088,6 +1088,20 @@
 
                             <div class="feature-toggle-card">
                                 <div class="feature-toggle-info">
+                                    <div class="feature-toggle-icon" style="color: #38bdf8; background: rgba(56, 189, 248, 0.15);"><i class="fas fa-shield-halved"></i></div>
+                                    <div>
+                                        <div class="feature-toggle-title">زر إيقاف التحديثات والمتجر</div>
+                                        <div class="feature-toggle-desc">("update-toggle-button") - إظهار/إخفاء سويتش التحديثات في شاشتي الدخول والحالة كلياً وبدون وميض</div>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="updateToggleButton" onchange="updateBoolean('update-toggle-button', this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="feature-toggle-card">
+                                <div class="feature-toggle-info">
                                     <div class="feature-toggle-icon" style="color: #f59e0b; background: rgba(245, 158, 11, 0.15);"><i class="fas fa-hand-holding-dollar"></i></div>
                                     <div>
                                         <div class="feature-toggle-title">زر كرت سلف</div>
@@ -1458,6 +1472,7 @@
             document.getElementById('priceButtonToggle').checked = Boolean(appConfig['price-button']);
             document.getElementById('sellPointButtonToggle').checked = Boolean(appConfig['sell-point-button']);
             document.getElementById('loanButtonToggle').checked = Boolean(appConfig['loan-button']);
+            document.getElementById('updateToggleButton').checked = appConfig['update-toggle-button'] !== false;
 
             // 7. HotBlocker
             document.getElementById('enableHotBlockerSelect').value = String(appConfig['enable-hot-blocker'] ?? 1);
@@ -1818,6 +1833,7 @@ ${speedsRows}
   // =========================================================================
   // 8. إظهار وإخفاء أزرار القائمة والشاشات
   // =========================================================================
+  "update-toggle-button": ${Boolean(appConfig['update-toggle-button'] !== false)},  // إظهار سويتش إيقاف التحديثات والمتجر في شاشتي الدخول والحالة (true: نعم / false: إخفاء كلي وبدون وميض)
   "price-button": ${Boolean(appConfig['price-button'])},          // إظهار زر قائمة أسعار الكروت (true: نعم / false: لا)
   "sell-point-button": ${Boolean(appConfig['sell-point-button'])},     // إظهار زر نقاط البيع وأماكن التوزيع (true: نعم / false: لا)
   "loan-button": ${Boolean(appConfig['loan-button'])},           // إظهار زر خدمة الاستدانة / كرت سلف (true: نعم / false: لا)

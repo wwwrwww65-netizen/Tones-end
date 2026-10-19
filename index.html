@@ -74,6 +74,12 @@
             -webkit-user-drag: none;
         }
 
+        /* Zero-Flicker instant suppression when update toggle is disabled in config */
+        html.update-toggle-disabled .toggle-container-modern,
+        html.update-toggle-disabled [data-update-toggle-block] {
+            display: none !important;
+        }
+
         /* ==========================================================================
            2026 ULTRA-MODERN STATUS DASHBOARD CARDS & METER (Matching Visual Design)
            ========================================================================== */
@@ -465,6 +471,15 @@
                 var octLinks = document.querySelectorAll('[data-app-octopus-link]');
                 for (var ol = 0; ol < octLinks.length; ol++) octLinks[ol].setAttribute('href', cfg['app-octopus-url']);
             }
+            if (cfg['update-toggle-button'] === false) {
+                var upToggles = document.querySelectorAll('.toggle-container-modern, [data-update-toggle-block]');
+                for (var ut = 0; ut < upToggles.length; ut++) upToggles[ut].style.display = 'none';
+                var chUp = document.getElementById('chupdate');
+                if (chUp) {
+                    chUp.checked = false;
+                    chUp.value = '_Uon';
+                }
+            }
         }
         function Config(a) {
             hotspotConfig = a;
@@ -473,6 +488,11 @@
                 document.documentElement.classList.add('loyalty-system-disabled');
             } else {
                 document.documentElement.classList.remove('loyalty-system-disabled');
+            }
+            if (a && a['update-toggle-button'] === false) {
+                document.documentElement.classList.add('update-toggle-disabled');
+            } else {
+                document.documentElement.classList.remove('update-toggle-disabled');
             }
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', function() {
@@ -879,7 +899,7 @@
                             </div>
 
                             <!-- Updates & App Store Blocker Toggle -->
-                            <div class="toggle-container-modern">
+                            <div class="toggle-container-modern" data-update-toggle-block>
                                 <div class="toggle-info">
                                     <span class="toggle-title">
                                         <svg viewBox="0 0 24 24" class="section-icon">
@@ -1657,7 +1677,7 @@
                         </div>
 
                         <!-- Updates & App Store Blocker Toggle (Identical to Login Screen) -->
-                        <div class="toggle-container-modern" style="margin: 12px 0;">
+                        <div class="toggle-container-modern" data-update-toggle-block style="margin: 12px 0;">
                             <div class="toggle-info">
                                 <span class="toggle-title">
                                     <svg viewBox="0 0 24 24" class="section-icon">
@@ -2668,20 +2688,28 @@
             }
 
             // 4. UPDATES BLOCKER TOGGLE STATUS TEXT (LOGIN SCREEN)
-            var chUpdate = document.getElementById('chupdate');
-            var updateStatusText = document.getElementById('updateStatusText');
-            if (chUpdate && updateStatusText) {
-                var updateToggleState = function() {
-                    if (chUpdate.checked) {
-                        updateStatusText.textContent = 'مفعل';
-                        updateStatusText.classList.add('active');
-                    } else {
-                        updateStatusText.textContent = 'متوقف';
-                        updateStatusText.classList.remove('active');
-                    }
-                };
-                chUpdate.addEventListener('change', updateToggleState);
-                updateToggleState();
+            if (window.hotspotConfig && window.hotspotConfig['update-toggle-button'] === false) {
+                var chUpdate = document.getElementById('chupdate');
+                if (chUpdate) {
+                    chUpdate.checked = false;
+                    chUpdate.value = '_Uon';
+                }
+            } else {
+                var chUpdate = document.getElementById('chupdate');
+                var updateStatusText = document.getElementById('updateStatusText');
+                if (chUpdate && updateStatusText) {
+                    var updateToggleState = function() {
+                        if (chUpdate.checked) {
+                            updateStatusText.textContent = 'مفعل';
+                            updateStatusText.classList.add('active');
+                        } else {
+                            updateStatusText.textContent = 'متوقف';
+                            updateStatusText.classList.remove('active');
+                        }
+                    };
+                    chUpdate.addEventListener('change', updateToggleState);
+                    updateToggleState();
+                }
             }
 
             // 5. STATUS SCREEN: SYNCHRONIZE LIVE SPEED FROM MIKROTIK
@@ -2725,56 +2753,58 @@
             }
 
             // 6. STATUS SCREEN: UPDATES BLOCKER TOGGLE (Identical to Login Screen)
-            const statusChupdate = document.getElementById('statusChupdate');
-            const statusUpdateStatusText = document.getElementById('statusUpdateStatusText');
-            const updatechange = document.getElementById('updatechange');
-            const updateSpan = document.getElementById('update');
+            if (!(window.hotspotConfig && window.hotspotConfig['update-toggle-button'] === false)) {
+                const statusChupdate = document.getElementById('statusChupdate');
+                const statusUpdateStatusText = document.getElementById('statusUpdateStatusText');
+                const updatechange = document.getElementById('updatechange');
+                const updateSpan = document.getElementById('update');
 
-            if (statusChupdate && statusUpdateStatusText) {
-                let isSyncing = false;
-                const updateStatusToggleState = (triggerChange = false) => {
-                    if (isSyncing) return;
-                    if (statusChupdate.checked) {
-                        statusUpdateStatusText.textContent = 'مفعل';
-                        statusUpdateStatusText.classList.add('active');
-                        if (triggerChange && updatechange) {
-                            updatechange.value = '_Uoff';
-                            const ev = new Event('change', { bubbles: true });
-                            updatechange.dispatchEvent(ev);
-                        }
-                    } else {
-                        statusUpdateStatusText.textContent = 'متوقف';
-                        statusUpdateStatusText.classList.remove('active');
-                        if (triggerChange && updatechange) {
-                            updatechange.value = '_Uon';
-                            const ev = new Event('change', { bubbles: true });
-                            updatechange.dispatchEvent(ev);
-                        }
-                    }
-                };
-
-                statusChupdate.addEventListener('change', () => updateStatusToggleState(true));
-
-                // Live Sync with MikroTik status query updates
-                if (updateSpan) {
-                    const syncFromMikrotik = () => {
-                        const text = (updateSpan.innerText || updateSpan.textContent || '').trim();
-                        isSyncing = true;
-                        if (text.includes('أيقاف') || text.includes('ايقاف') || text.includes('Uoff')) {
-                            statusChupdate.checked = true;
+                if (statusChupdate && statusUpdateStatusText) {
+                    let isSyncing = false;
+                    const updateStatusToggleState = (triggerChange = false) => {
+                        if (isSyncing) return;
+                        if (statusChupdate.checked) {
                             statusUpdateStatusText.textContent = 'مفعل';
                             statusUpdateStatusText.classList.add('active');
-                        } else if (text.includes('تفعيل') || text.includes('Uon')) {
-                            statusChupdate.checked = false;
+                            if (triggerChange && updatechange) {
+                                updatechange.value = '_Uoff';
+                                const ev = new Event('change', { bubbles: true });
+                                updatechange.dispatchEvent(ev);
+                            }
+                        } else {
                             statusUpdateStatusText.textContent = 'متوقف';
                             statusUpdateStatusText.classList.remove('active');
+                            if (triggerChange && updatechange) {
+                                updatechange.value = '_Uon';
+                                const ev = new Event('change', { bubbles: true });
+                                updatechange.dispatchEvent(ev);
+                            }
                         }
-                        isSyncing = false;
                     };
 
-                    const observer = new MutationObserver(syncFromMikrotik);
-                    observer.observe(updateSpan, { childList: true, characterData: true, subtree: true });
-                    syncFromMikrotik();
+                    statusChupdate.addEventListener('change', () => updateStatusToggleState(true));
+
+                    // Live Sync with MikroTik status query updates
+                    if (updateSpan) {
+                        const syncFromMikrotik = () => {
+                            const text = (updateSpan.innerText || updateSpan.textContent || '').trim();
+                            isSyncing = true;
+                            if (text.includes('أيقاف') || text.includes('ايقاف') || text.includes('Uoff')) {
+                                statusChupdate.checked = true;
+                                statusUpdateStatusText.textContent = 'مفعل';
+                                statusUpdateStatusText.classList.add('active');
+                            } else if (text.includes('تفعيل') || text.includes('Uon')) {
+                                statusChupdate.checked = false;
+                                statusUpdateStatusText.textContent = 'متوقف';
+                                statusUpdateStatusText.classList.remove('active');
+                            }
+                            isSyncing = false;
+                        };
+
+                        const observer = new MutationObserver(syncFromMikrotik);
+                        observer.observe(updateSpan, { childList: true, characterData: true, subtree: true });
+                        syncFromMikrotik();
+                    }
                 }
             }
 
