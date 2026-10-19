@@ -52,295 +52,13 @@ function getUptimeString(startTime: number): string {
 
 
 
-// Helper function to dynamically inject a Developer Preview Path Navigator into HTML responses
-// This keeps all MikroTik template files 100% clean and untouched on disk!
-function injectDevNavigator(html: string): string {
-  const navigatorSnippet = `
-<!-- DEV PREVIEW URL & PATH NAVIGATOR (Injected in server.ts only - Not stored in template files) -->
-<div id="ais-dev-navigator" style="all: initial; position: relative; z-index: 2147483647; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Cairo', Tahoma, sans-serif; direction: rtl; text-align: right;">
-  <style>
-    #ais-dev-navigator * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: inherit;
-    }
-    .ais-nav-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(11, 17, 33, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(59, 130, 246, 0.35);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-      padding: 6px 12px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      color: #f1f5f9;
-      font-size: 13px;
-      z-index: 2147483647;
-      transition: transform 0.25s ease, opacity 0.25s ease;
-    }
-    .ais-nav-bar.ais-collapsed {
-      transform: translateY(-100%);
-      opacity: 0;
-      pointer-events: none;
-    }
-    .ais-nav-controls {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .ais-nav-btn {
-      background: rgba(255, 255, 255, 0.08);
-      color: #cbd5e1;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 6px;
-      padding: 5px 9px;
-      font-size: 12px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      text-decoration: none;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-      user-select: none;
-    }
-    .ais-nav-btn:hover {
-      background: rgba(59, 130, 246, 0.25);
-      border-color: rgba(59, 130, 246, 0.5);
-      color: #ffffff;
-    }
-    .ais-nav-btn-primary {
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
-      color: #ffffff;
-      border: none;
-      font-weight: 600;
-      padding: 5px 14px;
-    }
-    .ais-nav-btn-primary:hover {
-      background: linear-gradient(135deg, #1d4ed8, #2563eb);
-      box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
-    }
-    .ais-nav-input-wrapper {
-      flex: 1;
-      min-width: 220px;
-      display: flex;
-      align-items: center;
-      background: rgba(4, 7, 16, 0.9);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      border-radius: 6px;
-      padding: 2px 8px;
-    }
-    .ais-nav-input-wrapper:focus-within {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-    }
-    .ais-nav-prefix {
-      color: #64748b;
-      font-size: 11px;
-      padding-left: 6px;
-      direction: ltr;
-      user-select: none;
-    }
-    .ais-nav-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: #38bdf8;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 13px;
-      padding: 4px 6px;
-      outline: none;
-      direction: ltr;
-      text-align: left;
-    }
-    .ais-nav-quick {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
-    .ais-nav-badge {
-      background: rgba(255, 255, 255, 0.06);
-      color: #94a3b8;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 3px 10px;
-      font-size: 11px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.15s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-    }
-    .ais-nav-badge:hover, .ais-nav-badge.active {
-      background: rgba(59, 130, 246, 0.2);
-      color: #60a5fa;
-      border-color: rgba(59, 130, 246, 0.4);
-    }
-    .ais-nav-badge.active {
-      font-weight: 700;
-      border-color: #3b82f6;
-    }
-    .ais-nav-toggle-btn {
-      position: fixed;
-      top: 8px;
-      left: 12px;
-      z-index: 2147483647;
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(8px);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      border-radius: 20px;
-      padding: 5px 12px;
-      font-size: 12px;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      transition: all 0.2s ease;
-      direction: rtl;
-    }
-    .ais-nav-toggle-btn:hover {
-      background: #0284c7;
-      color: #ffffff;
-      transform: scale(1.04);
-    }
-    .ais-nav-toggle-btn.ais-show {
-      display: inline-flex;
-    }
-    /* Add top spacing to body so the bar doesn't overlay top content */
-    body {
-      padding-top: 48px !important;
-    }
-    body.ais-body-unpadded {
-      padding-top: 0 !important;
-    }
-  </style>
-
-  <!-- Minimized Floating Button -->
-  <button id="ais-nav-reopen-btn" class="ais-nav-toggle-btn" title="فتح شريط المسارات والتنقل" onclick="toggleAisDevBar(true)">
-    <span>🧭</span>
-    <span>شريط المسارات</span>
-  </button>
-
-  <!-- Full Navigation Bar -->
-  <div id="ais-nav-main-bar" class="ais-nav-bar">
-    <!-- Back/Forward/Reload Controls -->
-    <div class="ais-nav-controls">
-      <button class="ais-nav-btn" title="رجوع للخلف" onclick="window.history.back()">⬅️</button>
-      <button class="ais-nav-btn" title="للأمام" onclick="window.history.forward()">➡️</button>
-      <button class="ais-nav-btn" title="إعادة تحميل الصفحة" onclick="window.location.reload()">🔄</button>
-    </div>
-
-    <!-- URL Input and Go Button -->
-    <div class="ais-nav-input-wrapper">
-      <span class="ais-nav-prefix">مسار:</span>
-      <input id="ais-nav-url-input" class="ais-nav-input" type="text" placeholder="/dash.html أو /mobasher.html..." onkeydown="if(event.key==='Enter')aisNavigateToInput();" />
-    </div>
-    <button class="ais-nav-btn ais-nav-btn-primary" onclick="aisNavigateToInput()">انتقال ↵</button>
-
-    <!-- Quick Page Jump Badges -->
-    <div class="ais-nav-quick">
-      <span style="font-size: 11px; color: #64748b;">صفحات سريعة:</span>
-      <a class="ais-nav-badge" href="/" title="الرئيسية / صفحة الدخول">🏠 الرئيسية</a>
-      <a class="ais-nav-badge" href="/dash.html" title="لوحة التحكم والإعدادات">⚙️ لوحة التحكم</a>
-      <a class="ais-nav-badge" href="/mobasher.html" title="بث مباشر">📺 بث مباشر</a>
-      <a class="ais-nav-badge" href="/status.html" title="حالة الهوتسبوت">📊 الحالة</a>
-      <a class="ais-nav-badge" href="/logout.html" title="تسجيل الخروج">🚪 خروج</a>
-    </div>
-
-    <!-- Utility buttons: Open in New Tab + Minimize -->
-    <div style="margin-right: auto; display: flex; align-items: center; gap: 6px;">
-      <button class="ais-nav-btn" title="فتح في تبويب مستقل للمتصفح" onclick="window.open(window.location.href, '_blank')">
-        <span>↗️</span>
-        <span style="font-size: 11px;">تبويب خارجي</span>
-      </button>
-      <button class="ais-nav-btn" title="تصغير شريط المسارات" onclick="toggleAisDevBar(false)" style="padding: 5px 8px; color: #94a3b8;">
-        <span>▲</span>
-        <span style="font-size: 11px;">إخفاء</span>
-      </button>
-    </div>
-  </div>
-
-  <script>
-    (function() {
-      var currentPath = window.location.pathname + window.location.search;
-      var input = document.getElementById('ais-nav-url-input');
-      if (input) {
-        input.value = currentPath || '/';
-      }
-
-      // Highlight active badge
-      var badges = document.querySelectorAll('.ais-nav-badge');
-      badges.forEach(function(b) {
-        var href = b.getAttribute('href');
-        if (href === currentPath || (href === '/' && (currentPath === '/' || currentPath === '/index.html'))) {
-          b.classList.add('active');
-        }
-      });
-
-      // Restore collapsed state if saved
-      var isCollapsed = localStorage.getItem('ais_dev_bar_collapsed') === '1';
-      if (isCollapsed) {
-        setBarState(true);
-      }
-
-      window.aisNavigateToInput = function() {
-        var val = (document.getElementById('ais-nav-url-input').value || '').trim();
-        if (!val) return;
-        if (!val.startsWith('/') && !val.startsWith('http')) {
-          val = '/' + val;
-        }
-        window.location.href = val;
-      };
-
-      window.toggleAisDevBar = function(show) {
-        setBarState(!show);
-        localStorage.setItem('ais_dev_bar_collapsed', show ? '0' : '1');
-      };
-
-      function setBarState(collapsed) {
-        var bar = document.getElementById('ais-nav-main-bar');
-        var reopenBtn = document.getElementById('ais-nav-reopen-btn');
-        if (collapsed) {
-          bar.classList.add('ais-collapsed');
-          reopenBtn.classList.add('ais-show');
-          document.body.classList.add('ais-body-unpadded');
-        } else {
-          bar.classList.remove('ais-collapsed');
-          reopenBtn.classList.remove('ais-show');
-          document.body.classList.remove('ais-body-unpadded');
-        }
-      }
-    })();
-  </script>
-</div>
-`;
-
-  if (html.includes('</body>')) {
-    return html.replace('</body>', `${navigatorSnippet}\n</body>`);
-  }
-  return html + navigatorSnippet;
-}
-
-// Helper to serve an HTML file with the dev bar injected
-function serveInjectedHtml(res: express.Response, filename: string) {
+// Helper to serve clean HTML files without any developer bars
+function serveHtml(res: express.Response, filename: string) {
   const filePath = path.join(__dirname, filename);
   if (!fs.existsSync(filePath)) {
     return res.status(404).send('Not Found');
   }
-  const content = fs.readFileSync(filePath, 'utf8');
-  res.type('html').send(injectDevNavigator(content));
+  res.sendFile(filePath);
 }
 
 // MikroTik Hotspot /login endpoint
@@ -395,7 +113,7 @@ app.get('/login', (req, res) => {
   }
 
   // Regular direct request
-  serveInjectedHtml(res, 'index.html');
+  serveHtml(res, 'index.html');
 });
 
 // MikroTik Hotspot /status endpoint
@@ -424,7 +142,7 @@ app.get('/status', (req, res) => {
   }
 
   // Direct page request
-  serveInjectedHtml(res, 'index.html');
+  serveHtml(res, 'index.html');
 });
 
 // MikroTik Hotspot /logout endpoint
@@ -507,35 +225,35 @@ app.get('/api/v1/load-config', (req, res) => {
 // HTML Page Routes with dynamic Developer Preview Bar injection
 // (Keeps physical files 100% clean for MikroTik deployment)
 app.get(['/', '/index.html'], (req, res) => {
-  serveInjectedHtml(res, 'index.html');
+  serveHtml(res, 'index.html');
 });
 
 app.get(['/dash', '/dash.html'], (req, res) => {
-  serveInjectedHtml(res, 'dash.html');
+  serveHtml(res, 'dash.html');
 });
 
 app.get(['/mobasher', '/mobasher.html'], (req, res) => {
-  serveInjectedHtml(res, 'mobasher.html');
+  serveHtml(res, 'mobasher.html');
 });
 
 app.get(['/alogin', '/alogin.html'], (req, res) => {
-  serveInjectedHtml(res, 'alogin.html');
+  serveHtml(res, 'alogin.html');
 });
 
 app.get(['/status.html'], (req, res) => {
-  serveInjectedHtml(res, 'status.html');
+  serveHtml(res, 'status.html');
 });
 
 app.get(['/login.html'], (req, res) => {
-  serveInjectedHtml(res, 'login.html');
+  serveHtml(res, 'login.html');
 });
 
 app.get(['/logout.html'], (req, res) => {
-  serveInjectedHtml(res, 'logout.html');
+  serveHtml(res, 'logout.html');
 });
 
 app.get(['/redirect', '/redirect.html'], (req, res) => {
-  serveInjectedHtml(res, 'redirect.html');
+  serveHtml(res, 'redirect.html');
 });
 
 app.use('/fonts', express.static(path.join(__dirname, 'fonts')));
@@ -559,10 +277,10 @@ app.get('*', (req, res) => {
     const candidate = reqPath.endsWith('.html') ? reqPath : `${reqPath}.html`;
     const targetFile = path.join(__dirname, candidate);
     if (fs.existsSync(targetFile) && fs.statSync(targetFile).isFile()) {
-      return serveInjectedHtml(res, candidate);
+      return serveHtml(res, candidate);
     }
   }
-  serveInjectedHtml(res, 'index.html');
+  serveHtml(res, 'index.html');
 });
 
 app.listen(PORT, '0.0.0.0', () => {

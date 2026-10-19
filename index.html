@@ -478,21 +478,10 @@
         }
 
         .top-notification-toast.show {
-            top: 72px;
+            top: 20px;
             opacity: 1;
             pointer-events: auto;
             animation: toastBounceIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        body.ais-body-unpadded .top-notification-toast.show,
-        body:not([style*="padding-top"]) .top-notification-toast.show {
-            top: 72px;
-        }
-
-        /* تنزيل موضع حاوية التنبيهات والأخطاء لتظهر بوضوح أسفل الهيدر */
-        .error-container.active {
-            top: 72px !important;
-            pointer-events: auto;
         }
 
         .top-notification-toast.hide {
@@ -509,7 +498,6 @@
                 transform: translateX(-50%) scale(0.92);
             }
             100% {
-                top: 72px;
                 opacity: 1;
                 transform: translateX(-50%) scale(1);
             }
