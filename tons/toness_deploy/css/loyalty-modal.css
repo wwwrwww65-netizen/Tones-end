@@ -1,15 +1,15 @@
 /* ===== Loyalty System Modal Styles - Royal Maroon & Gold 2026 Theme ===== */
 
 :root {
-  --loyalty-primary-color: #881337;
-  --loyalty-primary-dark: #4c0519;
+  --loyalty-primary-color: #030712;
+  --loyalty-primary-dark: #030712;
   --loyalty-accent-color: #D4AF37;
   --loyalty-accent-dark: #B8860B;
-  --loyalty-highlight-bg-start: rgba(80, 20, 25, 0.4);
-  --loyalty-highlight-bg-end: rgba(136, 19, 55, 0.3);
+  --loyalty-highlight-bg-start: rgba(11, 15, 25, 0.4);
+  --loyalty-highlight-bg-end: rgba(15, 23, 42, 0.3);
   --loyalty-bg-white: #ffffff;
   --loyalty-bg-gray: #f8f9fa;
-  --loyalty-overlay-bg: rgba(18, 2, 6, 0.7);
+  --loyalty-overlay-bg: rgba(3, 7, 18, 0.7);
   --loyalty-text-dark: #FFFFFF;
   --loyalty-text-white: #ffffff;
   --loyalty-border-color: rgba(212, 175, 55, 0.4);
@@ -72,7 +72,7 @@ button.loyalty-btn {
   gap: 8px !important;
   width: 100% !important;
   background: linear-gradient(135deg, #E6C27A 0%, #D4AF37 50%, #B8860B 100%) !important;
-  color: #2D0509 !important;
+  color: #030712 !important;
   font-family: 'Almarai', sans-serif !important;
   font-weight: 900 !important;
   font-size: 15px !important;
@@ -100,7 +100,7 @@ button.loyalty-btn:active {
 
 /* Loan card */
 .loan-card {
-  background: rgba(80, 20, 25, 0.4) !important;
+  background: rgba(11, 15, 25, 0.4) !important;
   border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
   border-radius: 14px !important;
   padding: 18px !important;
@@ -133,7 +133,7 @@ button.loyalty-btn:active {
   background: #FFFFFF !important;
   border: 1.5px solid rgba(212, 175, 55, 0.6) !important;
   border-radius: 10px !important;
-  color: #700B2B !important;
+  color: #030712 !important;
   font-weight: 800 !important;
   font-size: 0.95rem !important;
   padding: 10px 14px !important;
