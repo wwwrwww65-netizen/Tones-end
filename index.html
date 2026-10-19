@@ -16,6 +16,10 @@
     <meta name="MobileOptimized" content="width">
     <meta name="theme-color" content="#090d16">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- التحميل المسبق الفوري للخطوط لمنع أي تشوه بصري أو تأخير أو تبديل خطوط (Zero FOUT) -->
+    <link rel="preload" href="fonts/almarai-700-ar.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/almarai-800-ar.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/cairo-700-ar.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="fonts/Almarai.css">
     <link rel="stylesheet" href="css/fontello.min.css">
     <link rel="stylesheet" href="css/style.min.css">
@@ -27,26 +31,28 @@
     <!-- Announcements System CSS -->
     <link rel="stylesheet" href="css/announcements-style.css">
     <style>
-        /* إظهار نقاط الياء بوضوح تام ودائم في اسم الشبكة وكافة عناصر الصفحة */
+        /* الخط الأساسي المعتمد لجميع عناصر الصفحة هو خط المراعي السميك فورياً وبخفة تامة */
         :root {
-            --font-main: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            --font-main: 'Almarai', 'Tajawal', 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
         }
 
         body,
         h1,
         h2,
         h3,
-        h4,
-        .brand-name,
-        [data-network-name],
+        button,
+        input,
+        .title,
         .network-brand,
         .brand-info {
-            font-family: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            font-family: var(--font-main) !important;
         }
 
+        /* اسم الشبكة: خط كايرو المتناسق لضمان رسم نقطتي الياء واضحة في "العاطفي" مع الثبات والسمك الفاخر */
         .brand-name,
         [data-network-name] {
             font-family: 'Cairo', 'Tajawal', sans-serif !important;
+            font-weight: 800 !important;
             line-height: 1.35 !important;
             padding-bottom: 3px !important;
             display: inline-block !important;
