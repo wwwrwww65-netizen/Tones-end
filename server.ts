@@ -439,7 +439,7 @@ app.get('/logout', (req, res) => {
     });
   }
 
-  res.redirect('/');
+  res.redirect('/?logout=success');
 });
 
 // Serve static assets from project root and specific subfolders

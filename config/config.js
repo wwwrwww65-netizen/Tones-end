@@ -54,11 +54,11 @@ Config({
   // - default: تعيينها كسرعة افتراضية أولى عند فتح الصفحة (true / false)
   // - recommended: إظهار علامة (الموصى بها) بجانب الاسم (اختياري)
   "speeds": [
-    { name: "سرعة اقتصادية", value: "128k/512k" },
-    { name: "سرعة عادية", value: "256k/700k", default: true, recommended: true },
-    { name: "سرعة متوسطة", value: "256k/1M" },
-    { name: "سرعة عالية", value: "512M/3M" },
-    { name: "سرعة عالية جدا", value: "1M/8M" },
+    { name: "سرعة اقتصادية", value: "1M" },
+    { name: "سرعة عادية", value: "2M", default: true, recommended: true },
+    { name: "سرعة متوسطة", value: "4M" },
+    { name: "سرعة عالية", value: "6M" },
+    { name: "سرعة هوتسبوت", value: "" },
   ],
 
   // =========================================================================

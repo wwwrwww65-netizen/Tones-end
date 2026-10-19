@@ -452,6 +452,139 @@
             justify-content: center;
             opacity: 0.95;
         }
+
+        /* 2026 Top Floating Notification Toast (Logout / Disconnect / Status) */
+        .top-notification-toast {
+            position: fixed;
+            top: -140px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2147483640;
+            width: 92%;
+            max-width: 420px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(6, 78, 59, 0.95) 100%);
+            border: 1.5px solid rgba(52, 211, 153, 0.65);
+            border-radius: 16px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 12px 16px;
+            box-sizing: border-box;
+            direction: rtl;
+            text-align: right;
+            pointer-events: none;
+            opacity: 0;
+            transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, transform 0.4s ease;
+        }
+
+        .top-notification-toast.show {
+            top: 72px;
+            opacity: 1;
+            pointer-events: auto;
+            animation: toastBounceIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        body.ais-body-unpadded .top-notification-toast.show,
+        body:not([style*="padding-top"]) .top-notification-toast.show {
+            top: 72px;
+        }
+
+        /* تنزيل موضع حاوية التنبيهات والأخطاء لتظهر بوضوح أسفل الهيدر */
+        .error-container.active {
+            top: 72px !important;
+            pointer-events: auto;
+        }
+
+        .top-notification-toast.hide {
+            top: -140px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+
+        @keyframes toastBounceIn {
+            0% {
+                top: -140px;
+                opacity: 0;
+                transform: translateX(-50%) scale(0.92);
+            }
+            100% {
+                top: 72px;
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        .toast-content-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toast-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45);
+        }
+
+        .toast-icon-svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
+        }
+
+        .toast-text-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .toast-title {
+            font-size: 0.82rem;
+            color: #6ee7b7;
+            font-weight: 700;
+        }
+
+        .toast-message {
+            font-size: 0.95rem;
+            color: #ffffff;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .toast-close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #cbd5e1;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .toast-close-btn svg {
+            width: 15px;
+            height: 15px;
+            fill: currentColor;
+        }
+
+        .toast-close-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            transform: scale(1.1);
+        }
     </style>
     <script>
         var hotspotConfig = window.hotspotConfig || {};
@@ -2100,6 +2233,26 @@
     <!-- Notification Message Holder -->
     <span style="display: none;" id="winmsg"></span>
 
+    <!-- 2026 Top Floating Notification Toast (Logout / Disconnect / Feedback) -->
+    <div id="topNotificationToast" class="top-notification-toast" role="alert" aria-live="assertive">
+        <div class="toast-content-wrapper">
+            <div class="toast-icon-box" id="topToastIconBox">
+                <svg viewBox="0 0 24 24" class="toast-icon-svg" id="topToastIcon">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <div class="toast-text-box">
+                <span class="toast-title" id="topNotificationTitle">تم بنجاح</span>
+                <span class="toast-message" id="topNotificationMessage">تم تسجيل خروجك بنجاح</span>
+            </div>
+            <button type="button" class="toast-close-btn" id="closeTopNotificationBtn" aria-label="إغلاق التنبيه" onclick="hideTopNotification()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
     <!-- Hotspot System Scripts -->
     <script src="js/jsqr.min.js"></script>
     <script src="js/init.min.js"></script>
@@ -2112,6 +2265,166 @@
     <!-- 2026 Interactive Enhancements & Swipe Gestures -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
+            // =============================================================
+            // 2026 TOP FLOATING TOAST CONTROLLER (Logout / Disconnect / Status)
+            // =============================================================
+            window.showTopNotification = function (message, title, type) {
+                const toast = document.getElementById('topNotificationToast');
+                const msgEl = document.getElementById('topNotificationMessage');
+                const titleEl = document.getElementById('topNotificationTitle');
+                const iconBox = document.getElementById('topToastIconBox');
+
+                if (!toast || !msgEl) return;
+
+                const defaultMsg = type === 'disconnect' ? 'تم قطع اتصالك بنجاح' : 'تم تسجيل خروجك بنجاح';
+                msgEl.textContent = message || defaultMsg;
+                if (titleEl) {
+                    titleEl.textContent = title || (type === 'disconnect' ? 'قطع الاتصال' : 'تسجيل الخروج');
+                }
+
+                if (type === 'disconnect') {
+                    toast.style.background = 'linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 58, 138, 0.95) 100%)';
+                    toast.style.borderColor = 'rgba(56, 189, 248, 0.75)';
+                    toast.style.boxShadow = '0 14px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.25)';
+                    if (iconBox) {
+                        iconBox.style.background = 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)';
+                        iconBox.style.boxShadow = '0 4px 14px rgba(2, 132, 199, 0.45)';
+                    }
+                    if (titleEl) titleEl.style.color = '#7dd3fc';
+                } else {
+                    toast.style.background = 'linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(6, 78, 59, 0.95) 100%)';
+                    toast.style.borderColor = 'rgba(52, 211, 153, 0.65)';
+                    toast.style.boxShadow = '0 14px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.25)';
+                    if (iconBox) {
+                        iconBox.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                        iconBox.style.boxShadow = '0 4px 14px rgba(16, 185, 129, 0.45)';
+                    }
+                    if (titleEl) titleEl.style.color = '#6ee7b7';
+                }
+
+                toast.classList.remove('hide');
+                toast.classList.add('show');
+
+                if (window._topToastTimer) clearTimeout(window._topToastTimer);
+                window._topToastTimer = setTimeout(function () {
+                    window.hideTopNotification();
+                }, 4500);
+            };
+
+            window.hideTopNotification = function () {
+                const toast = document.getElementById('topNotificationToast');
+                if (toast) {
+                    toast.classList.remove('show');
+                    toast.classList.add('hide');
+                }
+            };
+
+            // Check URL search parameters or hash for logout/disconnect
+            function checkLogoutUrlParams() {
+                try {
+                    const search = window.location.search || '';
+                    const params = new URLSearchParams(search);
+                    if (params.has('logout') || search.includes('logout')) {
+                        setTimeout(function () {
+                            window.showTopNotification('تم تسجيل خروجك بنجاح', 'تسجيل الخروج', 'logout');
+                        }, 250);
+                        if (window.history && window.history.replaceState) {
+                            const newUrl = window.location.pathname + window.location.hash;
+                            window.history.replaceState({}, document.title, newUrl);
+                        }
+                        return true;
+                    } else if (params.has('disconnect') || search.includes('disconnect')) {
+                        setTimeout(function () {
+                            window.showTopNotification('تم قطع اتصالك بنجاح', 'قطع الاتصال', 'disconnect');
+                        }, 250);
+                        if (window.history && window.history.replaceState) {
+                            const newUrl = window.location.pathname + window.location.hash;
+                            window.history.replaceState({}, document.title, newUrl);
+                        }
+                        return true;
+                    }
+                } catch (e) {}
+                return false;
+            }
+
+            // Check sessionStorage for pending logout toast (persists across redirects/reloads)
+            function checkPendingLogoutStorage() {
+                try {
+                    const pendingRaw = sessionStorage.getItem('pending_logout_toast');
+                    if (pendingRaw) {
+                        sessionStorage.removeItem('pending_logout_toast');
+                        const data = JSON.parse(pendingRaw);
+                        setTimeout(function () {
+                            window.showTopNotification(data.msg, data.title, data.type);
+                        }, 250);
+                        return true;
+                    }
+                } catch (e) {}
+                return false;
+            }
+
+            // Bind click handlers to all logout and disconnect buttons
+            function bindLogoutActionButtons() {
+                document.addEventListener('click', function (e) {
+                    const logoutBtn = e.target.closest('.app-logout, [data-action-logout], [data-action-disconnect], a[href*="logout"]');
+                    if (!logoutBtn) return;
+
+                    // Exclude modal close buttons inside other popups (like app-store close button)
+                    if (logoutBtn.classList.contains('modal-close-btn') || logoutBtn.classList.contains('back')) {
+                        if (!logoutBtn.closest('#status')) return;
+                    }
+
+                    const isErase = logoutBtn.hasAttribute('erase-cookie') || 
+                                    logoutBtn.hasAttribute('clear-hot-cookie') || 
+                                    (logoutBtn.textContent && logoutBtn.textContent.includes('خروج'));
+
+                    const toastData = isErase 
+                        ? { msg: 'تم تسجيل خروجك بنجاح', title: 'تسجيل الخروج', type: 'logout' }
+                        : { msg: 'تم قطع اتصالك بنجاح', title: 'قطع الاتصال', type: 'disconnect' };
+
+                    // Save to sessionStorage in case of page reload/navigation
+                    try {
+                        sessionStorage.setItem('pending_logout_toast', JSON.stringify(toastData));
+                    } catch (err) {}
+
+                    // Trigger toast in SPA view when status closes
+                    setTimeout(function () {
+                        const statusActive = document.getElementById('status')?.classList.contains('active');
+                        if (!statusActive) {
+                            try {
+                                sessionStorage.removeItem('pending_logout_toast');
+                            } catch (err) {}
+                            window.showTopNotification(toastData.msg, toastData.title, toastData.type);
+                        }
+                    }, 280);
+                }, true);
+            }
+
+            // Hook into onLoggedOut callback if triggered via AJAX
+            const originalOnLoggedOut = window.onLoggedOut;
+            window.onLoggedOut = function (data) {
+                if (typeof originalOnLoggedOut === 'function') {
+                    try { originalOnLoggedOut(data); } catch (e) {}
+                }
+                const pendingRaw = sessionStorage.getItem('pending_logout_toast');
+                let toastData = { msg: 'تم تسجيل خروجك بنجاح', title: 'تسجيل الخروج', type: 'logout' };
+                if (pendingRaw) {
+                    try {
+                        toastData = JSON.parse(pendingRaw);
+                        sessionStorage.removeItem('pending_logout_toast');
+                    } catch (e) {}
+                }
+                setTimeout(function () {
+                    window.showTopNotification(toastData.msg, toastData.title, toastData.type);
+                }, 200);
+            };
+
+            // Run initial checks on page load
+            if (!checkLogoutUrlParams()) {
+                checkPendingLogoutStorage();
+            }
+            bindLogoutActionButtons();
 
             // 1. DYNAMIC CAROUSEL CONTROLLER WITH AUTO-DISCOVERY & SEAMLESS LOOP
             function initDynamicAdCarousel() {

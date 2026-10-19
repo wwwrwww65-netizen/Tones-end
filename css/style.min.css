@@ -3059,7 +3059,7 @@ body:has(#status.active) #login {
 }
 
 .error-container.active {
-  top: 16px;
+  top: 72px;
   pointer-events: auto;
 }
 
