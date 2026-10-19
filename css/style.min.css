@@ -45,7 +45,7 @@
   --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.65);
   --shadow-glow: 0 0 35px var(--primary-glow);
   
-  --font-main: 'Almarai', 'Tajawal', 'Cairo', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  --font-main: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   /* Safe Area Variables for iPhone X/11/12/13/14/15/16 (Notch & Dynamic Island) */
@@ -429,14 +429,17 @@ svg.svg-inline,
 
 .brand-name,
 [data-network-name] {
+  font-family: 'Cairo', 'Tajawal', sans-serif !important;
   font-size: 1.25rem;
-  font-weight: 900;
+  font-weight: 800;
   background: linear-gradient(135deg, #FFFDF0 0%, #FEEF9E 30%, #FDE047 65%, #F59E0B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #FDE047;
   letter-spacing: 0.2px;
-  line-height: 1.25;
+  line-height: 1.35;
+  padding-bottom: 4px;
+  display: inline-block;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 12px rgba(253, 224, 71, 0.55));
 }
 

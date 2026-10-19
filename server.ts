@@ -549,6 +549,11 @@ app.use(express.static(__dirname));
 
 // Fallback route: smart handler for any requested html or default to index.html
 app.get('*', (req, res) => {
+  const ext = path.extname(req.path).toLowerCase();
+  if (ext && ext !== '.html') {
+    return res.status(404).send('Not Found');
+  }
+
   const reqPath = req.path.replace(/^\//, '');
   if (reqPath) {
     const candidate = reqPath.endsWith('.html') ? reqPath : `${reqPath}.html`;

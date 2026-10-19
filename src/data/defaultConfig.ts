@@ -1,7 +1,7 @@
 import { NetworkConfig } from '../types/hotspot';
 
 export const defaultConfig: NetworkConfig = {
-  networkName: 'تونس نت',
+  networkName: 'العاطفي نت',
   serviceNumber: '772131004',
   newsLine: '{بسم الله الرحمن الرحيم} ( قل للمؤمنين يغضوا من أبصرهم ويحفظوا فروجهم ذلك ازكى لهم إن الله خبير بما يصنعون ) صدق الله العظيم',
   adImages: ['1.jpg', '2.jpg'],

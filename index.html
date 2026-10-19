@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title data-network-name>شبكة العاطفي نت اللاسلكيه</title>
-    <meta name="description" content="بوابة تسجيل الدخول لشبكة العاطفي نت اللاسلكية بنظام ميكروتك (MikroTik Hotspot Portal) مع إدارة السرعات، فحص الكروت، والأسعار">
-    <meta property="og:title" content="شبكة العاطفي نت اللاسلكيه">
-    <meta property="og:description" content="بوابة تسجيل الدخول لشبكة العاطفي نت اللاسلكية بنظام ميكروتك (MikroTik Hotspot Portal) مع إدارة السرعات، فحص الكروت، والأسعار">
+    <title data-network-name>تونس نت - MikroTik Hotspot</title>
+    <meta name="description" content="بوابة تسجيل الدخول لشبكة تونس نت اللاسلكية بنظام ميكروتك (MikroTik Hotspot Portal) مع إدارة السرعات، فحص الكروت، والأسعار">
+    <meta property="og:title" content="تونس نت - MikroTik Hotspot">
+    <meta property="og:description" content="بوابة تسجيل الدخول لشبكة تونس نت اللاسلكية بنظام ميكروتك (MikroTik Hotspot Portal) مع إدارة السرعات، فحص الكروت، والأسعار">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,6 +27,31 @@
     <!-- Announcements System CSS -->
     <link rel="stylesheet" href="css/announcements-style.css">
     <style>
+        /* إظهار نقاط الياء بوضوح تام ودائم في اسم الشبكة وكافة عناصر الصفحة */
+        :root {
+            --font-main: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-name,
+        [data-network-name],
+        .network-brand,
+        .brand-info {
+            font-family: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        }
+
+        .brand-name,
+        [data-network-name] {
+            font-family: 'Cairo', 'Tajawal', sans-serif !important;
+            line-height: 1.35 !important;
+            padding-bottom: 3px !important;
+            display: inline-block !important;
+        }
+
         .im1::before {
             content: "سرعة في النت";
         }
