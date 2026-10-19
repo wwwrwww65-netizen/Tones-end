@@ -58,6 +58,90 @@
             display: inline-block !important;
         }
 
+        /* تنسيق جدول أسعار وباقات الكروت بالأعمدة الأربعة (الفئة، الوقت، الحجم، الصلاحية) */
+        .price-div table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 6px;
+            margin: 8px 0;
+            table-layout: auto;
+        }
+
+        .price-div thead th {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(184, 134, 11, 0.2) 100%);
+            color: #fde047;
+            font-size: 0.84rem;
+            font-weight: 800;
+            padding: 8px 6px;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            white-space: nowrap;
+        }
+
+        .price-div tbody tr {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .price-div tbody tr:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: scale(1.01);
+        }
+
+        .price-div tbody td {
+            padding: 8px 6px;
+            font-size: 0.85rem;
+            color: #ffffff;
+            font-weight: 600;
+            text-align: center;
+            vertical-align: middle;
+            border: none;
+        }
+
+        .price-div .pkg-price-gold-box {
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 2px;
+            font-weight: 800;
+            color: #fde047;
+        }
+
+        .price-div .pkg-price-val {
+            font-size: 0.95rem;
+            font-weight: 900;
+        }
+
+        .price-div .pkg-price-currency {
+            font-size: 0.72rem;
+            opacity: 0.9;
+        }
+
+        .price-div .pkg-cell-flex {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .price-div .pkg-icon-mini {
+            width: 14px;
+            height: 14px;
+            fill: #38bdf8;
+            flex-shrink: 0;
+        }
+
+        .price-div .pkg-inf-icon {
+            font-size: 1rem;
+            color: #34d399;
+            line-height: 1;
+        }
+
         .im1::before {
             content: "سرعة في النت";
         }
@@ -417,7 +501,45 @@
                     var profHtml = '';
                     for (var p = 0; p < cfg.profiles.length; p++) {
                         var pi = cfg.profiles[p];
-                        profHtml += '<tr><td>' + (pi.price || '') + '</td><td>' + (pi.time || '') + '</td></tr>';
+                        var rawPrice = (pi.price || '').trim();
+                        var priceMatch = rawPrice.match(/^(\d+)\s*(.*)$/);
+                        var pNum = priceMatch ? priceMatch[1] : rawPrice;
+                        var pUnit = priceMatch && priceMatch[2] ? priceMatch[2] : 'ريال';
+                        var pTime = pi.time || '';
+                        var pTransfer = pi.transfer || pi.download || 'مفتوح';
+                        var pValidity = pi.validity || 'حسب الاستهلاك';
+
+                        var isUnlimited = pTransfer.indexOf('مفتوح') !== -1;
+                        var transferIcon = isUnlimited 
+                            ? '<span class="pkg-inf-icon">∞</span>'
+                            : '<svg class="pkg-icon-mini" viewBox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zm0 2.9a13.9 13.9 0 0 1 9.35 3.65L12 19.89 2.65 10.55A13.9 13.9 0 0 1 12 6.9z"/></svg>';
+
+                        profHtml += '<tr class="pkg-table-row">' +
+                            '<td class="pkg-cell-price">' +
+                                '<div class="pkg-price-gold-box">' +
+                                    '<span class="pkg-price-val">' + pNum + '</span>' +
+                                    '<span class="pkg-price-currency">' + pUnit + '</span>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td class="pkg-cell-time">' +
+                                '<div class="pkg-cell-flex">' +
+                                    '<span class="pkg-cell-text">' + pTime + '</span>' +
+                                    '<svg class="pkg-icon-mini" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td class="pkg-cell-transfer">' +
+                                '<div class="pkg-cell-flex">' +
+                                    '<span class="pkg-cell-text">' + pTransfer + '</span>' +
+                                    transferIcon +
+                                '</div>' +
+                            '</td>' +
+                            '<td class="pkg-cell-validity">' +
+                                '<div class="pkg-cell-flex">' +
+                                    '<span class="pkg-cell-text">' + pValidity + '</span>' +
+                                    '<svg class="pkg-icon-mini" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>' +
+                                '</div>' +
+                            '</td>' +
+                        '</tr>';
                     }
                     profBody.innerHTML = profHtml;
                 }
@@ -1312,6 +1434,8 @@
                                         <tr>
                                             <th scope="col">الفئة</th>
                                             <th scope="col">الوقت</th>
+                                            <th scope="col">الحجم</th>
+                                            <th scope="col">الصلاحية</th>
                                         </tr>
                                     </thead>
                                     <tbody id="profiles"></tbody>
@@ -1322,12 +1446,12 @@
                                     </svg>
                                     <span>رجوع</span>
                                 </button>
-                                <a href="tel:772131004" class="fab-support">
+                                <a href="tel:781797115" class="fab-support">
                                     <svg viewBox="0 0 24 24">
                                         <path
                                             d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                                     </svg>
-                                    <span class="contact" data-service-number>خدمة العملاء: 772131004</span>
+                                    <span class="contact" data-service-number>خدمة العملاء: 781797115</span>
                                 </a>
                             </div>
                         </div>
@@ -1358,12 +1482,12 @@
                                     </svg>
                                     <span>رجوع</span>
                                 </button>
-                                <a href="tel:772131004" class="fab-support">
+                                <a href="tel:781797115" class="fab-support">
                                     <svg viewBox="0 0 24 24">
                                         <path
                                             d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                                     </svg>
-                                    <span class="contact" data-service-number>خدمة العملاء: 772131004</span>
+                                    <span class="contact" data-service-number>خدمة العملاء: 781797115</span>
                                 </a>
                             </div>
                         </div>

@@ -8,6 +8,8 @@ export interface SpeedOption {
 export interface ProfileItem {
   price: string;
   time: string;
+  transfer?: string;
+  validity?: string;
 }
 
 export interface SellPointItem {

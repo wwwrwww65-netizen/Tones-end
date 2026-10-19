@@ -21,13 +21,10 @@ export const defaultConfig: NetworkConfig = {
     { name: 'سرعة عالية جدا', value: '1M/8M' },
   ],
   profiles: [
-    { price: '100 ريال', time: '3 ساعات' },
-    { price: '150 ريال', time: '5 ساعات' },
-    { price: '200 ريال', time: '8 ساعات' },
-    { price: '250 ريال', time: '12 ساعة' },
-    { price: '300 ريال', time: '18 ساعة' },
-    { price: '500 ريال', time: '36 ساعة' },
-    { price: '150 ريال', time: 'مفتوح' },
+    { price: '200 ريال', time: '12 ساعة', transfer: '800 ميجا', validity: '3 أيام' },
+    { price: '300 ريال', time: '6 ساعات', transfer: 'مفتوح', validity: 'يومان' },
+    { price: '500 ريال', time: '60 ساعة', transfer: '2500 ميجا', validity: '7 أيام' },
+    { price: '600 ريال', time: '12 ساعة', transfer: 'مفتوح', validity: '4 أيام' },
   ],
   sellPoints: [
     { name: 'البقالات ومراكز التوزيع في كافة مناطق التغطية' },

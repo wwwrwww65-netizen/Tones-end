@@ -1159,11 +1159,11 @@
             </div>
 
             <!-- 8. نافذة باقات وأسعار الكروت (profiles) -->
-            <div class="col-6">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-tags"></i> 8. نافذة باقات وأسعار الكروت ("profiles")
+                            <i class="fas fa-tags"></i> 8. نافذة باقات وأسعار الكروت ("profiles") - الفئة، الوقت، التحميل، الصلاحية
                         </h2>
                         <button class="btn btn-primary btn-sm" onclick="addNewProfile()">
                             <i class="fas fa-plus"></i> إضافة باقة
@@ -1175,8 +1175,10 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 45px; text-align: center;">#</th>
-                                        <th>السعر (price)</th>
-                                        <th>الوقت والصلاحية (time)</th>
+                                        <th>الفئة / السعر (price)</th>
+                                        <th>الوقت (time)</th>
+                                        <th>التحميل / الرصيد (transfer)</th>
+                                        <th>الصلاحية (validity)</th>
                                         <th style="width: 50px; text-align: center;">حذف</th>
                                     </tr>
                                 </thead>
@@ -1399,13 +1401,10 @@
             "app-octopus-url": "https://play.google.com/store/apps/details?id=com.alokhtoboot.plus",
             "app-store-base-url-ext": "",
             "profiles": [
-                { price: "100 ريال", time: "0 ساعات" },
-                { price: "150 ريال", time: "0 ساعات" },
-                { price: "200 ريال", time: "0 ساعات" },
-                { price: "250 ريال", time: "0 ساعات" },
-                { price: "300 ريال", time: "0 ساعات" },
-                { price: "500 ريال", time: "0 ساعات" },
-                { price: "150 ريال", time: "مفتوح " }
+                { price: "200 ريال", time: "12 ساعة", transfer: "800 ميجا", validity: "3 أيام" },
+                { price: "300 ريال", time: "6 ساعات", transfer: "مفتوح", validity: "يومان" },
+                { price: "500 ريال", time: "60 ساعة", transfer: "2500 ميجا", validity: "7 أيام" },
+                { price: "600 ريال", time: "12 ساعة", transfer: "مفتوح", validity: "4 أيام" }
             ],
             "sell-points": [
                 { name: "البقالات الموجودة في اماكن التغطية   " },
@@ -1645,10 +1644,16 @@
                 tr.innerHTML = `
                     <td style="text-align: center; color: var(--text-muted); font-weight: 700;">${idx + 1}</td>
                     <td>
-                        <input type="text" class="form-control" style="padding: 8px 12px; color: #f59e0b; font-weight: 700;" value="${p.price || ''}" placeholder="السعر مثل: 200 ريال" oninput="appConfig.profiles[${idx}].price = this.value;">
+                        <input type="text" class="form-control" style="padding: 8px 10px; color: #f59e0b; font-weight: 800;" value="${p.price || ''}" placeholder="200 ريال" oninput="appConfig.profiles[${idx}].price = this.value;">
                     </td>
                     <td>
-                        <input type="text" class="form-control" style="padding: 8px 12px;" value="${p.time || ''}" placeholder="الوقت مثل: 0 ساعات أو مفتوح" oninput="appConfig.profiles[${idx}].time = this.value;">
+                        <input type="text" class="form-control" style="padding: 8px 10px; color: #ffffff;" value="${p.time || ''}" placeholder="12 ساعة" oninput="appConfig.profiles[${idx}].time = this.value;">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" style="padding: 8px 10px; color: #38bdf8; font-weight: 700;" value="${p.transfer || ''}" placeholder="800 ميجا أو مفتوح" oninput="appConfig.profiles[${idx}].transfer = this.value;">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" style="padding: 8px 10px; color: #a7f3d0;" value="${p.validity || ''}" placeholder="3 أيام أو يومان" oninput="appConfig.profiles[${idx}].validity = this.value;">
                     </td>
                     <td style="text-align: center;">
                         <button class="btn btn-danger btn-sm btn-icon" onclick="deleteProfile(${idx})" title="حذف"><i class="fas fa-trash"></i></button>
@@ -1663,7 +1668,9 @@
             if (!appConfig.profiles) appConfig.profiles = [];
             appConfig.profiles.push({
                 price: "200 ريال",
-                time: "0 ساعات"
+                time: "12 ساعة",
+                transfer: "800 ميجا",
+                validity: "3 أيام"
             });
             renderProfilesTable();
             showToast('تمت إضافة باقة جديدة', 'success');
@@ -1730,7 +1737,13 @@
 
             // Profiles rows
             const profilesRows = (appConfig.profiles || []).map(p => {
-                return `    { price: ${jsonStr(p.price || '')}, time: ${jsonStr(p.time || '')} },`;
+                const parts = [
+                    `price: ${jsonStr(p.price || '')}`,
+                    `time: ${jsonStr(p.time || '')}`,
+                    `transfer: ${jsonStr(p.transfer || '')}`,
+                    `validity: ${jsonStr(p.validity || '')}`
+                ];
+                return `    { ${parts.join(', ')} },`;
             }).join('\n');
 
             // Sell points rows
