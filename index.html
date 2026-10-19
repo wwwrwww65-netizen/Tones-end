@@ -15,22 +15,42 @@
     <meta name="HandheldFriendly" content="true">
     <meta name="MobileOptimized" content="width">
     <meta name="theme-color" content="#090d16">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- التحميل المسبق الفوري للخطوط لمنع أي تشوه بصري أو تأخير أو تبديل خطوط (Zero FOUT) -->
-    <link rel="preload" href="fonts/almarai-700-ar.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/almarai-800-ar.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/cairo-700-ar.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- فحص حالة تسجيل الدخول على سيرفر ميكروتك بدون وميض (Zero-Flicker Server & URL Check) -->
+    <script>
+        var mikrotikLoggedIn = "$(logged-in)";
+        var isMikrotikLoggedIn = (mikrotikLoggedIn === "yes");
+        var isUrlStatus = (window.location.hash === "#status") || 
+                          (window.location.search.indexOf("logged_in=yes") !== -1);
+        var isLogout = (window.location.search.indexOf("logout=") !== -1);
+
+        if (!isLogout && (isMikrotikLoggedIn || isUrlStatus)) {
+            document.documentElement.classList.add("user-logged-in");
+            window.__IS_ALREADY_LOGGED_IN = true;
+        }
+    </script>
     <link rel="stylesheet" href="fonts/Almarai.css">
     <link rel="stylesheet" href="css/fontello.min.css">
     <link rel="stylesheet" href="css/style.min.css">
-    <link rel="stylesheet" href="css/loyalty-system.css">
-    <link rel="stylesheet" href="css/loyalty-modal.css">
-    <link rel="stylesheet" href="css/loyalty-modal-notifaction.css">
-    <script src="js/loyalty-button.js"></script>
-    <link rel="stylesheet" href="css/notifications-system.css">
-    <!-- Announcements System CSS -->
-    <link rel="stylesheet" href="css/announcements-style.css">
     <style>
+        /* Zero-Flicker Pre-Check: When user is already logged in, show status instantly and hide login */
+        html.user-logged-in #login {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        html.user-logged-in #status {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
         /* الخط الأساسي المعتمد لجميع عناصر الصفحة هو خط المراعي السميك فورياً وبخفة تامة */
         :root {
             --font-main: 'Almarai', 'Tajawal', 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
@@ -192,9 +212,27 @@
             -webkit-user-drag: none;
         }
 
-        /* Zero-Flicker instant suppression when update toggle is disabled in config */
+        /* Zero-Flicker instant suppression when features are disabled in config.js */
         html.update-toggle-disabled .toggle-container-modern,
-        html.update-toggle-disabled [data-update-toggle-block] {
+        html.update-toggle-disabled [data-update-toggle-block],
+        html.hide-update-toggle .toggle-container-modern,
+        html.hide-update-toggle [data-update-toggle-block],
+        html.hide-update-toggle #statusChupdateWrap,
+        html.hide-price-btn [data-price-button],
+        html.hide-sell-point-btn [data-sell-point-button],
+        html.hide-loan-btn [data-loan-button],
+        html.hide-loan-btn #btn-whats-new,
+        html.hide-esterahah-btn [data-esterahah-button],
+        html.hide-mobasher-btn [data-mobasher-button],
+        html.hide-app-detector-btn [data-app-detector-button],
+        html.hide-app-octopus-btn [data-app-octopus-button],
+        html.hide-app-store-status-btn [data-app-store-status-button],
+        html.hide-speed-mode .speed-selector-group,
+        html.hide-speed-mode #speed-modal,
+        html.hide-speed-mode #status-speed-modal,
+        html.hide-date-field [hot-date],
+        html.hide-date-field [hot-hijri-date],
+        html.hide-date-field [hot-time] {
             display: none !important;
         }
 
@@ -477,8 +515,17 @@
             transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, transform 0.4s ease;
         }
 
+        .error-container {
+            z-index: 999999 !important;
+        }
+
+        .error-container.active {
+            top: 14px !important;
+            pointer-events: auto !important;
+        }
+
         .top-notification-toast.show {
-            top: 20px;
+            top: 14px;
             opacity: 1;
             pointer-events: auto;
             animation: toastBounceIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -498,6 +545,7 @@
                 transform: translateX(-50%) scale(0.92);
             }
             100% {
+                top: 14px;
                 opacity: 1;
                 transform: translateX(-50%) scale(1);
             }
@@ -574,8 +622,32 @@
             transform: scale(1.1);
         }
     </style>
-    <script>
-        var hotspotConfig = window.hotspotConfig || {};
+        var hotspotConfig = window.hotspotConfig || {
+            "network-name": "العاطفي نت",
+            "service-number": "781797115",
+            "news-line": "{بسم الله الرحمن الرحيم} ( قل للمؤمنين يغضوا من أبصرهم ويحفظوا فروجهم ذلك ازكى لهم إن الله خبير بما يصنعون ) صدق الله العظيم",
+            "ad-images": ["1.jpg", "2.jpg"],
+            "enable-loyalty-system": false,
+            "login-speeds-mode": true,
+            "enable-ultra-speed": true,
+            "update-toggle-button": false,
+            "price-button": true,
+            "sell-point-button": true,
+            "loan-button": true,
+            "esterahah-button": true,
+            "mobasher-button": true,
+            "app-detector-button": false,
+            "app-octopus-button": false,
+            "app-store-status-button": false,
+            "speeds": [
+                { name: "سرعة اقتصادية", value: "1M" },
+                { name: "سرعة عادية", value: "2M", default: true, recommended: true },
+                { name: "سرعة متوسطة", value: "4M" },
+                { name: "سرعة عالية", value: "6M" },
+                { name: "سرعة هوتسبوت", value: "" }
+            ]
+        };
+        window.hotspotConfig = hotspotConfig;
         function applyInstantConfig(cfg) {
             if (!cfg) return;
             var netName = cfg['network-name'] ? ('' + cfg['network-name']).trim() : '';
@@ -700,38 +772,115 @@
                 var neb = document.getElementById('loan-news-extra-badge');
                 if (neb) neb.textContent = cfg['news-extra-badge'];
             }
-            if (cfg['price-button'] === false) {
-                var pBtns = document.querySelectorAll('[data-price-button]');
-                for (var pb = 0; pb < pBtns.length; pb++) pBtns[pb].style.display = 'none';
+
+            // =========================================================================
+            // DYNAMIC SPEEDS SYNCHRONIZATION FROM config.js (MikroTik Rate-Limits)
+            // =========================================================================
+            if (Array.isArray(cfg.speeds) && cfg.speeds.length > 0) {
+                var speeds = cfg.speeds;
+                var enableUltra = cfg['enable-ultra-speed'] !== false;
+                var filteredSpeeds = [];
+                for (var si = 0; si < speeds.length; si++) {
+                    if (speeds[si].value === '1M/8M' && !enableUltra) continue;
+                    filteredSpeeds.push(speeds[si]);
+                }
+
+                var defaultSpeed = null;
+                for (var di = 0; di < filteredSpeeds.length; di++) {
+                    if (filteredSpeeds[di].default === true) {
+                        defaultSpeed = filteredSpeeds[di];
+                        break;
+                    }
+                }
+                if (!defaultSpeed && filteredSpeeds.length > 0) defaultSpeed = filteredSpeeds[0];
+
+                // 1. Native select #speed
+                var speedSel = document.getElementById('speed');
+                if (speedSel) {
+                    var sOpts = '<option value="" disabled hidden>أختيار سرعة الإنترنت</option>';
+                    for (var oi = 0; oi < filteredSpeeds.length; oi++) {
+                        var spItem = filteredSpeeds[oi];
+                        var isSel = defaultSpeed && spItem.value === defaultSpeed.value ? ' selected' : '';
+                        sOpts += '<option value="' + spItem.value + '"' + isSel + '>' + spItem.name + '</option>';
+                    }
+                    speedSel.innerHTML = sOpts;
+                }
+
+                // 2. Native select #speedchange
+                var speedCh = document.getElementById('speedchange');
+                if (speedCh) {
+                    var chOpts = '<option value="cancel" hidden selected disabled>تغيير السرعة</option>';
+                    for (var ci = 0; ci < filteredSpeeds.length; ci++) {
+                        chOpts += '<option value="' + filteredSpeeds[ci].value + '">' + filteredSpeeds[ci].name + '</option>';
+                    }
+                    speedCh.innerHTML = chOpts;
+                }
+
+                // 3. Speed Modal Cards List
+                var modalList = document.getElementById('speedModalList');
+                if (modalList) {
+                    var mHtml = '';
+                    for (var mi = 0; mi < filteredSpeeds.length; mi++) {
+                        var item = filteredSpeeds[mi];
+                        var act = defaultSpeed && item.value === defaultSpeed.value ? ' active' : '';
+                        var rec = item.recommended ? ' <span style="opacity:0.85;font-size:0.85em;color:var(--accent-gold);">(الموصى بها)</span>' : '';
+                        mHtml += '<div class="speed-card-option' + act + '" data-speed="' + item.value + '" data-speed-title="' + item.name + '">' +
+                            '<div class="speed-card-indicator"><div class="speed-radio-dot"></div></div>' +
+                            '<div class="speed-card-info"><span class="speed-card-name">' + item.name + rec + '</span></div>' +
+                        '</div>';
+                    }
+                    modalList.innerHTML = mHtml;
+                    if (typeof window.bindLoginSpeedCards === 'function') window.bindLoginSpeedCards();
+                }
+
+                // 4. Status Speed Modal Cards List
+                var statusList = document.getElementById('statusSpeedModalList');
+                if (statusList) {
+                    var stHtml = '';
+                    for (var sti = 0; sti < filteredSpeeds.length; sti++) {
+                        var stItem = filteredSpeeds[sti];
+                        var stAct = defaultSpeed && stItem.value === defaultSpeed.value ? ' active' : '';
+                        var stRec = stItem.recommended ? ' <span style="opacity:0.85;font-size:0.85em;color:var(--accent-gold);">(الموصى بها)</span>' : '';
+                        stHtml += '<div class="speed-card-option' + stAct + '" data-status-speed="' + stItem.value + '" data-speed-title="' + stItem.name + '">' +
+                            '<div class="speed-card-indicator"><div class="speed-radio-dot"></div></div>' +
+                            '<div class="speed-card-info"><span class="speed-card-name">' + stItem.name + stRec + '</span></div>' +
+                        '</div>';
+                    }
+                    statusList.innerHTML = stHtml;
+                    if (typeof window.bindStatusSpeedCards === 'function') window.bindStatusSpeedCards();
+                }
+
+                // 5. Trigger button text
+                var selDisp = document.getElementById('selectedSpeedDisplay');
+                if (selDisp && defaultSpeed) {
+                    selDisp.textContent = defaultSpeed.name;
+                }
             }
-            if (cfg['sell-point-button'] === false) {
-                var spBtns = document.querySelectorAll('[data-sell-point-button]');
-                for (var spb = 0; spb < spBtns.length; spb++) spBtns[spb].style.display = 'none';
-            }
-            if (cfg['loan-button'] === false) {
-                var lnBtns = document.querySelectorAll('[data-loan-button]');
-                for (var lnb = 0; lnb < lnBtns.length; lnb++) lnBtns[lnb].style.display = 'none';
-            }
-            if (cfg['esterahah-button'] === false) {
-                var estBtns = document.querySelectorAll('[data-esterahah-button]');
-                for (var eb = 0; eb < estBtns.length; eb++) estBtns[eb].style.display = 'none';
-            }
-            if (cfg['mobasher-button'] === false) {
-                var mobBtns = document.querySelectorAll('[data-mobasher-button]');
-                for (var mb = 0; mb < mobBtns.length; mb++) mobBtns[mb].style.display = 'none';
-            }
-            if (cfg['app-detector-button'] === false) {
-                var detBtns = document.querySelectorAll('[data-app-detector-button]');
-                for (var db = 0; db < detBtns.length; db++) detBtns[db].style.display = 'none';
-            }
-            if (cfg['app-octopus-button'] === false) {
-                var octBtns = document.querySelectorAll('[data-app-octopus-button]');
-                for (var ob = 0; ob < octBtns.length; ob++) octBtns[ob].style.display = 'none';
-            }
-            if (cfg['app-store-status-button'] === true) {
-                var storeBtns = document.querySelectorAll('[data-app-store-status-button]');
-                for (var sb = 0; sb < storeBtns.length; sb++) storeBtns[sb].style.display = '';
-            }
+
+            // =========================================================================
+            // BUTTON VISIBILITY WITH STRICT INLINE !important OVERRIDES
+            // =========================================================================
+            var hideOrShow = function(selector, isShown) {
+                var els = document.querySelectorAll(selector);
+                for (var idx = 0; idx < els.length; idx++) {
+                    if (isShown === false) {
+                        els[idx].style.setProperty('display', 'none', 'important');
+                    } else if (isShown === true) {
+                        els[idx].style.removeProperty('display');
+                    }
+                }
+            };
+
+            hideOrShow('[data-price-button]', cfg['price-button']);
+            hideOrShow('[data-sell-point-button]', cfg['sell-point-button']);
+            hideOrShow('[data-loan-button], #btn-whats-new', cfg['loan-button']);
+            hideOrShow('[data-esterahah-button]', cfg['esterahah-button']);
+            hideOrShow('[data-mobasher-button]', cfg['mobasher-button']);
+            hideOrShow('[data-app-detector-button]', cfg['app-detector-button']);
+            hideOrShow('[data-app-octopus-button]', cfg['app-octopus-button']);
+            hideOrShow('[data-app-store-status-button]', cfg['app-store-status-button'] === true);
+            hideOrShow('.speed-selector-group, #speed-modal, #status-speed-modal', cfg['login-speeds-mode']);
+
             if (cfg['redirect-to-esterahah']) {
                 var estLinks = document.querySelectorAll('[data-esterahah-link]');
                 for (var el = 0; el < estLinks.length; el++) estLinks[el].setAttribute('href', cfg['redirect-to-esterahah']);
@@ -749,8 +898,7 @@
                 for (var ol = 0; ol < octLinks.length; ol++) octLinks[ol].setAttribute('href', cfg['app-octopus-url']);
             }
             if (cfg['update-toggle-button'] === false) {
-                var upToggles = document.querySelectorAll('.toggle-container-modern, [data-update-toggle-block]');
-                for (var ut = 0; ut < upToggles.length; ut++) upToggles[ut].style.display = 'none';
+                hideOrShow('.toggle-container-modern, [data-update-toggle-block], #statusChupdateWrap', false);
                 var chUp = document.getElementById('chupdate');
                 if (chUp) {
                     chUp.checked = false;
@@ -758,19 +906,50 @@
                 }
             }
         }
+
         function Config(a) {
             hotspotConfig = a;
             window.hotspotConfig = a;
-            if (a && a['enable-loyalty-system'] === false) {
-                document.documentElement.classList.add('loyalty-system-disabled');
-            } else {
-                document.documentElement.classList.remove('loyalty-system-disabled');
+
+            if (a) {
+                var docEl = document.documentElement;
+                if (a['enable-loyalty-system'] === false) docEl.classList.add('loyalty-system-disabled');
+                else docEl.classList.remove('loyalty-system-disabled');
+
+                if (a['price-button'] === false) docEl.classList.add('hide-price-btn');
+                else docEl.classList.remove('hide-price-btn');
+
+                if (a['sell-point-button'] === false) docEl.classList.add('hide-sell-point-btn');
+                else docEl.classList.remove('hide-sell-point-btn');
+
+                if (a['loan-button'] === false) docEl.classList.add('hide-loan-btn');
+                else docEl.classList.remove('hide-loan-btn');
+
+                if (a['esterahah-button'] === false) docEl.classList.add('hide-esterahah-btn');
+                else docEl.classList.remove('hide-esterahah-btn');
+
+                if (a['mobasher-button'] === false) docEl.classList.add('hide-mobasher-btn');
+                else docEl.classList.remove('hide-mobasher-btn');
+
+                if (a['app-detector-button'] === false) docEl.classList.add('hide-app-detector-btn');
+                else docEl.classList.remove('hide-app-detector-btn');
+
+                if (a['app-octopus-button'] === false) docEl.classList.add('hide-app-octopus-btn');
+                else docEl.classList.remove('hide-app-octopus-btn');
+
+                if (a['app-store-status-button'] !== true) docEl.classList.add('hide-app-store-status-btn');
+                else docEl.classList.remove('hide-app-store-status-btn');
+
+                if (a['update-toggle-button'] === false) docEl.classList.add('hide-update-toggle', 'update-toggle-disabled');
+                else docEl.classList.remove('hide-update-toggle', 'update-toggle-disabled');
+
+                if (a['login-speeds-mode'] === false) docEl.classList.add('hide-speed-mode');
+                else docEl.classList.remove('hide-speed-mode');
+
+                if (a['show-date-field'] === false) docEl.classList.add('hide-date-field');
+                else docEl.classList.remove('hide-date-field');
             }
-            if (a && a['update-toggle-button'] === false) {
-                document.documentElement.classList.add('update-toggle-disabled');
-            } else {
-                document.documentElement.classList.remove('update-toggle-disabled');
-            }
+
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', function() {
                     applyInstantConfig(a);
@@ -1107,12 +1286,11 @@
                                 <!-- Native select preserved hidden for script/form integration -->
                                 <select id="speed" name="domain" speed-field style="display: none;">
                                     <option value="" disabled hidden>أختيار سرعة الإنترنت</option>
-                                    <option value="128k/512k">سرعة اقتصادية</option>
-                                    <option selected value="256k/700k">سرعة عادية</option>
-                                    <option value="256k/1M">سرعة متوسطة</option>
-                                    <option value="512M/3M">سرعة عالية</option>
-                                    <option value="1M/8M" id="opt-speed-ultra" style="display: none;">سرعة عالية جدا
-                                    </option>
+                                    <option value="1M">سرعة اقتصادية</option>
+                                    <option selected value="2M">سرعة عادية</option>
+                                    <option value="4M">سرعة متوسطة</option>
+                                    <option value="6M">سرعة عالية</option>
+                                    <option value="">سرعة هوتسبوت</option>
                                 </select>
 
                                 <!-- Modern Interactive Speed Trigger Button -->
@@ -1258,7 +1436,7 @@
 
                         <div class="speed-cards-list" id="speedModalList">
                             <!-- Speed Option 1 -->
-                            <div class="speed-card-option" data-speed="128k/512k" data-speed-title="سرعة اقتصادية">
+                            <div class="speed-card-option" data-speed="1M" data-speed-title="سرعة اقتصادية">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
@@ -1268,17 +1446,17 @@
                             </div>
 
                             <!-- Speed Option 2 (Default / Active) -->
-                            <div class="speed-card-option active" data-speed="256k/700k" data-speed-title="سرعة عادية">
+                            <div class="speed-card-option active" data-speed="2M" data-speed-title="سرعة عادية">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
                                 <div class="speed-card-info">
-                                    <span class="speed-card-name">سرعة عادية (الموصى بها)</span>
+                                    <span class="speed-card-name">سرعة عادية <span style="opacity:0.85;font-size:0.85em;color:var(--accent-gold);">(الموصى بها)</span></span>
                                 </div>
                             </div>
 
                             <!-- Speed Option 3 -->
-                            <div class="speed-card-option" data-speed="256k/1M" data-speed-title="سرعة متوسطة">
+                            <div class="speed-card-option" data-speed="4M" data-speed-title="سرعة متوسطة">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
@@ -1288,7 +1466,7 @@
                             </div>
 
                             <!-- Speed Option 4 -->
-                            <div class="speed-card-option" data-speed="512M/3M" data-speed-title="سرعة عالية">
+                            <div class="speed-card-option" data-speed="6M" data-speed-title="سرعة عالية">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
@@ -1297,14 +1475,13 @@
                                 </div>
                             </div>
 
-                            <!-- Speed Option 5 (سرعة عالية جدا - تظهر وتختفي تلقائياً حسب إعداد enable-ultra-speed) -->
-                            <div class="speed-card-option" id="card-speed-ultra" data-speed="1M/8M"
-                                data-speed-title="سرعة عالية جدا" style="display: none;">
+                            <!-- Speed Option 5 -->
+                            <div class="speed-card-option" data-speed="" data-speed-title="سرعة هوتسبوت">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
                                 <div class="speed-card-info">
-                                    <span class="speed-card-name">سرعة عالية جدا</span>
+                                    <span class="speed-card-name">سرعة هوتسبوت</span>
                                 </div>
                             </div>
                         </div>
@@ -1689,8 +1866,7 @@
 
                         <div class="speed-cards-list" id="statusSpeedModalList">
                             <!-- Speed Option 1 -->
-                            <div class="speed-card-option" data-status-speed="128k/512k"
-                                data-speed-title="سرعة اقتصادية">
+                            <div class="speed-card-option" data-status-speed="1M" data-speed-title="سرعة اقتصادية">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
@@ -1700,17 +1876,17 @@
                             </div>
 
                             <!-- Speed Option 2 -->
-                            <div class="speed-card-option" data-status-speed="256k/700k" data-speed-title="سرعة عادية">
+                            <div class="speed-card-option active" data-status-speed="2M" data-speed-title="سرعة عادية">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
                                 <div class="speed-card-info">
-                                    <span class="speed-card-name">سرعة عادية (الموصى بها)</span>
+                                    <span class="speed-card-name">سرعة عادية <span style="opacity:0.85;font-size:0.85em;color:var(--accent-gold);">(الموصى بها)</span></span>
                                 </div>
                             </div>
 
                             <!-- Speed Option 3 -->
-                            <div class="speed-card-option" data-status-speed="256k/1M" data-speed-title="سرعة متوسطة">
+                            <div class="speed-card-option" data-status-speed="4M" data-speed-title="سرعة متوسطة">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
@@ -1720,7 +1896,7 @@
                             </div>
 
                             <!-- Speed Option 4 -->
-                            <div class="speed-card-option" data-status-speed="512M/3M" data-speed-title="سرعة عالية">
+                            <div class="speed-card-option" data-status-speed="6M" data-speed-title="سرعة عالية">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
@@ -1729,14 +1905,13 @@
                                 </div>
                             </div>
 
-                            <!-- Speed Option 5 (سرعة عالية جدا - تظهر وتختفي تلقائياً حسب إعداد enable-ultra-speed) -->
-                            <div class="speed-card-option" id="card-status-speed-ultra" data-status-speed="1M/8M"
-                                data-speed-title="سرعة عالية جدا" style="display: none;">
+                            <!-- Speed Option 5 -->
+                            <div class="speed-card-option" data-status-speed="" data-speed-title="سرعة هوتسبوت">
                                 <div class="speed-card-indicator">
                                     <div class="speed-radio-dot"></div>
                                 </div>
                                 <div class="speed-card-info">
-                                    <span class="speed-card-name">سرعة عالية جدا</span>
+                                    <span class="speed-card-name">سرعة هوتسبوت</span>
                                 </div>
                             </div>
                         </div>
@@ -2242,7 +2417,6 @@
     </div>
 
     <!-- Hotspot System Scripts -->
-    <script src="js/jsqr.min.js"></script>
     <script src="js/init.min.js"></script>
     <script src="js/hotInImprover.min.js"></script>
     <script src="js/hotCookie.min.js"></script>
@@ -2612,44 +2786,9 @@
                     : ['1.jpg', '2.jpg'];
                 renderCarousel(initialConfigImgs);
 
-                // 2. Smart Sync for adimg folder (Supports 1.jpg to 7.jpg as in previous project)
-                fetch('/api/v1/ad-images')
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data && data.success && Array.isArray(data.images) && data.images.length > 0) {
-                            renderCarousel(data.images);
-                        } else {
-                            probeSevenAdImages();
-                        }
-                    })
-                    .catch(() => {
-                        probeSevenAdImages();
-                    });
-
-                function probeSevenAdImages() {
-                    const candidateNames = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg'];
-                    const foundImages = [];
-                    let finished = 0;
-
-                    candidateNames.forEach(function (fileName) {
-                        const testImg = new Image();
-                        testImg.onload = function () {
-                            foundImages.push(fileName);
-                            finished++;
-                            if (finished === candidateNames.length && foundImages.length > 0) {
-                                foundImages.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
-                                renderCarousel(foundImages);
-                            }
-                        };
-                        testImg.onerror = function () {
-                            finished++;
-                            if (finished === candidateNames.length && foundImages.length > 0) {
-                                foundImages.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
-                                renderCarousel(foundImages);
-                            }
-                        };
-                        testImg.src = './adimg/' + fileName;
-                    });
+                // 2. Dynamic Update listener for config changes
+                if (window.hotspotConfig && Array.isArray(window.hotspotConfig['ad-images']) && window.hotspotConfig['ad-images'].length > 0) {
+                    renderCarousel(window.hotspotConfig['ad-images']);
                 }
             }
 
@@ -2874,12 +3013,17 @@
             const speedchange = document.getElementById('speedchange');
 
             let speedLabelMap = {
-                '128k/512k': 'سرعة اقتصادية',
-                '256k/700k': 'سرعة عادية',
-                '256k/1M': 'سرعة متوسطة',
-                '512M/3M': 'سرعة عالية',
-                '1M/8M': 'سرعة عالية جدا'
+                '1M': 'سرعة اقتصادية',
+                '2M': 'سرعة عادية',
+                '4M': 'سرعة متوسطة',
+                '6M': 'سرعة عالية',
+                '': 'سرعة هوتسبوت'
             };
+            if (window.hotspotConfig && Array.isArray(window.hotspotConfig.speeds)) {
+                window.hotspotConfig.speeds.forEach(function(s) {
+                    if (s && s.name) speedLabelMap[s.value] = s.name;
+                });
+            }
 
             function updateSpeedSelection(val, title, clickedCard) {
                 if (speedSelect) {
@@ -4555,9 +4699,20 @@
             setTimeout(updateProgressRing, 400);
         })();
     </script>
-    <script src="js/loyalty-system/loyalty-integration.js"></script>
+    <script>
+        (function() {
+            var cfg = window.hotspotConfig || {};
+            if (cfg['enable-loyalty-system'] === true) {
+                var s1 = document.createElement('script');
+                s1.src = 'js/loyalty-system/loyalty-integration.js';
+                document.body.appendChild(s1);
 
-    <script src="js/notifications-system/notifications-integration.js"></script>
+                var s2 = document.createElement('script');
+                s2.src = 'js/notifications-system/notifications-integration.js';
+                document.body.appendChild(s2);
+            }
+        })();
+    </script>
 </body>
 
 </html>
