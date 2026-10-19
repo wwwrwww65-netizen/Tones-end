@@ -75,10 +75,10 @@ body.loyalty-system-disabled [data-loyalty-element] {
 }
 
 .loyalty-modal-content {
-  background: linear-gradient(165deg, #1f2937 0%, #0f172a 50%, #030712 100%) !important;
+  background: linear-gradient(165deg, #273752 0%, #1a253a 50%, #111a2a 100%) !important;
   border: 1.5px solid rgba(212, 175, 55, 0.55) !important;
   border-radius: 20px !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.25) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 175, 55, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.24) !important;
   width: 100%;
   max-width: 440px;
   max-height: 86vh;
@@ -268,17 +268,19 @@ button.loyalty-btn:active {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  background: rgba(11, 15, 25, 0.35);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: linear-gradient(135deg, rgba(38, 52, 82, 0.82) 0%, rgba(25, 35, 56, 0.88) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 12px;
   padding: 10px 14px;
   transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.18);
 }
 
 .card-type-item:hover {
-  background: rgba(30, 41, 59, 0.5);
+  background: linear-gradient(135deg, rgba(48, 66, 102, 0.92) 0%, rgba(32, 45, 72, 0.95) 100%);
   border-color: #D4AF37;
   transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.25);
 }
 
 .card-type-item .card-info {
@@ -310,17 +312,19 @@ button.loyalty-btn:active {
 
 /* Saved Cards Items in Modal */
 .saved-card-item {
-  background: rgba(11, 15, 25, 0.35) !important;
-  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  background: linear-gradient(135deg, rgba(38, 52, 82, 0.82) 0%, rgba(25, 35, 56, 0.88) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
   border-radius: 12px !important;
   padding: 12px 14px !important;
   margin-bottom: 10px !important;
   transition: all 0.2s ease !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.18) !important;
 }
 
 .saved-card-item:hover {
+  background: linear-gradient(135deg, rgba(48, 66, 102, 0.92) 0%, rgba(32, 45, 72, 0.95) 100%) !important;
   border-color: #D4AF37 !important;
-  background: rgba(30, 41, 59, 0.5) !important;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.25) !important;
 }
 
 .card-code {

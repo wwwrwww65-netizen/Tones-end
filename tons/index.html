@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title data-network-name>شبكة{{network-name}} اللاسلكيه</title>
+    <title data-network-name>شبكة العاطفي نت اللاسلكيه</title>
+    <meta name="description" content="بوابة تسجيل الدخول لشبكة العاطفي نت اللاسلكية بنظام ميكروتك (MikroTik Hotspot Portal) مع إدارة السرعات، فحص الكروت، والأسعار">
+    <meta property="og:title" content="شبكة العاطفي نت اللاسلكيه">
+    <meta property="og:description" content="بوابة تسجيل الدخول لشبكة العاطفي نت اللاسلكية بنظام ميكروتك (MikroTik Hotspot Portal) مع إدارة السرعات، فحص الكروت، والأسعار">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -73,7 +76,437 @@
         img {
             -webkit-user-drag: none;
         }
+
+        /* Zero-Flicker instant suppression when update toggle is disabled in config */
+        html.update-toggle-disabled .toggle-container-modern,
+        html.update-toggle-disabled [data-update-toggle-block] {
+            display: none !important;
+        }
+
+        /* ==========================================================================
+           2026 ULTRA-MODERN STATUS DASHBOARD CARDS & METER (Matching Visual Design)
+           ========================================================================== */
+        .status-modern-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+            width: 100%;
+        }
+
+        /* ==========================================================================
+           2026 ULTRA-MODERN STATUS DASHBOARD CARDS & METER (High-Performance Neon)
+           ========================================================================== */
+        .status-modern-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+            width: 100%;
+            transform: translateZ(0);
+        }
+
+        .status-main-meter-card {
+            background: linear-gradient(150deg, rgba(34, 48, 76, 0.92) 0%, rgba(24, 34, 56, 0.96) 50%, rgba(18, 26, 44, 0.98) 100%);
+            border: 1.5px solid rgba(212, 175, 55, 0.55);
+            border-radius: 24px;
+            padding: 20px 22px;
+            box-shadow: 0 16px 42px rgba(0, 0, 0, 0.65), 0 0 28px rgba(212, 175, 55, 0.2), inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+            will-change: transform;
+            contain: paint;
+        }
+
+        .status-main-meter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+            box-shadow: 0 0 10px #D4AF37;
+        }
+
+        .meter-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+
+        .meter-info-side {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: right;
+        }
+
+        .meter-label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meter-main-value-wrap {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .meter-val-large {
+            font-size: 1.65rem;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.2;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+        }
+
+        .meter-ring-side {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transform: translateZ(0);
+        }
+
+        .circular-progress-wrap {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-ring-svg {
+            width: 76px;
+            height: 76px;
+            transform: rotate(-90deg);
+            display: block;
+        }
+
+        .ring-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.15);
+            stroke-width: 6.5;
+        }
+
+        .ring-fill {
+            fill: none;
+            stroke: #fbbf24;
+            stroke-width: 7;
+            stroke-linecap: round;
+            stroke-dasharray: 201.06;
+            stroke-dashoffset: 50.26;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .ring-percent-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #fbbf24;
+            letter-spacing: -0.5px;
+            direction: ltr;
+            text-align: center;
+            line-height: 1;
+            pointer-events: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .meter-consumption-capsule {
+            background: linear-gradient(135deg, rgba(38, 52, 82, 0.88) 0%, rgba(24, 34, 54, 0.94) 100%);
+            border: 1.2px solid rgba(212, 175, 55, 0.45);
+            border-radius: 40px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.2);
+            transform: translateZ(0);
+        }
+
+        .capsule-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            text-align: center;
+        }
+
+        .capsule-label {
+            font-size: 0.86rem;
+            color: #94a3b8;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .capsule-val.emerald {
+            color: #34d399;
+            font-weight: 900;
+            font-size: 1.05rem;
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
+        }
+
+        .capsule-val.rose {
+            color: #38bdf8;
+            font-weight: 900;
+            font-size: 1.05rem;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+        }
+
+        .capsule-center-badge {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #2d3e5e 0%, #162136 100%);
+            border: 2px solid #D4AF37;
+            color: #D4AF37;
+            font-weight: 800;
+            font-size: 0.82rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(212, 175, 55, 0.25);
+            flex-shrink: 0;
+            transform: translateZ(0);
+        }
+
+        .status-pill-metric-card {
+            background: linear-gradient(145deg, rgba(34, 48, 76, 0.88) 0%, rgba(22, 32, 54, 0.94) 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.22);
+            border-radius: 35px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+            transition: border-color 0.18s ease, box-shadow 0.18s ease;
+            transform: translateZ(0);
+            will-change: transform;
+            contain: paint;
+        }
+
+        .status-pill-metric-card:hover {
+            border-color: rgba(212, 175, 55, 0.65);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+
+        .pill-metric-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pill-metric-label {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .pill-metric-val {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .pill-indicator-dot {
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.95;
+        }
     </style>
+    <script>
+        var hotspotConfig = window.hotspotConfig || {};
+        function applyInstantConfig(cfg) {
+            if (!cfg) return;
+            var netName = cfg['network-name'] ? ('' + cfg['network-name']).trim() : '';
+            var newsLine = cfg['news-line'] ? ('' + cfg['news-line']).trim() : '';
+            var srvNum = cfg['service-number'] ? ('' + cfg['service-number']).trim() : '';
+
+            if (netName) {
+                document.title = 'شبكة ' + netName + ' اللاسلكيه';
+                var brandEls = document.querySelectorAll('[data-network-name]');
+                for (var i = 0; i < brandEls.length; i++) {
+                    brandEls[i].textContent = netName;
+                }
+                var h1 = document.querySelector('h1');
+                if (h1 && (h1.textContent.indexOf('مرحبا بك') !== -1 || h1.hasAttribute('data-welcome-title'))) {
+                    h1.textContent = 'مرحبا بك في شبكة ' + netName + ' اللاسلكيه';
+                }
+            }
+            if (newsLine) {
+                var newsEls = document.querySelectorAll('[data-news-line]');
+                for (var j = 0; j < newsEls.length; j++) {
+                    newsEls[j].textContent = newsLine;
+                }
+            }
+            if (srvNum) {
+                var srvEls = document.querySelectorAll('[data-service-number]');
+                for (var k = 0; k < srvEls.length; k++) {
+                    srvEls[k].textContent = 'خدمة العملاء: ' + srvNum;
+                }
+                var srvLinks = document.querySelectorAll('a[href^="tel:"]');
+                for (var l = 0; l < srvLinks.length; l++) {
+                    srvLinks[l].setAttribute('href', 'tel:' + srvNum);
+                }
+                var cleanPhone = srvNum.replace(/\D/g, '');
+                var waPhone = cleanPhone.startsWith('967') ? cleanPhone : ('967' + cleanPhone);
+                var waText = encodeURIComponent('مرحبا خدمة عملاء شبكة ' + (netName || 'العاطفي نت') + ' اللاسلكية');
+                var waLinks = document.querySelectorAll('.support-btn-whatsapp');
+                for (var m = 0; m < waLinks.length; m++) {
+                    waLinks[m].setAttribute('href', 'whatsapp://send?phone=' + waPhone + '&text=' + waText);
+                }
+            }
+            if (Array.isArray(cfg.profiles) && cfg.profiles.length > 0) {
+                var profBody = document.getElementById('profiles');
+                if (profBody) {
+                    var profHtml = '';
+                    for (var p = 0; p < cfg.profiles.length; p++) {
+                        var pi = cfg.profiles[p];
+                        profHtml += '<tr><td>' + (pi.price || '') + '</td><td>' + (pi.time || '') + '</td></tr>';
+                    }
+                    profBody.innerHTML = profHtml;
+                }
+            }
+            if (Array.isArray(cfg['sell-points']) && cfg['sell-points'].length > 0) {
+                var spBody = document.getElementById('sell-points');
+                if (spBody) {
+                    var spHtml = '';
+                    for (var s = 0; s < cfg['sell-points'].length; s++) {
+                        var spi = cfg['sell-points'][s];
+                        spHtml += '<tr><td>' + (spi.name || '') + '</td></tr>';
+                    }
+                    spBody.innerHTML = spHtml;
+                }
+            }
+            if (cfg['news-title']) {
+                var nt = document.getElementById('loan-news-title');
+                if (nt) nt.textContent = cfg['news-title'];
+            }
+            if (cfg['news-content']) {
+                var nc = document.getElementById('loan-news-content');
+                if (nc) nc.innerHTML = cfg['news-content'];
+            }
+            if (cfg['news-code']) {
+                var ncd = document.getElementById('loan-news-code');
+                if (ncd) ncd.textContent = cfg['news-code'];
+            }
+            if (cfg['news-extra-title']) {
+                var net = document.getElementById('loan-news-extra-title');
+                if (net) net.textContent = cfg['news-extra-title'];
+            }
+            if (cfg['news-extra-content']) {
+                var nec = document.getElementById('loan-news-extra-content');
+                if (nec) nec.textContent = cfg['news-extra-content'];
+            }
+            if (cfg['news-extra-badge']) {
+                var neb = document.getElementById('loan-news-extra-badge');
+                if (neb) neb.textContent = cfg['news-extra-badge'];
+            }
+            if (cfg['price-button'] === false) {
+                var pBtns = document.querySelectorAll('[data-price-button]');
+                for (var pb = 0; pb < pBtns.length; pb++) pBtns[pb].style.display = 'none';
+            }
+            if (cfg['sell-point-button'] === false) {
+                var spBtns = document.querySelectorAll('[data-sell-point-button]');
+                for (var spb = 0; spb < spBtns.length; spb++) spBtns[spb].style.display = 'none';
+            }
+            if (cfg['loan-button'] === false) {
+                var lnBtns = document.querySelectorAll('[data-loan-button]');
+                for (var lnb = 0; lnb < lnBtns.length; lnb++) lnBtns[lnb].style.display = 'none';
+            }
+            if (cfg['esterahah-button'] === false) {
+                var estBtns = document.querySelectorAll('[data-esterahah-button]');
+                for (var eb = 0; eb < estBtns.length; eb++) estBtns[eb].style.display = 'none';
+            }
+            if (cfg['mobasher-button'] === false) {
+                var mobBtns = document.querySelectorAll('[data-mobasher-button]');
+                for (var mb = 0; mb < mobBtns.length; mb++) mobBtns[mb].style.display = 'none';
+            }
+            if (cfg['app-detector-button'] === false) {
+                var detBtns = document.querySelectorAll('[data-app-detector-button]');
+                for (var db = 0; db < detBtns.length; db++) detBtns[db].style.display = 'none';
+            }
+            if (cfg['app-octopus-button'] === false) {
+                var octBtns = document.querySelectorAll('[data-app-octopus-button]');
+                for (var ob = 0; ob < octBtns.length; ob++) octBtns[ob].style.display = 'none';
+            }
+            if (cfg['app-store-status-button'] === true) {
+                var storeBtns = document.querySelectorAll('[data-app-store-status-button]');
+                for (var sb = 0; sb < storeBtns.length; sb++) storeBtns[sb].style.display = '';
+            }
+            if (cfg['redirect-to-esterahah']) {
+                var estLinks = document.querySelectorAll('[data-esterahah-link]');
+                for (var el = 0; el < estLinks.length; el++) estLinks[el].setAttribute('href', cfg['redirect-to-esterahah']);
+            }
+            if (cfg['redirect-to-mobasher']) {
+                var mobLinks = document.querySelectorAll('[data-mobasher-link]');
+                for (var ml = 0; ml < mobLinks.length; ml++) mobLinks[ml].setAttribute('href', cfg['redirect-to-mobasher']);
+            }
+            if (cfg['app-detector-url']) {
+                var detLinks = document.querySelectorAll('[data-app-detector-link]');
+                for (var dl = 0; dl < detLinks.length; dl++) detLinks[dl].setAttribute('href', cfg['app-detector-url']);
+            }
+            if (cfg['app-octopus-url']) {
+                var octLinks = document.querySelectorAll('[data-app-octopus-link]');
+                for (var ol = 0; ol < octLinks.length; ol++) octLinks[ol].setAttribute('href', cfg['app-octopus-url']);
+            }
+            if (cfg['update-toggle-button'] === false) {
+                var upToggles = document.querySelectorAll('.toggle-container-modern, [data-update-toggle-block]');
+                for (var ut = 0; ut < upToggles.length; ut++) upToggles[ut].style.display = 'none';
+                var chUp = document.getElementById('chupdate');
+                if (chUp) {
+                    chUp.checked = false;
+                    chUp.value = '_Uon';
+                }
+            }
+        }
+        function Config(a) {
+            hotspotConfig = a;
+            window.hotspotConfig = a;
+            if (a && a['enable-loyalty-system'] === false) {
+                document.documentElement.classList.add('loyalty-system-disabled');
+            } else {
+                document.documentElement.classList.remove('loyalty-system-disabled');
+            }
+            if (a && a['update-toggle-button'] === false) {
+                document.documentElement.classList.add('update-toggle-disabled');
+            } else {
+                document.documentElement.classList.remove('update-toggle-disabled');
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    applyInstantConfig(a);
+                });
+            } else {
+                applyInstantConfig(a);
+            }
+        }
+    </script>
+    <script src="config/config.js"></script>
     <script src="js/security.min.js"></script>
 </head>
 
@@ -227,7 +660,7 @@
                                 </svg>
                             </div>
                             <div class="brand-info">
-                                <span class="brand-name" data-network-name>{{network-name}}</span>
+                                <span class="brand-name" data-network-name>العاطفي نت</span>
                             </div>
                         </div>
 
@@ -247,40 +680,26 @@
                     <section class="section">
                         <div class="ticker-container">
                             <div class="ticker-content-track">
-                                <p class="marquee" data-news-line>{{news-line}}</p>
+                                <p class="marquee" data-news-line>{بسم الله الرحمن الرحيم} ( قل للمؤمنين يغضوا من أبصرهم ويحفظوا فروجهم ذلك ازكى لهم إن الله خبير بما يصنعون ) صدق الله العظيم</p>
                             </div>
                         </div>
                     </section>
 
 
                     <!-- Main Welcome Title -->
-                    <h1>مرحبا بك في شبكة تونس نت الاسلكيه</h1>
+                    <h1>مرحبا بك في شبكة العاطفي نت الاسلكيه</h1>
 
                     <!-- 2026 Swipeable Touch Carousel (With 3D Legacy compatibility) -->
-                    <div class="ads-carousel-wrapper">
+                    <div class="ads-carousel-wrapper" id="adsCarouselWrapper">
                         <div class="carousel-container" id="adCarousel">
                             <div class="carousel-track" id="carouselTrack">
                                 <div class="carousel-slide">
                                     <img class="im1" src="./adimg/1.jpg" alt="إعلان 1" fetchpriority="high"
-                                        decoding="async">
+                                        decoding="sync">
                                 </div>
                                 <div class="carousel-slide">
-                                    <img class="im2" src="./adimg/2.jpg" alt="إعلان 2" loading="lazy" decoding="async">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img class="im3" src="./adimg/3.jpg" alt="إعلان 3" loading="lazy" decoding="async">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img class="im4" src="./adimg/4.jpg" alt="إعلان 4" loading="lazy" decoding="async">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img class="im5" src="./adimg/5.jpg" alt="إعلان 5" loading="lazy" decoding="async">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img class="im6" src="./adimg/6.jpg" alt="إعلان 6" loading="lazy" decoding="async">
-                                </div>
-                                <div class="carousel-slide">
-                                    <img class="im7" src="./adimg/7.jpg" alt="إعلان 7" loading="lazy" decoding="async">
+                                    <img class="im2" src="./adimg/2.jpg" alt="إعلان 2" fetchpriority="high"
+                                        decoding="sync">
                                 </div>
                             </div>
                             <button class="carousel-nav-btn prev" id="carouselPrev" aria-label="السابق">❮</button>
@@ -289,29 +708,19 @@
                         <div class="carousel-dots" id="carouselDots">
                             <span class="carousel-dot active"></span>
                             <span class="carousel-dot"></span>
-                            <span class="carousel-dot"></span>
-                            <span class="carousel-dot"></span>
-                            <span class="carousel-dot"></span>
-                            <span class="carousel-dot"></span>
-                            <span class="carousel-dot"></span>
                         </div>
 
                         <!-- Preserving legacy .ads .box for any legacy script checks -->
                         <div class="ads" style="display: none;">
-                            <div class="box">
+                            <div class="box" id="legacyAdsBox">
                                 <span style="--i:1"><img class="im1" src="./adimg/1.jpg"></span>
                                 <span style="--i:2"><img class="im2" src="./adimg/2.jpg"></span>
-                                <span style="--i:3"><img class="im3" src="./adimg/3.jpg"></span>
-                                <span style="--i:4"><img class="im4" src="./adimg/4.jpg"></span>
-                                <span style="--i:5"><img class="im5" src="./adimg/5.jpg"></span>
-                                <span style="--i:6"><img class="im6" src="./adimg/6.jpg"></span>
-                                <span style="--i:7"><img class="im7" src="./adimg/7.jpg"></span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Unregistered Loyalty Section -->
-                    <div id="loyalty-unregistered-section">
+                    <div id="loyalty-unregistered-section" style="display: none;">
                         <!-- Notice / Points System Alert Box -->
                         <div class="points-notice-alert" role="alert">
                             <div class="notice-icon-wrap">
@@ -493,7 +902,7 @@
                             </div>
 
                             <!-- Updates & App Store Blocker Toggle -->
-                            <div class="toggle-container-modern">
+                            <div class="toggle-container-modern" data-update-toggle-block>
                                 <div class="toggle-info">
                                     <span class="toggle-title">
                                         <svg viewBox="0 0 24 24" class="section-icon">
@@ -532,7 +941,7 @@
                         </div>
                         <div class="support-actions-grid">
                             <!-- WhatsApp Button with Country Code +967 and formatted pre-filled greeting message -->
-                            <a href="whatsapp://send?phone=967772131004&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20%D8%AA%D9%88%D9%86%D8%B3%20%D9%86%D8%AA%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
+                            <a href="whatsapp://send?phone=967781797115&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20%D8%A7%D9%84%D8%B9%D8%A7%D8%B7%D9%81%D9%8A%20%D9%86%D8%AA%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
                                 class="support-btn support-btn-whatsapp" aria-label="مراسلة واتساب">
                                 <svg viewBox="0 0 24 24" class="support-btn-icon">
                                     <path
@@ -542,7 +951,7 @@
                             </a>
 
                             <!-- Direct Phone Call Button (Without country code for native phone dialer) -->
-                            <a href="tel:772131004" class="support-btn support-btn-call" aria-label="اتصال مباشر">
+                            <a href="tel:781797115" class="support-btn support-btn-call" aria-label="اتصال مباشر">
                                 <svg viewBox="0 0 24 24" class="support-btn-icon">
                                     <path
                                         d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.11 15.11 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.61c0-.55-.45-1-1-1z" />
@@ -559,7 +968,7 @@
                     </div>
                 </div>
                 <div id="announcements-container"></div>
-                <div class="banner-container" style="background: rgb(184, 24, 24);border-radius: 10px;"> </div>
+                <div class="banner-container" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(11, 15, 25, 0.9)); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; overflow: hidden;"> </div>
                 <!-- 2026 MODAL BOTTOM SHEET: SPEED SELECTOR POPUP (#speed-modal) -->
                 <div class="app" id="speed-modal">
                     <div class="modal-sheet-card compact-speed-card">
@@ -887,7 +1296,7 @@
                                         <path
                                             d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                                     </svg>
-                                    <span class="contact" data-service-number>خدمة العملاء: {{service-number}}</span>
+                                    <span class="contact" data-service-number>خدمة العملاء: 772131004</span>
                                 </a>
                             </div>
                         </div>
@@ -923,7 +1332,7 @@
                                         <path
                                             d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                                     </svg>
-                                    <span class="contact" data-service-number>خدمة العملاء: {{service-number}}</span>
+                                    <span class="contact" data-service-number>خدمة العملاء: 772131004</span>
                                 </a>
                             </div>
                         </div>
@@ -977,12 +1386,12 @@
                                     </svg>
                                     <span>رجوع</span>
                                 </button>
-                                <a href="tel:772131004" class="fab-support">
+                                <a href="tel:781797115" class="fab-support">
                                     <svg viewBox="0 0 24 24">
                                         <path
                                             d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                                     </svg>
-                                    <span class="contact" data-service-number>خدمة العملاء: {{service-number}}</span>
+                                    <span class="contact" data-service-number>خدمة العملاء: 781797115</span>
                                 </a>
                             </div>
                         </div>
@@ -1100,13 +1509,13 @@
                         <section class="section" style="margin-top: 10px; margin-bottom: 10px;">
                             <div class="ticker-container">
                                 <div class="ticker-content-track">
-                                    <p class="marquee" data-news-line>{{news-line}}</p>
+                                    <p class="marquee" data-news-line>{بسم الله الرحمن الرحيم} ( قل للمؤمنين يغضوا من أبصرهم ويحفظوا فروجهم ذلك ازكى لهم إن الله خبير بما يصنعون ) صدق الله العظيم</p>
                                 </div>
                             </div>
                         </section>
 
                         <!-- Unregistered Loyalty Section in Status Screen -->
-                        <div id="loyalty-unregistered-section-status">
+                        <div id="loyalty-unregistered-section-status" style="display: none;">
                             <!-- Notice / Points System Alert Box -->
                             <div class="points-notice-alert" role="alert">
                                 <div class="notice-icon-wrap">
@@ -1203,14 +1612,14 @@
 
                         <!-- Entertainment Direct Links -->
                         <div class="entertainment-links">
-                            <a class="stream-card-link" href="http://30.10.10.10" target="_blank">
+                            <a class="stream-card-link" href="http://30.10.10.10" target="_blank" data-esterahah-button data-esterahah-link>
                                 <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor;">
                                     <path
                                         d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z" />
                                 </svg>
                                 <span>الاستراحة</span>
                             </a>
-                            <a class="stream-card-link" href="http://30.10.10.10:88" target="_blank">
+                            <a class="stream-card-link" href="http://30.10.10.10:88" target="_blank" data-mobasher-button data-mobasher-link>
                                 <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor;">
                                     <path
                                         d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zm-11-2l6-4-6-4v8z" />
@@ -1221,13 +1630,13 @@
 
                         <!-- User Requested App Download Links -->
                         <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
-                            <a class="stream-card-link" href="https://play.google.com/store/apps/details?id=com.glasswire.android" target="_blank" style="justify-content: center;">
+                            <a class="stream-card-link" href="https://play.google.com/store/apps/details?id=com.glasswire.android" target="_blank" style="justify-content: center;" data-app-detector-button data-app-detector-link>
                                 <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor; margin-left: 6px;">
                                     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
                                 </svg>
                                 <span style="font-size: 0.78rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">تنزيل تطبيق كشف التطبيقات التي تستهلك النت</span>
                             </a>
-                            <a class="stream-card-link" href="https://play.google.com/store/apps/details?id=com.alokhtoboot.plus" target="_blank" style="justify-content: center;">
+                            <a class="stream-card-link" href="https://play.google.com/store/apps/details?id=com.alokhtoboot.plus" target="_blank" style="justify-content: center;" data-app-octopus-button data-app-octopus-link>
                                 <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor; margin-left: 6px;">
                                     <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                                 </svg>
@@ -1271,7 +1680,7 @@
                         </div>
 
                         <!-- Updates & App Store Blocker Toggle (Identical to Login Screen) -->
-                        <div class="toggle-container-modern" style="margin: 12px 0;">
+                        <div class="toggle-container-modern" data-update-toggle-block style="margin: 12px 0;">
                             <div class="toggle-info">
                                 <span class="toggle-title">
                                     <svg viewBox="0 0 24 24" class="section-icon">
@@ -1300,68 +1709,69 @@
                         </select>
                         <span id="update" style="display: none;"></span>
 
-                        <!-- Live Metrics Dashboard -->
-                        <div style="margin-top: 14px;">
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: var(--accent-gold);">
-                                    <path
-                                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                                </svg>
-                                <span style="font-size: 0.95rem; font-weight: 800; color: #ffffff;">معلومات واستهلاك
-                                    الكرت</span>
-                            </div>
-                            <div class="status-grid-metrics">
-                                <div class="metric-card-glass">
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
-                                        </svg>
-                                        <span>التنزيل (Download)</span>
-                                    </span>
-                                    <span class="metric-val cyan" id="bytes_out">-</span>
+                        <!-- Live Modern Metrics Dashboard (Matching Visual Design Reference) -->
+                        <div class="status-modern-dashboard" style="margin-top: 14px;">
+
+                            <!-- 1. Top Card: Remaining Download Meter & Consumption Capsule -->
+                            <div class="status-main-meter-card" remain_bytes_total>
+                                <!-- Top Row: Label, Value & Circular Ring Meter -->
+                                <div class="meter-top-row">
+                                    <div class="meter-info-side">
+                                        <div class="meter-label">
+                                            <span>التحميل المتبقي :</span>
+                                        </div>
+                                        <div class="meter-main-value-wrap">
+                                            <span class="meter-val-large" id="remain_bytes_total">1.15 جيجابايت</span>
+                                        </div>
+                                    </div>
+                                    <div class="meter-ring-side">
+                                        <div class="circular-progress-wrap">
+                                            <svg viewBox="0 0 80 80" class="progress-ring-svg">
+                                                <circle class="ring-bg" cx="40" cy="40" r="32" />
+                                                <circle class="ring-fill" id="remainProgressCircle" cx="40" cy="40" r="32" />
+                                            </svg>
+                                            <span class="ring-percent-text" id="remainPercentText">75%</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="metric-card-glass">
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z" />
-                                        </svg>
-                                        <span>الرفع (Upload)</span>
-                                    </span>
-                                    <span class="metric-val emerald" id="bytes_in">-</span>
-                                </div>
-                                <div class="metric-card-glass full-width" remain_bytes_total>
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.24l6 3.75v7.52l-6 3.75-6-3.75V7.99l6-3.75z" />
-                                        </svg>
-                                        <span>التحميل المتبقي</span>
-                                    </span>
-                                    <span class="metric-val gold" id="remain_bytes_total">مفتوح</span>
-                                </div>
-                                <div class="metric-card-glass">
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
-                                        </svg>
-                                        <span>الوقت المستهلك</span>
-                                    </span>
-                                    <span class="metric-val" id="uptime">-</span>
-                                </div>
-                                <div class="metric-card-glass" session_time_left>
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zM12 11.5l-4-4V4h8v3.5l-4 4z" />
-                                        </svg>
-                                        <span>الوقت المتبقي</span>
-                                    </span>
-                                    <span class="metric-val gold" id="session_time_left">مفتوح</span>
+
+                                <!-- Bottom Row: Capsule Sub-Card for Download, Consumption Badge & Upload -->
+                                <div class="meter-consumption-capsule">
+                                    <div class="capsule-col download-side">
+                                        <span class="capsule-label">التحميل</span>
+                                        <span class="capsule-val emerald" id="bytes_out">21 ميجابايت</span>
+                                    </div>
+                                    <div class="capsule-center-badge">
+                                        <span>استهلاك</span>
+                                    </div>
+                                    <div class="capsule-col upload-side">
+                                        <span class="capsule-label">الرفع</span>
+                                        <span class="capsule-val rose" id="bytes_in">6 ميجابايت</span>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- 2. Middle Pill Card: Remaining Time (الوقت المتبقي) -->
+                            <div class="status-pill-metric-card" session_time_left>
+                                <div class="pill-metric-content">
+                                    <span class="pill-metric-label">الوقت المتبقي :</span>
+                                    <span class="pill-metric-val" id="session_time_left">13 ساعة 48 دقيقة 6 ثانية</span>
+                                </div>
+                                <div class="pill-indicator-dot">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <circle cx="12" cy="12" r="8" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- 3. Bottom Pill Card: Connected Since / Uptime (متصل منذ) -->
+                            <div class="status-pill-metric-card">
+                                <div class="pill-metric-content">
+                                    <span class="pill-metric-label">متصل منذ :</span>
+                                    <span class="pill-metric-val" id="uptime">11 دقيقة 54 ثانية</span>
+                                </div>
+                            </div>
+
                         </div>
 
                         <!-- Session Action Controls -->
@@ -1423,15 +1833,15 @@
                     <div class="modal-sheet-card">
                         <div class="block-card-warning">
                             <div class="block-icon-pulse">
-                                <svg viewBox="0 0 24 24" style="width: 34px; height: 34px; fill: #f43f5e;">
+                                <svg viewBox="0 0 24 24" style="width: 34px; height: 34px; fill: #fbbf24;">
                                     <path
                                         d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
                                 </svg>
                             </div>
                             <h2 class="title"
-                                style="color: #fda4af; font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">أنت
+                                style="color: #fbbf24; font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">أنت
                                 محظور مؤقتاً</h2>
-                            <p class="contact-text" style="color: #fecdd3; font-size: 0.95rem; line-height: 1.6;">
+                            <p class="contact-text" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
                                 لقد تم حظرك بسبب محاولات تسجيل الدخول الكثيرة الخاطئة لحماية حسابك
                             </p>
                             <div class="countdown-badge">
@@ -1492,7 +1902,7 @@
                                 <path
                                     d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                             </svg>
-                            <span class="contact back" data-service-number>خدمة العملاء: {{service-number}}</span>
+                            <span class="contact back" data-service-number>خدمة العملاء: 772131004</span>
                         </a>
                     </div>
                 </div>
@@ -1548,23 +1958,72 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
-            // 1. CAROUSEL SEAMLESS INFINITE LOOP & AUTOPLAY
-            const track = document.getElementById('carouselTrack');
-            const dots = document.querySelectorAll('.carousel-dot');
-            const prevBtn = document.getElementById('carouselPrev');
-            const nextBtn = document.getElementById('carouselNext');
-            const carouselContainer = document.getElementById('adCarousel');
+            // 1. DYNAMIC CAROUSEL CONTROLLER WITH AUTO-DISCOVERY & SEAMLESS LOOP
+            function initDynamicAdCarousel() {
+                const wrapper = document.getElementById('adsCarouselWrapper');
+                const track = document.getElementById('carouselTrack');
+                const dotsContainer = document.getElementById('carouselDots');
+                const prevBtn = document.getElementById('carouselPrev');
+                const nextBtn = document.getElementById('carouselNext');
+                const carouselContainer = document.getElementById('adCarousel');
+                const legacyBox = document.getElementById('legacyAdsBox');
 
-            if (track) {
-                const originalSlides = Array.from(track.querySelectorAll('.carousel-slide'));
-                const totalSlides = originalSlides.length;
-                let currentIndex = 1;
-                let isTransitioning = false;
+                if (!track || !carouselContainer) return;
+
                 let autoplayInterval = null;
                 let transitionSafetyTimeout = null;
+                let currentRenderedImagesKey = '';
 
-                if (totalSlides > 1) {
-                    // Clone first and last slides for seamless circular transition
+                function renderCarousel(images) {
+                    if (!images || images.length === 0) {
+                        if (wrapper) wrapper.style.display = 'none';
+                        return;
+                    }
+
+                    const imagesKey = images.join(',');
+                    if (imagesKey === currentRenderedImagesKey && track.children.length > 0) {
+                        return; // Already cleanly rendered, avoid layout jump
+                    }
+                    currentRenderedImagesKey = imagesKey;
+
+                    if (autoplayInterval) clearInterval(autoplayInterval);
+                    autoplayInterval = null;
+
+                    if (wrapper) wrapper.style.display = 'block';
+
+                    if (legacyBox) {
+                        legacyBox.innerHTML = images.map((img, idx) => `<span style="--i:${idx + 1}"><img class="im${idx + 1}" src="./adimg/${img}"></span>`).join('');
+                    }
+
+                    track.innerHTML = images.map((img, idx) => `
+                        <div class="carousel-slide">
+                            <img class="im${idx + 1}" src="./adimg/${img}" alt="إعلان ${idx + 1}" fetchpriority="high" decoding="sync">
+                        </div>
+                    `).join('');
+
+                    if (dotsContainer) {
+                        dotsContainer.innerHTML = images.map((_, idx) => `
+                            <span class="carousel-dot ${idx === 0 ? 'active' : ''}"></span>
+                        `).join('');
+                    }
+
+                    const originalSlides = Array.from(track.querySelectorAll('.carousel-slide'));
+                    const totalSlides = originalSlides.length;
+                    const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.carousel-dot')) : [];
+
+                    if (totalSlides <= 1) {
+                        if (prevBtn) prevBtn.style.display = 'none';
+                        if (nextBtn) nextBtn.style.display = 'none';
+                        if (dotsContainer) dotsContainer.style.display = 'none';
+                        track.style.transform = 'none';
+                        track.style.transition = 'none';
+                        return;
+                    }
+
+                    if (prevBtn) prevBtn.style.display = 'flex';
+                    if (nextBtn) nextBtn.style.display = 'flex';
+                    if (dotsContainer) dotsContainer.style.display = 'flex';
+
                     const firstClone = originalSlides[0].cloneNode(true);
                     const lastClone = originalSlides[totalSlides - 1].cloneNode(true);
                     firstClone.classList.add('carousel-clone');
@@ -1573,121 +2032,172 @@
                     track.insertBefore(lastClone, track.firstElementChild);
                     track.appendChild(firstClone);
 
-                    // Initialize starting position at first real slide
+                    let currentIndex = 1;
+                    let isTransitioning = false;
+
                     track.style.transition = 'none';
                     track.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    track.offsetHeight; // Force reflow
+                    track.offsetHeight;
                     track.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
-                }
 
-                function updateDots() {
-                    var realIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-                    dots.forEach(function(dot, idx) {
-                        dot.classList.toggle('active', idx === realIndex);
-                    });
-                }
-
-                function goToSlide(index, animated = true) {
-                    currentIndex = index;
-                    if (animated) {
-                        track.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
-                    } else {
-                        track.style.transition = 'none';
+                    function updateDots() {
+                        const realIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                        dots.forEach((dot, idx) => {
+                            dot.classList.toggle('active', idx === realIndex);
+                        });
                     }
-                    track.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    updateDots();
 
-                    clearTimeout(transitionSafetyTimeout);
-                    if (animated) {
-                        isTransitioning = true;
-                        transitionSafetyTimeout = setTimeout(function() {
+                    function goToSlide(index, animated = true) {
+                        currentIndex = index;
+                        if (animated) {
+                            track.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
+                        } else {
+                            track.style.transition = 'none';
+                        }
+                        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                        updateDots();
+
+                        clearTimeout(transitionSafetyTimeout);
+                        if (animated) {
+                            isTransitioning = true;
+                            transitionSafetyTimeout = setTimeout(function () {
+                                checkCloneReset();
+                                isTransitioning = false;
+                            }, 500);
+                        }
+                    }
+
+                    function checkCloneReset() {
+                        if (currentIndex === totalSlides + 1) {
+                            track.style.transition = 'none';
+                            currentIndex = 1;
+                            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                            track.offsetHeight;
+                        } else if (currentIndex === 0) {
+                            track.style.transition = 'none';
+                            currentIndex = totalSlides;
+                            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                            track.offsetHeight;
+                        }
+                        isTransitioning = false;
+                    }
+
+                    track.addEventListener('transitionend', function (e) {
+                        if (e.target === track && e.propertyName === 'transform') {
                             checkCloneReset();
-                            isTransitioning = false;
-                        }, 500);
-                    }
-                }
-
-                function checkCloneReset() {
-                    if (currentIndex === totalSlides + 1) {
-                        // We moved forward past the last slide into clone 1 -> silently reset to real slide 1
-                        track.style.transition = 'none';
-                        currentIndex = 1;
-                        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-                        track.offsetHeight; // Force reflow
-                    } else if (currentIndex === 0) {
-                        // We moved backward past first slide into clone last -> silently reset to real last slide
-                        track.style.transition = 'none';
-                        currentIndex = totalSlides;
-                        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-                        track.offsetHeight; // Force reflow
-                    }
-                    isTransitioning = false;
-                }
-
-                track.addEventListener('transitionend', function(e) {
-                    if (e.target === track && e.propertyName === 'transform') {
-                        checkCloneReset();
-                    }
-                });
-
-                function nextSlide() {
-                    if (isTransitioning) return;
-                    goToSlide(currentIndex + 1);
-                }
-
-                function prevSlide() {
-                    if (isTransitioning) return;
-                    goToSlide(currentIndex - 1);
-                }
-
-                function startAutoplay() {
-                    stopAutoplay();
-                    autoplayInterval = setInterval(function() {
-                        nextSlide();
-                    }, 4000);
-                }
-
-                function stopAutoplay() {
-                    if (autoplayInterval) clearInterval(autoplayInterval);
-                }
-
-                if (prevBtn) prevBtn.addEventListener('click', function() { prevSlide(); startAutoplay(); });
-                if (nextBtn) nextBtn.addEventListener('click', function() { nextSlide(); startAutoplay(); });
-
-                dots.forEach(function(dot, idx) {
-                    dot.addEventListener('click', function() {
-                        if (isTransitioning) return;
-                        goToSlide(idx + 1);
-                        startAutoplay();
+                        }
                     });
-                });
 
-                // Touch Swipe Gestures for Mobile
-                let touchStartX = 0;
-                let touchEndX = 0;
+                    function nextSlide() {
+                        if (isTransitioning) return;
+                        goToSlide(currentIndex + 1);
+                    }
 
-                if (carouselContainer) {
-                    carouselContainer.addEventListener('touchstart', function(e) {
+                    function prevSlide() {
+                        if (isTransitioning) return;
+                        goToSlide(currentIndex - 1);
+                    }
+
+                    function startAutoplay() {
+                        stopAutoplay();
+                        autoplayInterval = setInterval(function () {
+                            nextSlide();
+                        }, 4000);
+                    }
+
+                    function stopAutoplay() {
+                        if (autoplayInterval) clearInterval(autoplayInterval);
+                    }
+
+                    if (prevBtn) {
+                        prevBtn.onclick = function () { prevSlide(); startAutoplay(); };
+                    }
+                    if (nextBtn) {
+                        nextBtn.onclick = function () { nextSlide(); startAutoplay(); };
+                    }
+
+                    dots.forEach(function (dot, idx) {
+                        dot.onclick = function () {
+                            if (isTransitioning) return;
+                            goToSlide(idx + 1);
+                            startAutoplay();
+                        };
+                    });
+
+                    let touchStartX = 0;
+                    let touchEndX = 0;
+
+                    carouselContainer.ontouchstart = function (e) {
                         touchStartX = e.changedTouches[0].screenX;
                         stopAutoplay();
-                    }, { passive: true });
+                    };
 
-                    carouselContainer.addEventListener('touchend', function(e) {
+                    carouselContainer.ontouchend = function (e) {
                         touchEndX = e.changedTouches[0].screenX;
                         var diff = touchEndX - touchStartX;
                         if (Math.abs(diff) > 40) {
                             if (diff > 0) {
-                                prevSlide(); // Swipe right
+                                prevSlide();
                             } else {
-                                nextSlide(); // Swipe left
+                                nextSlide();
                             }
                         }
                         startAutoplay();
-                    }, { passive: true });
+                    };
+
+                    startAutoplay();
                 }
 
-                startAutoplay();
+                window.renderAdCarousel = renderCarousel;
+
+                // 1. Immediate Instant Initialization (Zero Delay)
+                var initialConfigImgs = (window.hotspotConfig && Array.isArray(window.hotspotConfig['ad-images']) && window.hotspotConfig['ad-images'].length > 0)
+                    ? window.hotspotConfig['ad-images']
+                    : ['1.jpg', '2.jpg'];
+                renderCarousel(initialConfigImgs);
+
+                // 2. Smart Sync for adimg folder (Supports 1.jpg to 7.jpg as in previous project)
+                fetch('/api/v1/ad-images')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.success && Array.isArray(data.images) && data.images.length > 0) {
+                            renderCarousel(data.images);
+                        } else {
+                            probeSevenAdImages();
+                        }
+                    })
+                    .catch(() => {
+                        probeSevenAdImages();
+                    });
+
+                function probeSevenAdImages() {
+                    const candidateNames = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg'];
+                    const foundImages = [];
+                    let finished = 0;
+
+                    candidateNames.forEach(function (fileName) {
+                        const testImg = new Image();
+                        testImg.onload = function () {
+                            foundImages.push(fileName);
+                            finished++;
+                            if (finished === candidateNames.length && foundImages.length > 0) {
+                                foundImages.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+                                renderCarousel(foundImages);
+                            }
+                        };
+                        testImg.onerror = function () {
+                            finished++;
+                            if (finished === candidateNames.length && foundImages.length > 0) {
+                                foundImages.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+                                renderCarousel(foundImages);
+                            }
+                        };
+                        testImg.src = './adimg/' + fileName;
+                    });
+                }
             }
+
+            initDynamicAdCarousel();
 
             // 2. UNIVERSAL MODAL CONTROLLER & POPUP SCROLL LOCK MANAGER
             window.animating = false;
@@ -1898,26 +2408,226 @@
                 }, true);
             });
 
-            // 3. SPEED SELECTOR & MODAL POPUP SYNC (LOGIN SCREEN)
+            // 3. SPEED SELECTOR & MODAL POPUP DYNAMIC SYNC (LOGIN & STATUS SCREENS)
             const speedSelect = document.getElementById('speed');
-            const speedCards = document.querySelectorAll('#speed-modal .speed-card-option');
+            const speedModalList = document.getElementById('speedModalList');
+            const statusSpeedModalList = document.getElementById('statusSpeedModalList');
             const selectedSpeedDisplay = document.getElementById('selectedSpeedDisplay');
+            const statusSpeedTriggerText = document.getElementById('statusSpeedTriggerText');
+            const sspeedSpan = document.getElementById('sspeed');
+            const speedchange = document.getElementById('speedchange');
 
-            // Apply Ultra Speed Option visibility and News dynamically from config.js
+            let speedLabelMap = {
+                '128k/512k': 'سرعة اقتصادية',
+                '256k/700k': 'سرعة عادية',
+                '256k/1M': 'سرعة متوسطة',
+                '512M/3M': 'سرعة عالية',
+                '1M/8M': 'سرعة عالية جدا'
+            };
+
+            function updateSpeedSelection(val, title, clickedCard) {
+                if (speedSelect) {
+                    // Find matching option by value and text if possible
+                    let matchedOpt = null;
+                    if (title) {
+                        matchedOpt = Array.from(speedSelect.options).find(o => o.value === val && o.text.trim() === title.trim());
+                    }
+                    if (matchedOpt) {
+                        speedSelect.selectedIndex = matchedOpt.index;
+                    } else {
+                        speedSelect.value = val;
+                    }
+                    const event = new Event('change', { bubbles: true });
+                    speedSelect.dispatchEvent(event);
+                }
+                const speedTitle = title || speedLabelMap[val] || val;
+                if (selectedSpeedDisplay && speedTitle) {
+                    selectedSpeedDisplay.textContent = speedTitle;
+                }
+                const cards = document.querySelectorAll('#speed-modal .speed-card-option');
+                cards.forEach(card => {
+                    if (clickedCard) {
+                        card.classList.toggle('active', card === clickedCard);
+                    } else if (title) {
+                        card.classList.toggle('active', card.getAttribute('data-speed-title') === title && card.getAttribute('data-speed') === val);
+                    } else {
+                        card.classList.toggle('active', card.getAttribute('data-speed') === val);
+                    }
+                });
+            }
+
+            function bindLoginSpeedCards() {
+                const cards = document.querySelectorAll('#speed-modal .speed-card-option');
+                cards.forEach(card => {
+                    card.onclick = function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const val = this.getAttribute('data-speed');
+                        const speedTitle = this.getAttribute('data-speed-title') || speedLabelMap[val] || val;
+
+                        updateSpeedSelection(val, speedTitle, this);
+
+                        setTimeout(() => {
+                            closeAppModal('speed-modal');
+                        }, 180);
+                    };
+                });
+            }
+
+            function bindStatusSpeedCards() {
+                const statusCards = document.querySelectorAll('#status-speed-modal .speed-card-option');
+                statusCards.forEach(card => {
+                    card.onclick = function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const val = this.getAttribute('data-status-speed');
+                        const speedTitle = this.getAttribute('data-speed-title') || speedLabelMap[val] || val;
+
+                        statusCards.forEach(c => c.classList.toggle('active', c === this));
+
+                        if (statusSpeedTriggerText && speedTitle) {
+                            statusSpeedTriggerText.textContent = speedTitle;
+                        }
+                        if (speedchange) {
+                            speedchange.value = val;
+                            const ev = new Event('change', { bubbles: true });
+                            speedchange.dispatchEvent(ev);
+                        }
+
+                        setTimeout(() => {
+                            closeAppModal('status-speed-modal');
+                        }, 180);
+                    };
+                });
+            }
+
+            function applyDynamicSpeeds(speedsArray, enableUltra = true) {
+                if (!Array.isArray(speedsArray) || speedsArray.length === 0) return;
+
+                speedLabelMap = {};
+                speedsArray.forEach(s => {
+                    if (s.value && s.name) {
+                        speedLabelMap[s.value] = s.name;
+                    }
+                });
+
+                const activeSpeeds = speedsArray.filter(s => {
+                    if (s.value === '1M/8M' && enableUltra === false) return false;
+                    return true;
+                });
+
+                let defaultSpeed = activeSpeeds.find(s => s.default === true) || activeSpeeds[0];
+
+                if (speedSelect) {
+                    speedSelect.innerHTML = `<option value="" disabled hidden>أختيار سرعة الإنترنت</option>` +
+                        activeSpeeds.map(s => `<option value="${s.value}" ${s.value === defaultSpeed.value ? 'selected' : ''}>${s.name}</option>`).join('');
+                }
+
+                if (speedchange) {
+                    speedchange.innerHTML = `<option value="cancel" hidden selected disabled>تغيير السرعة</option>` +
+                        activeSpeeds.map(s => `<option value="${s.value}">${s.name}</option>`).join('');
+                }
+
+                if (speedModalList) {
+                    speedModalList.innerHTML = activeSpeeds.map((s) => `
+                        <div class="speed-card-option ${s.value === defaultSpeed.value ? 'active' : ''}" data-speed="${s.value}" data-speed-title="${s.name}">
+                            <div class="speed-card-indicator">
+                                <div class="speed-radio-dot"></div>
+                            </div>
+                            <div class="speed-card-info">
+                                <span class="speed-card-name">${s.name} ${s.recommended ? '<span style="opacity:0.85;font-size:0.85em;color:var(--accent-gold);">(الموصى بها)</span>' : ''}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                    bindLoginSpeedCards();
+                }
+
+                if (statusSpeedModalList) {
+                    statusSpeedModalList.innerHTML = activeSpeeds.map((s) => `
+                        <div class="speed-card-option ${s.value === defaultSpeed.value ? 'active' : ''}" data-status-speed="${s.value}" data-speed-title="${s.name}">
+                            <div class="speed-card-indicator">
+                                <div class="speed-radio-dot"></div>
+                            </div>
+                            <div class="speed-card-info">
+                                <span class="speed-card-name">${s.name} ${s.recommended ? '<span style="opacity:0.85;font-size:0.85em;color:var(--accent-gold);">(الموصى بها)</span>' : ''}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                    bindStatusSpeedCards();
+                }
+
+                if (defaultSpeed && selectedSpeedDisplay) {
+                    selectedSpeedDisplay.textContent = defaultSpeed.name;
+                }
+            }
+
+            // Apply configuration dynamically from config.js
             try {
                 var applyConfigOptions = function(configObj) {
-                    var optUltra = document.getElementById('opt-speed-ultra');
-                    var cardUltra = document.getElementById('card-speed-ultra');
-                    var cardStatusUltra = document.getElementById('card-status-speed-ultra');
-                    
-                    if (configObj['enable-ultra-speed']) {
-                        if (optUltra) { optUltra.style.display = ''; optUltra.removeAttribute('disabled'); }
-                        if (cardUltra) cardUltra.style.display = '';
-                        if (cardStatusUltra) cardStatusUltra.style.display = '';
+                    if (configObj['ad-images'] && Array.isArray(configObj['ad-images']) && configObj['ad-images'].length > 0) {
+                        if (typeof window.renderAdCarousel === 'function') {
+                            window.renderAdCarousel(configObj['ad-images']);
+                        }
+                    }
+
+                    if (configObj.speeds && Array.isArray(configObj.speeds)) {
+                        applyDynamicSpeeds(configObj.speeds, configObj['enable-ultra-speed'] !== false);
                     } else {
-                        if (optUltra) { optUltra.style.display = 'none'; optUltra.setAttribute('disabled', 'disabled'); }
-                        if (cardUltra) cardUltra.style.display = 'none';
-                        if (cardStatusUltra) cardStatusUltra.style.display = 'none';
+                        var optUltra = document.getElementById('opt-speed-ultra');
+                        var cardUltra = document.getElementById('card-speed-ultra');
+                        var cardStatusUltra = document.getElementById('card-status-speed-ultra');
+                        
+                        if (configObj['enable-ultra-speed']) {
+                            if (optUltra) { optUltra.style.display = ''; optUltra.removeAttribute('disabled'); }
+                            if (cardUltra) cardUltra.style.display = '';
+                            if (cardStatusUltra) cardStatusUltra.style.display = '';
+                        } else {
+                            if (optUltra) { optUltra.style.display = 'none'; optUltra.setAttribute('disabled', 'disabled'); }
+                            if (cardUltra) cardUltra.style.display = 'none';
+                            if (cardStatusUltra) cardStatusUltra.style.display = 'none';
+                        }
+                    }
+
+                    // Apply Loyalty / Points system toggle dynamically from config.js
+                    if (configObj['enable-loyalty-system'] === false) {
+                        document.documentElement.classList.add('loyalty-system-disabled');
+                        if (document.body) document.body.classList.add('loyalty-system-disabled');
+                        const loyaltyElements = [
+                            document.getElementById('loyalty-unregistered-section'),
+                            document.getElementById('loyalty-registered-section'),
+                            document.getElementById('loyalty-unregistered-section-status'),
+                            document.getElementById('loyalty-registered-section-status'),
+                            document.getElementById('points-register-modal')
+                        ];
+                        loyaltyElements.forEach(el => {
+                            if (el) el.style.setProperty('display', 'none', 'important');
+                        });
+                        document.querySelectorAll('.points-notice-alert, .loyalty-register-btn, .points-register-btn, .loyalty-user-card, .loyalty-modal').forEach(el => {
+                            if (el) el.style.setProperty('display', 'none', 'important');
+                        });
+                    } else {
+                        document.documentElement.classList.remove('loyalty-system-disabled');
+                        if (document.body) document.body.classList.remove('loyalty-system-disabled');
+                        if (typeof window.updateInlinePointsElements === 'function') {
+                            window.updateInlinePointsElements();
+                        } else {
+                            const isLogged = localStorage.getItem('points_user_logged_in') === 'true';
+                            const regSec = document.getElementById('loyalty-registered-section');
+                            const unregSec = document.getElementById('loyalty-unregistered-section');
+                            const regStatusSec = document.getElementById('loyalty-registered-section-status');
+                            const unregStatusSec = document.getElementById('loyalty-unregistered-section-status');
+                            if (isLogged) {
+                                if (regSec) regSec.style.display = 'block';
+                                if (regStatusSec) regStatusSec.style.display = 'block';
+                                if (unregSec) unregSec.style.display = 'none';
+                                if (unregStatusSec) unregStatusSec.style.display = 'none';
+                            } else {
+                                if (unregSec) unregSec.style.display = 'block';
+                                if (unregStatusSec) unregStatusSec.style.display = 'block';
+                                if (regSec) regSec.style.display = 'none';
+                                if (regStatusSec) regStatusSec.style.display = 'none';
+                            }
+                        }
                     }
 
                     // Apply News and Offers configuration dynamically
@@ -1957,205 +2667,147 @@
                         applyConfigOptions(hotOption);
                     }
                     configChecks++;
-                    if (configChecks > 50) clearInterval(configCheckInterval); // abort after 5 seconds
+                    if (configChecks > 50) clearInterval(configCheckInterval);
                 }, 100);
             } catch (err) {
                 console.error(err);
             }
 
-            const speedLabelMap = {
-                '128k/512k': 'سرعة اقتصادية',
-                '256k/700k': 'سرعة عادية',
-                '256k/1M': 'سرعة متوسطة',
-                '512M/3M': 'سرعة عالية',
-                '1M/8M': 'سرعة عالية جدا'
-            };
+            // Initial binding of static cards if already rendered
+            bindLoginSpeedCards();
+            bindStatusSpeedCards();
 
-            function updateSpeedSelection(val) {
-                if (speedSelect) {
-                    speedSelect.value = val;
-                    const event = new Event('change', { bubbles: true });
-                    speedSelect.dispatchEvent(event);
-                }
-                if (selectedSpeedDisplay && speedLabelMap[val]) {
-                    selectedSpeedDisplay.textContent = speedLabelMap[val];
-                }
-                speedCards.forEach(card => {
-                    card.classList.toggle('active', card.getAttribute('data-speed') === val);
-                });
-            }
-
-            if (speedCards.length > 0) {
-                speedCards.forEach(card => {
-                    card.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const val = this.getAttribute('data-speed');
-                        const speedTitle = this.getAttribute('data-speed-title') || speedLabelMap[val] || val;
-
-                        updateSpeedSelection(val);
-                        if (selectedSpeedDisplay) {
-                            selectedSpeedDisplay.textContent = speedTitle;
-                        }
-
-                        // Close speed modal and return smoothly to login view
-                        setTimeout(() => {
-                            closeAppModal('speed-modal');
-                        }, 180);
+            if (speedSelect) {
+                speedSelect.addEventListener('change', function () {
+                    const val = speedSelect.value;
+                    if (selectedSpeedDisplay && speedLabelMap[val]) {
+                        selectedSpeedDisplay.textContent = speedLabelMap[val];
+                    }
+                    const cards = document.querySelectorAll('#speed-modal .speed-card-option');
+                    cards.forEach(card => {
+                        card.classList.toggle('active', card.getAttribute('data-speed') === val);
                     });
                 });
-
-                if (speedSelect) {
-                    speedSelect.addEventListener('change', function () {
-                        const val = speedSelect.value;
-                        if (selectedSpeedDisplay && speedLabelMap[val]) {
-                            selectedSpeedDisplay.textContent = speedLabelMap[val];
-                        }
-                        speedCards.forEach(card => {
-                            card.classList.toggle('active', card.getAttribute('data-speed') === val);
-                        });
-                    });
-                }
             }
 
             // 4. UPDATES BLOCKER TOGGLE STATUS TEXT (LOGIN SCREEN)
-            var chUpdate = document.getElementById('chupdate');
-            var updateStatusText = document.getElementById('updateStatusText');
-            if (chUpdate && updateStatusText) {
-                var updateToggleState = function() {
-                    if (chUpdate.checked) {
-                        updateStatusText.textContent = 'مفعل';
-                        updateStatusText.classList.add('active');
-                    } else {
-                        updateStatusText.textContent = 'متوقف';
-                        updateStatusText.classList.remove('active');
-                    }
-                };
-                chUpdate.addEventListener('change', updateToggleState);
-                updateToggleState();
-            }
-
-            // 5. STATUS SCREEN: SPEED MODAL HANDLER (LIVE CONNECTION SPEED CHANGE)
-            const statusSpeedCards = document.querySelectorAll('#status-speed-modal .speed-card-option');
-            const statusSpeedTriggerText = document.getElementById('statusSpeedTriggerText');
-            const sspeedSpan = document.getElementById('sspeed');
-
-            if (statusSpeedCards.length > 0) {
-                statusSpeedCards.forEach(card => {
-                    card.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const val = this.getAttribute('data-status-speed');
-                        const speedTitle = this.getAttribute('data-speed-title');
-                        const speedchange = document.getElementById('speedchange');
-
-                        statusSpeedCards.forEach(c => c.classList.toggle('active', c === this));
-
-                        if (statusSpeedTriggerText && speedTitle) {
-                            statusSpeedTriggerText.textContent = speedTitle;
-                        }
-                        if (speedchange) {
-                            speedchange.value = val;
-                            const ev = new Event('change', { bubbles: true });
-                            speedchange.dispatchEvent(ev);
-                        }
-
-                        setTimeout(() => {
-                            closeAppModal('status-speed-modal');
-                        }, 180);
-                    });
-                });
-
-                // Synchronize trigger text and active speed card when sspeed updates from MikroTik
-                if (sspeedSpan) {
-                    const normalizeAr = s => (s || '').replace(/[أإآ]/g, 'ا').trim();
-                    const syncSpeedFromMikrotik = () => {
-                        const txt = (sspeedSpan.innerText || sspeedSpan.textContent || '').trim();
-                        if (txt && txt !== 'سرعة الكرت') {
-                            if (statusSpeedTriggerText) {
-                                statusSpeedTriggerText.textContent = txt;
-                            }
-                            const cleanTxt = normalizeAr(txt);
-                            let matchedCard = null;
-                            statusSpeedCards.forEach(card => {
-                                const cardTitle = normalizeAr(card.getAttribute('data-speed-title'));
-                                const speedVal = (card.getAttribute('data-status-speed') || '').trim();
-                                if (cardTitle && (cardTitle === cleanTxt || speedVal === txt || speedVal === cleanTxt)) {
-                                    matchedCard = card;
-                                }
-                            });
-                            if (!matchedCard) {
-                                let longestMatchLen = 0;
-                                statusSpeedCards.forEach(card => {
-                                    const cardTitle = normalizeAr(card.getAttribute('data-speed-title'));
-                                    if (cardTitle && cleanTxt.includes(cardTitle) && cardTitle.length > longestMatchLen) {
-                                        longestMatchLen = cardTitle.length;
-                                        matchedCard = card;
-                                    }
-                                });
-                            }
-                            statusSpeedCards.forEach(card => {
-                                card.classList.toggle('active', card === matchedCard);
-                            });
+            if (window.hotspotConfig && window.hotspotConfig['update-toggle-button'] === false) {
+                var chUpdate = document.getElementById('chupdate');
+                if (chUpdate) {
+                    chUpdate.checked = false;
+                    chUpdate.value = '_Uon';
+                }
+            } else {
+                var chUpdate = document.getElementById('chupdate');
+                var updateStatusText = document.getElementById('updateStatusText');
+                if (chUpdate && updateStatusText) {
+                    var updateToggleState = function() {
+                        if (chUpdate.checked) {
+                            updateStatusText.textContent = 'مفعل';
+                            updateStatusText.classList.add('active');
+                        } else {
+                            updateStatusText.textContent = 'متوقف';
+                            updateStatusText.classList.remove('active');
                         }
                     };
-                    const speedObserver = new MutationObserver(syncSpeedFromMikrotik);
-                    speedObserver.observe(sspeedSpan, { childList: true, characterData: true, subtree: true });
-                    syncSpeedFromMikrotik();
+                    chUpdate.addEventListener('change', updateToggleState);
+                    updateToggleState();
                 }
             }
 
-            // 6. STATUS SCREEN: UPDATES BLOCKER TOGGLE (Identical to Login Screen)
-            const statusChupdate = document.getElementById('statusChupdate');
-            const statusUpdateStatusText = document.getElementById('statusUpdateStatusText');
-            const updatechange = document.getElementById('updatechange');
-            const updateSpan = document.getElementById('update');
-
-            if (statusChupdate && statusUpdateStatusText) {
-                let isSyncing = false;
-                const updateStatusToggleState = (triggerChange = false) => {
-                    if (isSyncing) return;
-                    if (statusChupdate.checked) {
-                        statusUpdateStatusText.textContent = 'مفعل';
-                        statusUpdateStatusText.classList.add('active');
-                        if (triggerChange && updatechange) {
-                            updatechange.value = '_Uoff';
-                            const ev = new Event('change', { bubbles: true });
-                            updatechange.dispatchEvent(ev);
+            // 5. STATUS SCREEN: SYNCHRONIZE LIVE SPEED FROM MIKROTIK
+            if (sspeedSpan) {
+                const normalizeAr = s => (s || '').replace(/[أإآ]/g, 'ا').trim();
+                const syncSpeedFromMikrotik = () => {
+                    const txt = (sspeedSpan.innerText || sspeedSpan.textContent || '').trim();
+                    if (txt && txt !== 'سرعة الكرت') {
+                        const customTitle = speedLabelMap[txt] || txt;
+                        if (statusSpeedTriggerText) {
+                            statusSpeedTriggerText.textContent = customTitle;
                         }
-                    } else {
-                        statusUpdateStatusText.textContent = 'متوقف';
-                        statusUpdateStatusText.classList.remove('active');
-                        if (triggerChange && updatechange) {
-                            updatechange.value = '_Uon';
-                            const ev = new Event('change', { bubbles: true });
-                            updatechange.dispatchEvent(ev);
+                        const cleanTxt = normalizeAr(customTitle);
+                        const currentStatusSpeedCards = document.querySelectorAll('#status-speed-modal .speed-card-option');
+                        let matchedCard = null;
+                        currentStatusSpeedCards.forEach(card => {
+                            const cardTitle = normalizeAr(card.getAttribute('data-speed-title'));
+                            const speedVal = (card.getAttribute('data-status-speed') || '').trim();
+                            if (cardTitle && (cardTitle === cleanTxt || speedVal === txt || speedVal === cleanTxt)) {
+                                matchedCard = card;
+                            }
+                        });
+                        if (!matchedCard) {
+                            let longestMatchLen = 0;
+                            currentStatusSpeedCards.forEach(card => {
+                                const cardTitle = normalizeAr(card.getAttribute('data-speed-title'));
+                                if (cardTitle && cleanTxt.includes(cardTitle) && cardTitle.length > longestMatchLen) {
+                                    longestMatchLen = cardTitle.length;
+                                    matchedCard = card;
+                                }
+                            });
                         }
+                        currentStatusSpeedCards.forEach(card => {
+                            card.classList.toggle('active', card === matchedCard);
+                        });
                     }
                 };
+                const speedObserver = new MutationObserver(syncSpeedFromMikrotik);
+                speedObserver.observe(sspeedSpan, { childList: true, characterData: true, subtree: true });
+                syncSpeedFromMikrotik();
+            }
 
-                statusChupdate.addEventListener('change', () => updateStatusToggleState(true));
+            // 6. STATUS SCREEN: UPDATES BLOCKER TOGGLE (Identical to Login Screen)
+            if (!(window.hotspotConfig && window.hotspotConfig['update-toggle-button'] === false)) {
+                const statusChupdate = document.getElementById('statusChupdate');
+                const statusUpdateStatusText = document.getElementById('statusUpdateStatusText');
+                const updatechange = document.getElementById('updatechange');
+                const updateSpan = document.getElementById('update');
 
-                // Live Sync with MikroTik status query updates
-                if (updateSpan) {
-                    const syncFromMikrotik = () => {
-                        const text = (updateSpan.innerText || updateSpan.textContent || '').trim();
-                        isSyncing = true;
-                        if (text.includes('أيقاف') || text.includes('ايقاف') || text.includes('Uoff')) {
-                            statusChupdate.checked = true;
+                if (statusChupdate && statusUpdateStatusText) {
+                    let isSyncing = false;
+                    const updateStatusToggleState = (triggerChange = false) => {
+                        if (isSyncing) return;
+                        if (statusChupdate.checked) {
                             statusUpdateStatusText.textContent = 'مفعل';
                             statusUpdateStatusText.classList.add('active');
-                        } else if (text.includes('تفعيل') || text.includes('Uon')) {
-                            statusChupdate.checked = false;
+                            if (triggerChange && updatechange) {
+                                updatechange.value = '_Uoff';
+                                const ev = new Event('change', { bubbles: true });
+                                updatechange.dispatchEvent(ev);
+                            }
+                        } else {
                             statusUpdateStatusText.textContent = 'متوقف';
                             statusUpdateStatusText.classList.remove('active');
+                            if (triggerChange && updatechange) {
+                                updatechange.value = '_Uon';
+                                const ev = new Event('change', { bubbles: true });
+                                updatechange.dispatchEvent(ev);
+                            }
                         }
-                        isSyncing = false;
                     };
 
-                    const observer = new MutationObserver(syncFromMikrotik);
-                    observer.observe(updateSpan, { childList: true, characterData: true, subtree: true });
-                    syncFromMikrotik();
+                    statusChupdate.addEventListener('change', () => updateStatusToggleState(true));
+
+                    // Live Sync with MikroTik status query updates
+                    if (updateSpan) {
+                        const syncFromMikrotik = () => {
+                            const text = (updateSpan.innerText || updateSpan.textContent || '').trim();
+                            isSyncing = true;
+                            if (text.includes('أيقاف') || text.includes('ايقاف') || text.includes('Uoff')) {
+                                statusChupdate.checked = true;
+                                statusUpdateStatusText.textContent = 'مفعل';
+                                statusUpdateStatusText.classList.add('active');
+                            } else if (text.includes('تفعيل') || text.includes('Uon')) {
+                                statusChupdate.checked = false;
+                                statusUpdateStatusText.textContent = 'متوقف';
+                                statusUpdateStatusText.classList.remove('active');
+                            }
+                            isSyncing = false;
+                        };
+
+                        const observer = new MutationObserver(syncFromMikrotik);
+                        observer.observe(updateSpan, { childList: true, characterData: true, subtree: true });
+                        syncFromMikrotik();
+                    }
                 }
             }
 
@@ -2189,7 +2841,7 @@
                         <div class="redirect-ambient-glow-cyan"></div>
                         <div class="redirect-loading-card">
                             <div class="redirect-brand-connector">
-                                <span class="redirect-brand-tag burgundy">تونس نت</span>
+                                <span class="redirect-brand-tag burgundy">${(window.hotspotConfig && window.hotspotConfig['network-name'] ? ('' + window.hotspotConfig['network-name']).trim() : 'تونس نت')}</span>
                                 <div class="redirect-connector-line">
                                     <div class="redirect-connector-dot"></div>
                                     <div class="redirect-connector-dot"></div>
@@ -3074,14 +3726,18 @@
 
             // 6. UNIVERSAL WHATSAPP INTENT DISPATCHER (WHATSAPP & WHATSAPP BUSINESS)
             const waButtons = document.querySelectorAll('.support-btn-whatsapp');
-            const waPhone = '967772131004';
-            const waMsg = encodeURIComponent('مرحبا خدمة عملاء شبكة تونس نت اللاسلكية');
-            const waSchemeUrl = `whatsapp://send?phone=${waPhone}&text=${waMsg}`;
-            const waWebUrl = `https://api.whatsapp.com/send?phone=${waPhone}&text=${waMsg}`;
 
             waButtons.forEach(function(btn) {
                 btn.addEventListener('click', function (e) {
                     e.preventDefault();
+
+                    const activeCfg = window.hotspotConfig || {};
+                    const rawPhone = (activeCfg['service-number'] || '772131004').toString().replace(/\D/g, '');
+                    const waPhone = rawPhone.startsWith('967') ? rawPhone : ('967' + rawPhone);
+                    const netName = (activeCfg['network-name'] || 'تونس نت').toString().trim();
+                    const waMsg = encodeURIComponent('مرحبا خدمة عملاء شبكة ' + netName + ' اللاسلكية');
+                    const waSchemeUrl = `whatsapp://send?phone=${waPhone}&text=${waMsg}`;
+                    const waWebUrl = `https://api.whatsapp.com/send?phone=${waPhone}&text=${waMsg}`;
 
                     const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -3353,6 +4009,94 @@
                 });
                 observer.observe(marqueeEl, { childList: true, characterData: true, subtree: true });
             }
+        })();
+
+        // 2026 Dynamic Status Percentage Ring Calculation & Animation (Optimized & Non-blocking)
+        (function initStatusMeterProgress() {
+            var lastPercent = -1;
+            var lastState = '';
+
+            function updateProgressRing() {
+                var remainEl = document.getElementById('remain_bytes_total');
+                var outEl = document.getElementById('bytes_out');
+                var inEl = document.getElementById('bytes_in');
+                var ring = document.getElementById('remainProgressCircle');
+                var percentText = document.getElementById('remainPercentText');
+
+                if (!remainEl || !ring || !percentText) return;
+
+                var remainTxt = (remainEl.textContent || '').trim();
+                var usedTxt = (outEl ? outEl.textContent : '') + (inEl ? inEl.textContent : '');
+                var stateKey = remainTxt + '|' + usedTxt;
+
+                if (stateKey === lastState) return;
+                lastState = stateKey;
+
+                if (!remainTxt || remainTxt === '-' || remainTxt.indexOf('مفتوح') !== -1) {
+                    if (lastPercent !== 100) {
+                        lastPercent = 100;
+                        percentText.textContent = '100%';
+                        ring.style.strokeDashoffset = '0';
+                        ring.style.stroke = '#10b981';
+                        percentText.style.color = '#10b981';
+                    }
+                    return;
+                }
+
+                function parseBytesToMB(str) {
+                    if (!str) return 0;
+                    var clean = str.replace(/,/g, '.');
+                    var numMatch = clean.match(/[\d\.]+/);
+                    if (!numMatch) return 0;
+                    var num = parseFloat(numMatch[0]);
+                    if (isNaN(num)) return 0;
+                    if (/جيجا|GB|G/i.test(clean)) return num * 1024;
+                    if (/ميجا|MB|M/i.test(clean)) return num;
+                    if (/كيلو|KB|K/i.test(clean)) return num / 1024;
+                    if (/بايت|B/i.test(clean)) return num / (1024 * 1024);
+                    return num;
+                }
+
+                var remainMB = parseBytesToMB(remainTxt);
+                var usedMB = parseBytesToMB(outEl ? outEl.textContent : '') + parseBytesToMB(inEl ? inEl.textContent : '');
+
+                if (remainMB > 0) {
+                    var totalMB = remainMB + (usedMB > 0 ? usedMB : 0);
+                    var percent = Math.round((remainMB / totalMB) * 100);
+                    percent = Math.max(1, Math.min(100, percent));
+
+                    if (percent !== lastPercent) {
+                        lastPercent = percent;
+                        percentText.textContent = percent + '%';
+                        var circumference = 201.06;
+                        var offset = circumference - (percent / 100) * circumference;
+                        ring.style.strokeDashoffset = offset;
+
+                        if (percent > 50) {
+                            ring.style.stroke = '#fbbf24';
+                            percentText.style.color = '#fbbf24';
+                        } else if (percent > 20) {
+                            ring.style.stroke = '#eab308';
+                            percentText.style.color = '#eab308';
+                        } else {
+                            ring.style.stroke = '#ef4444';
+                            percentText.style.color = '#ef4444';
+                        }
+                    }
+                }
+            }
+
+            var targetNodes = ['remain_bytes_total', 'bytes_out', 'bytes_in'].map(function(id) { return document.getElementById(id); }).filter(Boolean);
+            if (window.MutationObserver) {
+                var observer = new MutationObserver(function() {
+                    requestAnimationFrame(updateProgressRing);
+                });
+                targetNodes.forEach(function(node) {
+                    observer.observe(node, { childList: true, characterData: true, subtree: true });
+                });
+            }
+
+            setTimeout(updateProgressRing, 400);
         })();
     </script>
     <script src="js/loyalty-system/loyalty-integration.js"></script>

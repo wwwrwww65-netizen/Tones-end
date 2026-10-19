@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title data-network-name>شبكة تونس نت اللاسلكيه</title>
+    <title data-network-name>شبكة العاطفي نت اللاسلكيه</title>
+    <meta name="description" content="بوابة تسجيل الدخول لشبكة العاطفي نت اللاسلكية بنظام ميكروتك (MikroTik Hotspot Portal) مع إدارة السرعات، فحص الكروت، والأسعار">
+    <meta property="og:title" content="شبكة العاطفي نت اللاسلكيه">
+    <meta property="og:description" content="بوابة تسجيل الدخول لشبكة العاطفي نت اللاسلكية بنظام ميكروتك (MikroTik Hotspot Portal) مع إدارة السرعات، فحص الكروت، والأسعار">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -104,11 +107,11 @@
         }
 
         .status-main-meter-card {
-            background: linear-gradient(145deg, rgba(17, 24, 39, 0.88) 0%, rgba(11, 15, 25, 0.96) 100%);
-            border: 1.5px solid rgba(212, 175, 55, 0.45);
+            background: linear-gradient(150deg, rgba(34, 48, 76, 0.92) 0%, rgba(24, 34, 56, 0.96) 50%, rgba(18, 26, 44, 0.98) 100%);
+            border: 1.5px solid rgba(212, 175, 55, 0.55);
             border-radius: 24px;
             padding: 20px 22px;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(212, 175, 55, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            box-shadow: 0 16px 42px rgba(0, 0, 0, 0.65), 0 0 28px rgba(212, 175, 55, 0.2), inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
             position: relative;
             overflow: hidden;
             transform: translateZ(0);
@@ -229,15 +232,15 @@
         }
 
         .meter-consumption-capsule {
-            background: rgba(11, 15, 25, 0.88);
-            border: 1.2px solid rgba(212, 175, 55, 0.35);
+            background: linear-gradient(135deg, rgba(38, 52, 82, 0.88) 0%, rgba(24, 34, 54, 0.94) 100%);
+            border: 1.2px solid rgba(212, 175, 55, 0.45);
             border-radius: 40px;
             padding: 10px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 10px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.08);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.2);
             transform: translateZ(0);
         }
 
@@ -274,7 +277,7 @@
             width: 58px;
             height: 58px;
             border-radius: 50%;
-            background: radial-gradient(circle, #1e293b 0%, #0b0f19 100%);
+            background: radial-gradient(circle, #2d3e5e 0%, #162136 100%);
             border: 2px solid #D4AF37;
             color: #D4AF37;
             font-weight: 800;
@@ -282,20 +285,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 16px rgba(212, 175, 55, 0.35), inset 0 0 8px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(212, 175, 55, 0.25);
             flex-shrink: 0;
             transform: translateZ(0);
         }
 
         .status-pill-metric-card {
-            background: linear-gradient(145deg, rgba(17, 24, 39, 0.85) 0%, rgba(11, 15, 25, 0.95) 100%);
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(145deg, rgba(34, 48, 76, 0.88) 0%, rgba(22, 32, 54, 0.94) 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.22);
             border-radius: 35px;
             padding: 16px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.18);
             transition: border-color 0.18s ease, box-shadow 0.18s ease;
             transform: translateZ(0);
             will-change: transform;
@@ -303,8 +306,8 @@
         }
 
         .status-pill-metric-card:hover {
-            border-color: rgba(212, 175, 55, 0.55);
-            box-shadow: 0 0 18px rgba(212, 175, 55, 0.25), 0 6px 20px rgba(0, 0, 0, 0.55);
+            border-color: rgba(212, 175, 55, 0.65);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 8px 24px rgba(0, 0, 0, 0.6);
         }
 
         .pill-metric-content {
@@ -371,7 +374,7 @@
                 }
                 var cleanPhone = srvNum.replace(/\D/g, '');
                 var waPhone = cleanPhone.startsWith('967') ? cleanPhone : ('967' + cleanPhone);
-                var waText = encodeURIComponent('مرحبا خدمة عملاء شبكة ' + (netName || 'تونس نت') + ' اللاسلكية');
+                var waText = encodeURIComponent('مرحبا خدمة عملاء شبكة ' + (netName || 'العاطفي نت') + ' اللاسلكية');
                 var waLinks = document.querySelectorAll('.support-btn-whatsapp');
                 for (var m = 0; m < waLinks.length; m++) {
                     waLinks[m].setAttribute('href', 'whatsapp://send?phone=' + waPhone + '&text=' + waText);
@@ -657,7 +660,7 @@
                                 </svg>
                             </div>
                             <div class="brand-info">
-                                <span class="brand-name" data-network-name>تونس نت</span>
+                                <span class="brand-name" data-network-name>العاطفي نت</span>
                             </div>
                         </div>
 
@@ -684,7 +687,7 @@
 
 
                     <!-- Main Welcome Title -->
-                    <h1>مرحبا بك في شبكة تونس نت الاسلكيه</h1>
+                    <h1>مرحبا بك في شبكة العاطفي نت الاسلكيه</h1>
 
                     <!-- 2026 Swipeable Touch Carousel (With 3D Legacy compatibility) -->
                     <div class="ads-carousel-wrapper" id="adsCarouselWrapper">
@@ -938,7 +941,7 @@
                         </div>
                         <div class="support-actions-grid">
                             <!-- WhatsApp Button with Country Code +967 and formatted pre-filled greeting message -->
-                            <a href="whatsapp://send?phone=967772131004&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20%D8%AA%D9%88%D9%86%D8%B3%20%D9%86%D8%AA%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
+                            <a href="whatsapp://send?phone=967781797115&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20%D8%A7%D9%84%D8%B9%D8%A7%D8%B7%D9%81%D9%8A%20%D9%86%D8%AA%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
                                 class="support-btn support-btn-whatsapp" aria-label="مراسلة واتساب">
                                 <svg viewBox="0 0 24 24" class="support-btn-icon">
                                     <path
@@ -948,7 +951,7 @@
                             </a>
 
                             <!-- Direct Phone Call Button (Without country code for native phone dialer) -->
-                            <a href="tel:772131004" class="support-btn support-btn-call" aria-label="اتصال مباشر">
+                            <a href="tel:781797115" class="support-btn support-btn-call" aria-label="اتصال مباشر">
                                 <svg viewBox="0 0 24 24" class="support-btn-icon">
                                     <path
                                         d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.11 15.11 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.61c0-.55-.45-1-1-1z" />
@@ -1383,12 +1386,12 @@
                                     </svg>
                                     <span>رجوع</span>
                                 </button>
-                                <a href="tel:772131004" class="fab-support">
+                                <a href="tel:781797115" class="fab-support">
                                     <svg viewBox="0 0 24 24">
                                         <path
                                             d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                                     </svg>
-                                    <span class="contact" data-service-number>خدمة العملاء: 772131004</span>
+                                    <span class="contact" data-service-number>خدمة العملاء: 781797115</span>
                                 </a>
                             </div>
                         </div>

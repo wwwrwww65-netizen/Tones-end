@@ -5,8 +5,8 @@
   --loyalty-primary-dark: #030712;
   --loyalty-accent-color: #D4AF37;
   --loyalty-accent-dark: #B8860B;
-  --loyalty-highlight-bg-start: rgba(11, 15, 25, 0.4);
-  --loyalty-highlight-bg-end: rgba(15, 23, 42, 0.3);
+  --loyalty-highlight-bg-start: rgba(36, 50, 78, 0.85);
+  --loyalty-highlight-bg-end: rgba(24, 34, 54, 0.9);
   --loyalty-bg-white: #ffffff;
   --loyalty-bg-gray: #f8f9fa;
   --loyalty-overlay-bg: rgba(3, 7, 18, 0.7);
@@ -100,12 +100,12 @@ button.loyalty-btn:active {
 
 /* Loan card */
 .loan-card {
-  background: rgba(11, 15, 25, 0.4) !important;
-  border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
+  background: linear-gradient(145deg, rgba(34, 48, 76, 0.9) 0%, rgba(22, 32, 54, 0.94) 100%) !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.55) !important;
   border-radius: 14px !important;
   padding: 18px !important;
   text-align: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
 }
 
 /* Form inputs inside loyalty modal */
