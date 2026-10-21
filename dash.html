@@ -1344,16 +1344,21 @@
 
     <!-- SCRIPT LOGIC -->
     <script>
-        // MASTER CONFIG OBJECT (Preserves ALL technical properties silently in memory)
+        // Keep the original config source so generated config.js preserves every note/comment,
+        // hidden setting, field order, and any extra properties not represented in the form.
+        let originalConfigSource = '';
+        let originalConfigObject = null;
+
+        // MASTER CONFIG OBJECT (fallback only; actual config/config.js is loaded below when available)
         let appConfig = {
-            "network-name": "  تونس نت  ",
-            "service-number": "772131004",
+            "network-name": "العاطفي نت",
+            "service-number": "781797115",
             "news-line": "{بسم الله الرحمن الرحيم} ( قل للمؤمنين يغضوا من أبصرهم ويحفظوا فروجهم ذلك ازكى لهم إن الله خبير بما يصنعون ) صدق الله العظيم",
             "ad-images": ["1.jpg", "2.jpg"],
             "popup-adv-time": 5,
             "popup-adv-img-type": true,
             "popup-adv-repeat-after": 120,
-            "enable-loyalty-system": true,
+            "enable-loyalty-system": false,
             "login-type": "User",
             "login-chap": 0,
             "input-type": "tel",
@@ -1363,11 +1368,11 @@
             "speed-trychange": 3,
             "speed-trychange-timeout": 3,
             "speeds": [
-                { name: "سرعة اقتصادية", value: "128k/512k" },
-                { name: "سرعة عادية", value: "256k/700k", default: true, recommended: true },
-                { name: "سرعة متوسطة", value: "256k/1M" },
-                { name: "سرعة عالية", value: "512M/3M" },
-                { name: "سرعة عالية جدا", value: "1M/8M" }
+                { name: "سرعة اقتصادية", value: "1M/1M" },
+                { name: "سرعة عادية", value: "2M/2M", default: true, recommended: true },
+                { name: "سرعة متوسطة", value: "4M/4M" },
+                { name: "سرعة عالية", value: "6M/6M" },
+                { name: "سرعة هوتسبوت", value: "" }
             ],
             "input-rm-white-spaces": 0,
             "input-to-lower": 0,
@@ -1389,10 +1394,11 @@
             "sell-point-button": true,
             "loan-button": true,
             "app-store-status-button": false,
-            "esterahah-button": true,
-            "mobasher-button": true,
-            "app-detector-button": true,
-            "app-octopus-button": true,
+            "esterahah-button": false,
+            "mobasher-button": false,
+            "app-detector-button": false,
+            "app-octopus-button": false,
+            "update-toggle-button": false,
             "show-date-field": false,
             "redirect-to-esterahah": "http://30.10.10.10",
             "redirect-to-mobasher": "http://30.10.10.10:88",
@@ -1408,14 +1414,14 @@
             ],
             "sell-points": [
                 { name: "البقالات الموجودة في اماكن التغطية   " },
-                { name: "  772131004 " }
+                { name: "  781797115 " }
             ],
             "news-title": "زبائننا الكرام",
-            "news-content": "صارت كروت شبكة تونس نت متوفرة عبر محفظة جيب",
-            "news-code": "رقم كود الشبكة: (21124)",
-            "news-extra-title": "البث المباشر والمباريات:",
-            "news-extra-content": "استمتع بمشاهدة الاستراحة والبث المباشر للمباريات والدوريات العالمية مجاناً عبر الرابط:",
-            "news-extra-badge": "t.com"
+            "news-content": "التطوير مستمر لتنالوا تجربه رائعه \n\nبرمجه وتطوير المهندس / مبين العاطفي",
+            "news-code": "",
+            "news-extra-title": "",
+            "news-extra-content": "",
+            "news-extra-badge": ""
         };
 
         // ON PAGE LOAD
@@ -1426,19 +1432,32 @@
 
         // LOAD CURRENT CONFIG FROM SERVER
         async function loadLiveConfig() {
+            // Prefer a connected management API when available.
             try {
-                const res = await fetch('/api/v1/load-config');
+                const res = await fetch('/api/v1/load-config', { cache: 'no-store' });
                 if (res.ok) {
                     const data = await res.json();
-                    if (data && data.success && data.content) {
-                        parseConfigCode(data.content);
+                    if (data && data.success && data.content && parseConfigCode(data.content)) {
                         showToast('تم تحميل إعدادات config.js الحالية للمشروع بنجاح', 'success');
                         return;
                     }
                 }
             } catch (e) {
-                console.log('Using default in-memory config');
+                // Standalone MikroTik file deployment has no /api/v1 endpoint; try local config.js.
             }
+            try {
+                const res = await fetch('config/config.js', { cache: 'no-store' });
+                if (res.ok) {
+                    const source = await res.text();
+                    if (parseConfigCode(source)) {
+                        showToast('تم تحميل config/config.js مباشرة مع الحفاظ على تعليقاته وإعداداته المخفية', 'success');
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.warn('تعذر قراءة config/config.js؛ سيتم استخدام الإعدادات الاحتياطية.', e);
+            }
+            showToast('تعذر تحميل config.js الحالي؛ الإعدادات الظاهرة احتياطية. لا تعتمد التصدير قبل استيراد الملف الصحيح.', 'warning');
         }
 
         // RENDER ALL FIELDS
@@ -1723,181 +1742,118 @@
             }
         }
 
-        // ACCURATE 100% CONFIG.JS CODE GENERATOR
+        // Parse top-level Config({...}) properties while ignoring nested objects, strings, and comments.
+        function findConfigPropertyRanges(source) {
+            const openMatch = /\bConfig\s*\(\s*\{/.exec(source);
+            if (!openMatch) return null;
+            const objectOpen = source.indexOf('{', openMatch.index);
+            const ranges = [];
+            const findValueEnd = (start) => {
+                let curly = 0, square = 0, paren = 0, quote = null, escape = false, lineComment = false, blockComment = false;
+                for (let i = start; i < source.length; i++) {
+                    const ch = source[i], next = source[i + 1];
+                    if (lineComment) { if (ch === '\n') lineComment = false; continue; }
+                    if (blockComment) { if (ch === '*' && next === '/') { blockComment = false; i++; } continue; }
+                    if (quote) {
+                        if (escape) { escape = false; continue; }
+                        if (ch === '\\') { escape = true; continue; }
+                        if (ch === quote) quote = null;
+                        continue;
+                    }
+                    if (ch === '/' && next === '/') { lineComment = true; i++; continue; }
+                    if (ch === '/' && next === '*') { blockComment = true; i++; continue; }
+                    if (ch === '\"' || ch === "'" || ch === '`') { quote = ch; continue; }
+                    if (ch === '{') curly++;
+                    else if (ch === '}') { if (curly === 0 && square === 0 && paren === 0) return i; curly--; }
+                    else if (ch === '[') square++;
+                    else if (ch === ']') square--;
+                    else if (ch === '(') paren++;
+                    else if (ch === ')') paren--;
+                    else if (ch === ',' && curly === 0 && square === 0 && paren === 0) return i;
+                }
+                return source.length;
+            };
+            let i = objectOpen + 1;
+            while (i < source.length) {
+                // Skip whitespace and comments between top-level properties.
+                if (/\s/.test(source[i])) { i++; continue; }
+                if (source[i] === '/' && source[i + 1] === '/') { i = source.indexOf('\n', i + 2); if (i < 0) break; continue; }
+                if (source[i] === '/' && source[i + 1] === '*') { const end = source.indexOf('*/', i + 2); if (end < 0) break; i = end + 2; continue; }
+                if (source[i] === '}') break;
+                const lineStart = source.lastIndexOf('\n', i - 1) + 1;
+                const atLineStart = source.slice(lineStart, i).trim() === '';
+                const rest = source.slice(i);
+                const keyMatch = atLineStart ? /^(?:\s*)(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'|([A-Za-z_$][\w$-]*))\s*:/.exec(rest) : null;
+                if (!keyMatch) { i++; continue; }
+                const key = keyMatch[1] !== undefined ? JSON.parse('"' + keyMatch[1] + '"') : (keyMatch[2] !== undefined ? keyMatch[2] : keyMatch[3]);
+                const colonIndex = i + keyMatch[0].lastIndexOf(':');
+                let valueStart = colonIndex + 1;
+                while (valueStart < source.length && /\s/.test(source[valueStart])) valueStart++;
+                const commaOrClose = findValueEnd(valueStart);
+                let valueEnd = commaOrClose;
+                while (valueEnd > valueStart && /\s/.test(source[valueEnd - 1])) valueEnd--;
+                ranges.push({ key, start: valueStart, end: valueEnd });
+                if (source[commaOrClose] === ',') i = commaOrClose + 1;
+                else break;
+            }
+            return { objectOpen, ranges };
+        }
+
+        function serializeConfigValue(value, indentLevel = 2) {
+            if (value === null || typeof value !== 'object') return JSON.stringify(value);
+            const pad = ' '.repeat(indentLevel);
+            const childPad = ' '.repeat(indentLevel + 2);
+            if (Array.isArray(value)) {
+                if (!value.length) return '[]';
+                return '[\n' + value.map(item => childPad + serializeConfigValue(item, indentLevel + 2)).join(',\n') + '\n' + pad + ']';
+            }
+            const entries = Object.keys(value).map(key => childPad + JSON.stringify(key) + ': ' + serializeConfigValue(value[key], indentLevel + 2));
+            if (!entries.length) return '{}';
+            return '{\n' + entries.join(',\n') + '\n' + pad + '}';
+        }
+
+        function patchConfigSource(source, configObject, sourceObject) {
+            const parsed = findConfigPropertyRanges(source);
+            if (!parsed) return null;
+            const knownKeys = new Set(parsed.ranges.map(range => range.key));
+            let output = source;
+            // Replace only values; comments, explanatory notes, key order, and hidden fields remain byte-for-byte intact.
+            parsed.ranges.slice().sort((a, b) => b.start - a.start).forEach(range => {
+                if (!Object.prototype.hasOwnProperty.call(configObject, range.key)) return;
+                const hasBaseline = sourceObject && Object.prototype.hasOwnProperty.call(sourceObject, range.key);
+                const unchanged = hasBaseline && JSON.stringify(configObject[range.key]) === JSON.stringify(sourceObject[range.key]);
+                // Leave unchanged values byte-for-byte intact, including comments or formatting inside values.
+                if (unchanged) return;
+                output = output.slice(0, range.start) + serializeConfigValue(configObject[range.key], 2) + output.slice(range.end);
+            });
+            const extras = Object.keys(configObject).filter(key => !knownKeys.has(key));
+            if (extras.length) {
+                const closeMatch = /\n\s*\}\);\s*$/.exec(output);
+                if (!closeMatch) return null;
+                const insertAt = closeMatch.index;
+                const extraText = '\n  // إعدادات إضافية محفوظة تلقائياً بواسطة لوحة التحكم\n' + extras.map(key => '  ' + JSON.stringify(key) + ': ' + serializeConfigValue(configObject[key], 2) + ',').join('\n') + '\n';
+                output = output.slice(0, insertAt) + extraText + output.slice(insertAt);
+            }
+            return output;
+        }
+
+        // Generate config.js from the original source. Never fall back to a hard-coded template,
+        // because that could drop hidden settings, comments, empty values, zeroes, or false flags.
         function generateConfigJSCode() {
-            const jsonStr = (val) => JSON.stringify(val);
-
-            // Speeds rows
-            const speedsRows = (appConfig.speeds || []).map(s => {
-                const parts = [`name: ${jsonStr(s.name || '')}`, `value: ${jsonStr(s.value || '')}`];
-                if (s.default) parts.push('default: true');
-                if (s.recommended) parts.push('recommended: true');
-                return `    { ${parts.join(', ')} },`;
-            }).join('\n');
-
-            // Profiles rows
-            const profilesRows = (appConfig.profiles || []).map(p => {
-                const parts = [
-                    `price: ${jsonStr(p.price || '')}`,
-                    `time: ${jsonStr(p.time || '')}`,
-                    `transfer: ${jsonStr(p.transfer || '')}`,
-                    `validity: ${jsonStr(p.validity || '')}`
-                ];
-                return `    { ${parts.join(', ')} },`;
-            }).join('\n');
-
-            // Sell points rows
-            const sellPointsRows = (appConfig['sell-points'] || []).map(sp => {
-                return `    { name: ${jsonStr(sp.name || '')} },`;
-            }).join('\n');
-
-            // Ad Images array
-            const adImagesFormatted = JSON.stringify(appConfig['ad-images'] || ["1.jpg", "2.jpg"]).replace(/,/g, ', ');
-
-            return `Config({
-  // =========================================================================
-  // 1. البيانات الأساسية للشبكة (الاسم، الدعم الفني، الشريط الإخباري)
-  // =========================================================================
-
-  // اسم الشبكة الذي يظهر في أعلى الصفحة والترويسة
-  "network-name": ${jsonStr(appConfig['network-name'] || "  تونس نت  ")},
-
-  // رقم خدمة العملاء / واتساب / الدعم الفني للاتصال والاستفسار
-  "service-number": ${jsonStr(appConfig['service-number'] || "772131004")},
-
-  // =========================================================================
-  // 👇 [نص الشريط الإخباري المتحرك] 👇
-  // اكتب هنا النص الذي تريده أن يتحرك في الشريط (آيات قرآنية، إعلانات، تنبيهات)
-  // =========================================================================
-  "news-line":
-    ${jsonStr(appConfig['news-line'] || "")},
-
-  // =========================================================================
-  // 2. إعدادات الإعلانات وبنر الصور (Ad Banner & Popup)
-  // =========================================================================
-  "ad-images": ${adImagesFormatted}, // قائمة صور شريط الإعلانات في مجلد adimg (تظهر فورياً عند فتح الصفحة)
-  "popup-adv-time": ${Number(appConfig['popup-adv-time']) || 5},           // مدة ظهور الإعلان بالثواني قبل إمكانية إغلاقه
-  "popup-adv-img-type": ${Boolean(appConfig['popup-adv-img-type'])},    // تفعيل عرض صورة الإعلان
-  "popup-adv-repeat-after": ${Number(appConfig['popup-adv-repeat-after']) || 120}, // تكرار ظهور الإعلان بعد عدد معين من الدقائق
-
-  // =========================================================================
-  // 3. إعدادات نظام النقاط والمكافآت (Shabakaty Loyalty & Points System)
-  // =========================================================================
-  "enable-loyalty-system": ${Boolean(appConfig['enable-loyalty-system'])},  // تفعيل أو تعطيل نظام النقاط بالكامل:
-                                  // true  : تشغيل نظام النقاط وعرض الإشعارات والبطاقات وتنبيهات التسجيل ونوافذ الاستبدال
-                                  // false : تعطيل وإخفاء نظام النقاط بالكامل من صفحة الدخول والحالة وكأنه غير موجود
-
-  // =========================================================================
-  // 4. إعدادات تسجيل الدخول ونوع الكرت
-  // =========================================================================
-  "login-type": ${jsonStr(appConfig['login-type'] || "User")},          // نوع تسجيل الدخول (User: مستخدم فقط / UserPass: مستخدم وكلمة مرور)
-  "login-chap": ${Number(appConfig['login-chap']) || 0},               // نوع التشفير (0: عادي / 1: CHAP)
-  "input-type": ${jsonStr(appConfig['input-type'] || "tel")},           // نوع لوحة المفاتيح في الهاتف (tel: أرقام لسرعة الإدخال)
-  "input-autocomplete": ${jsonStr(appConfig['input-autocomplete'] || "on")},    // إكمال تلقائي لأرقام الكروت المحفوظة
-
-  // =========================================================================
-  // 4. إعدادات وقائمة سرعات الإنترنت (إضافة، تعديل الاسم أو القيمة، وحذف السرعات)
-  // تتزامن فورياً وبشكل تلقائي في صفحة تسجيل الدخول وصفحة الحالة وتغيير السرعة
-  // =========================================================================
-  "login-speeds-mode": ${Boolean(appConfig['login-speeds-mode'] !== false)},      // تفعيل ميزة اختيار السرعة قبل الدخول
-  "enable-ultra-speed": ${Boolean(appConfig['enable-ultra-speed'] !== false)},    // تفعيل السرعة الخامسة (سرعة عالية جدا 1M/8M): غيّرها إلى true للتشغيل أو false للقفل
-  "speed-trychange": ${Number(appConfig['speed-trychange']) || 3},           // أقصى عدد لمرات تغيير السرعة المسموح بها للمشترك
-  "speed-trychange-timeout": ${Number(appConfig['speed-trychange-timeout']) || 3},   // مدة حظر تغيير السرعة بالدقائق عند تجاوز المحاولات
-
-  // قائمة السرعات المعرفة للشبكة (تطابق السرعات في مشروعك السابق بدقة تامة):
-  // - name: اسم السرعة الظاهر للمستخدم في القائمة وشاشة الحالة
-  // - value: قيمة السرعة الموجهة لنظام ميكروتك (Rate Limit مثل: 256k/700k أو 512k/2M)
-  // - default: تعيينها كسرعة افتراضية أولى عند فتح الصفحة (true / false)
-  // - recommended: إظهار علامة (الموصى بها) بجانب الاسم (اختياري)
-  "speeds": [
-${speedsRows}
-  ],
-
-  // =========================================================================
-  // 5. إعدادات معالجة وتصحيح أرقام الكروت المدخلة
-  // =========================================================================
-  "input-rm-white-spaces": ${Number(appConfig['input-rm-white-spaces']) || 0},    // إزالة المسافات الفارغة تلقائياً
-  "input-to-lower": ${Number(appConfig['input-to-lower']) || 0},           // تحويل الحروف الإنجليزية إلى صغيرة
-  "input-to-upper": ${Number(appConfig['input-to-upper']) || 0},           // تحويل الحروف الإنجليزية إلى كبيرة
-  "input-to-arabic-numbers": ${Number(appConfig['input-to-arabic-numbers']) || 0},  // تحويل الأرقام العربية (١٢٣) إلى إنجليزية (123) تلقائياً
-  "input-only-numbers": ${Number(appConfig['input-only-numbers']) || 0},       // قبول الأرقام فقط في حقل الكرت
-  "input-no-numbers": ${Number(appConfig['input-no-numbers']) || 0},
-  "input-only-alphanumeric": ${Number(appConfig['input-only-alphanumeric']) || 0},
-  "input-to-tel-type-when": ${Number(appConfig['input-to-tel-type-when']) || 0},
-
-  // =========================================================================
-  // 6. إعدادات الكوكيز وحفظ الكرت في المتصفح
-  // =========================================================================
-  "enable-hot-cookie": ${Number(appConfig['enable-hot-cookie']) !== 0 ? 1 : 0},        // تفعيل حفظ كرت المستخدم لتسهيل الدخول التلقائي
-  "clear-router-cookie": ${Number(appConfig['clear-router-cookie']) !== 0 ? 1 : 0},      // مسح كوكيز الراوتر عند تسجيل الخروج
-  "clear-hot-cookie": ${Number(appConfig['clear-hot-cookie']) !== 0 ? 1 : 0},         // مسح كوكيز الصفحة عند تسجيل الخروج
-
-  // =========================================================================
-  // 7. نظام مكافحة التخمين والحظر التلقائي (HotBlocker)
-  // =========================================================================
-  "enable-hot-blocker": ${Number(appConfig['enable-hot-blocker']) !== 0 ? 1 : 0},       // تفعيل نظام حظر التخمين والمحاولات الخاطئة
-  "try-count": ${Number(appConfig['try-count']) || 20},               // عدد المحاولات الخاطئة المسموح بها قبل فرض الحظر
-  "warn-when": ${Number(appConfig['warn-when']) || 10},               // بدء إظهار رسالة التحذير عند الوصول لهذا العدد من الأخطاء
-  "block-time": ${Number(appConfig['block-time']) || 1},               // مدة الحظر بالدقائق عند تجاوز عدد المحاولات المسموحة
-  // نص رسالة التحذير التي تظهر للعميل عند تكرار إدخال كروت خاطئة
-  "warn-message":
-    ${jsonStr(appConfig['warn-message'] || "")},
-
-  // =========================================================================
-  // 8. إظهار وإخفاء أزرار القائمة والشاشات
-  // =========================================================================
-  "update-toggle-button": ${Boolean(appConfig['update-toggle-button'] !== false)},  // إظهار سويتش إيقاف التحديثات والمتجر في شاشتي الدخول والحالة (true: نعم / false: إخفاء كلي وبدون وميض)
-  "price-button": ${Boolean(appConfig['price-button'])},          // إظهار زر قائمة أسعار الكروت (true: نعم / false: لا)
-  "sell-point-button": ${Boolean(appConfig['sell-point-button'])},     // إظهار زر نقاط البيع وأماكن التوزيع (true: نعم / false: لا)
-  "loan-button": ${Boolean(appConfig['loan-button'])},           // إظهار زر خدمة الاستدانة / كرت سلف (true: نعم / false: لا)
-  "app-store-status-button": ${Boolean(appConfig['app-store-status-button'])}, // إظهار زر متجر البرامج بشاشة الحالة
-  "esterahah-button": ${Boolean(appConfig['esterahah-button'] !== false)},      // إظهار زر الاستراحة في شاشة الحالة
-  "mobasher-button": ${Boolean(appConfig['mobasher-button'] !== false)},       // إظهار زر البث المباشر في شاشة الحالة
-  "app-detector-button": ${Boolean(appConfig['app-detector-button'] !== false)},   // إظهار زر تنزيل تطبيق كشف استهلاك النت
-  "app-octopus-button": ${Boolean(appConfig['app-octopus-button'] !== false)},    // إظهار زر تنزيل تطبيق الاستراحة الأخطبوط
-  "show-date-field": ${Boolean(appConfig['show-date-field'])},
-
-  // =========================================================================
-  // 9. الروابط الخارجية (البث المباشر / الاستراحة / متجر البرامج والتطبيقات)
-  // =========================================================================
-  "redirect-to-esterahah": ${jsonStr(appConfig['redirect-to-esterahah'] || "http://30.10.10.10")},   // رابط صفحة الاستراحة / الترفيه (اختياري)
-  "redirect-to-mobasher": ${jsonStr(appConfig['redirect-to-mobasher'] || "http://30.10.10.10:88")},    // رابط البث المباشر والمباريات (اختياري)
-  "app-store-base-url": ${jsonStr(appConfig['app-store-base-url'] || "")},
-  "app-detector-url": ${jsonStr(appConfig['app-detector-url'] || "https://play.google.com/store/apps/details?id=com.glasswire.android")}, // رابط تطبيق كشف استهلاك النت
-  "app-octopus-url": ${jsonStr(appConfig['app-octopus-url'] || "https://play.google.com/store/apps/details?id=com.alokhtoboot.plus")},   // رابط تطبيق الاستراحة الأخطبوط
-  "app-store-base-url-ext": ${jsonStr(appConfig['app-store-base-url-ext'] || "")},
-
-  // =========================================================================
-  // 10. جدول باقات وأسعار الكروت (يتم تعديل الأسعار والساعات من هنا)
-  // =========================================================================
-  profiles: [
-${profilesRows}
-  ],
-
-  // =========================================================================
-  // 11. نقاط البيع ومراكز توزيع الكروت (اكتب هنا أسماء وأرقام المحلات)
-  // =========================================================================
-  "sell-points": [
-${sellPointsRows}
-  ],
-
-  // =========================================================================
-  // 12. نصوص جديدنا والعروض (تعديل مباشر وسهل لرسائل العروض والتنبيهات)
-  // =========================================================================
-  "news-title": ${jsonStr(appConfig['news-title'] || "")},
-  "news-content": ${jsonStr(appConfig['news-content'] || "")},
-  "news-code": ${jsonStr(appConfig['news-code'] || "")},
-  "news-extra-title": ${jsonStr(appConfig['news-extra-title'] || "")},
-  "news-extra-content": ${jsonStr(appConfig['news-extra-content'] || "")},
-  "news-extra-badge": ${jsonStr(appConfig['news-extra-badge'] || "")},
-});
-`;
+            if (!originalConfigSource || !originalConfigObject) {
+                throw new Error('لم يتم تحميل config/config.js الأصلي. افتح لوحة التحكم عبر عنوان الراوتر/خادم الويب وتأكد أن مجلد config قابل للقراءة، ثم أعد تحميل الصفحة.');
+            }
+            const patchedSource = patchConfigSource(originalConfigSource, appConfig, originalConfigObject);
+            if (!patchedSource) {
+                throw new Error('تعذر تعديل ملف config.js مع الحفاظ على تعليقاته؛ لم يتم إنشاء ملف قد يكون غير مكتمل.');
+            }
+            return patchedSource;
         }
 
         // SAVE DIRECTLY TO SERVER
         async function saveDirectToServer() {
-            const code = generateConfigJSCode();
             try {
+                const code = generateConfigJSCode();
                 const res = await fetch('/api/v1/save-config', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1910,13 +1866,15 @@ ${sellPointsRows}
                     showToast(data.message || 'فشل الحفظ في السيرفر', 'error');
                 }
             } catch (err) {
-                showToast('تعذر الاتصال بالسيرفر، يمكنك تحميل الملف يدوياً', 'warning');
+                showToast(err && err.message ? err.message : 'تعذر الاتصال بالسيرفر؛ يمكنك المحاولة مجدداً بعد التأكد من تحميل config.js الأصلي.', 'warning');
             }
         }
 
         // DOWNLOAD FILE
         function downloadConfigFile() {
-            const code = generateConfigJSCode();
+            let code;
+            try { code = generateConfigJSCode(); }
+            catch (err) { showToast(err.message || 'تعذر إنشاء config.js', 'error'); return; }
             const blob = new Blob([code], { type: 'application/javascript;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1931,7 +1889,9 @@ ${sellPointsRows}
 
         // COPY CODE WITH ROBUST FALLBACK (Works inside iframes, mobile, and desktop)
         function copyConfigCode() {
-            const code = generateConfigJSCode();
+            let code;
+            try { code = generateConfigJSCode(); }
+            catch (err) { showToast(err.message || 'تعذر إنشاء config.js', 'error'); return; }
             
             // 1. Try modern clipboard API if available
             if (navigator.clipboard && window.isSecureContext) {
@@ -1990,6 +1950,8 @@ ${sellPointsRows}
 
                 if (parsed && typeof parsed === 'object') {
                     appConfig = Object.assign({}, appConfig, parsed);
+                    originalConfigSource = String(code || '');
+                    originalConfigObject = JSON.parse(JSON.stringify(parsed));
                     renderAllFormFields();
                     return true;
                 }
@@ -2040,8 +2002,12 @@ ${sellPointsRows}
         }
 
         function openCodeModal() {
-            document.getElementById('codeContainer').textContent = generateConfigJSCode();
-            openModal('codeModal');
+            try {
+                document.getElementById('codeContainer').textContent = generateConfigJSCode();
+                openModal('codeModal');
+            } catch (err) {
+                showToast(err.message || 'تعذر إنشاء config.js', 'error');
+            }
         }
 
         function openImportModal() {

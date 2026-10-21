@@ -54,10 +54,10 @@ Config({
   // - default: تعيينها كسرعة افتراضية أولى عند فتح الصفحة (true / false)
   // - recommended: إظهار علامة (الموصى بها) بجانب الاسم (اختياري)
   "speeds": [
-    { name: "سرعة اقتصادية", value: "1M" },
-    { name: "سرعة عادية", value: "2M", default: true, recommended: true },
-    { name: "سرعة متوسطة", value: "4M" },
-    { name: "سرعة عالية", value: "6M" },
+    { name: "سرعة اقتصادية", value: "1M/1M" },
+    { name: "سرعة عادية", value: "2M/2M", default: true, recommended: true },
+    { name: "سرعة متوسطة", value: "4M/4M" },
+    { name: "سرعة عالية", value: "6M/6M" },
     { name: "سرعة هوتسبوت", value: "" },
   ],
 
@@ -99,8 +99,8 @@ Config({
   "sell-point-button": true,     // إظهار زر نقاط البيع وأماكن التوزيع (true: نعم / false: لا)
   "loan-button": true,           // إظهار زر خدمة الاستدانة / كرت سلف (true: نعم / false: لا)
   "app-store-status-button": false, // إظهار زر متجر البرامج بشاشة الحالة
-  "esterahah-button": true,      // إظهار زر الاستراحة في شاشة الحالة
-  "mobasher-button": true,       // إظهار زر البث المباشر في شاشة الحالة
+  "esterahah-button": false,      // إظهار زر الاستراحة في شاشة الحالة
+  "mobasher-button": false,       // إظهار زر البث المباشر في شاشة الحالة
   "app-detector-button": false,   // إظهار زر تنزيل تطبيق كشف استهلاك النت
   "app-octopus-button": false,    // إظهار زر تنزيل تطبيق الاستراحة الأخطبوط
   "show-date-field": false,
@@ -137,9 +137,9 @@ Config({
   // 12. نصوص جديدنا والعروض (تعديل مباشر وسهل لرسائل العروض والتنبيهات)
   // =========================================================================
   "news-title": "زبائننا الكرام",
-  "news-content": "صارت كروت شبكة العاطفي نت متوفرة عبر محفظة جيب",
-  "news-code": "رقم كود الشبكة: (21124)",
-  "news-extra-title": "البث المباشر والمباريات:",
-  "news-extra-content": "استمتع بمشاهدة الاستراحة والبث المباشر للمباريات والدوريات العالمية مجاناً عبر الرابط:",
-  "news-extra-badge": "t.com",
+  "news-content": "التطوير مستمر لتنالوا تجربه رائعه \n\nبرمجه وتطوير المهندس / مبين العاطفي",
+  "news-code": "",
+  "news-extra-title": "",
+  "news-extra-content": "",
+  "news-extra-badge": "",
 });

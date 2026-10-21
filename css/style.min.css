@@ -2240,8 +2240,9 @@ html.modal-scroll-locked,
 body.modal-scroll-locked {
   overflow: hidden !important;
   height: 100% !important;
-  touch-action: none;
-  -webkit-overflow-scrolling: auto;
+  /* Do not set touch-action:none on the root: it disables touch scrolling in
+     descendant scroll containers, including the status screen on mobile. */
+  -webkit-overflow-scrolling: touch;
 }
 
 .app {
@@ -2542,16 +2543,28 @@ tbody td:last-child {
    ========================================================================== */
 
 #status {
-  position: static !important;
+  /* A dedicated status scroller is reliable even if an old Hotspot/WebView
+     leaves document/body overflow styles behind. */
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
   width: 100% !important;
-  height: auto !important;
-  min-height: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
   background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  padding: 0 0 95px 0 !important;
+  padding: 14px 14px calc(95px + env(safe-area-inset-bottom, 0px)) 14px !important;
   z-index: 10 !important;
-  overflow-y: visible !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: contain !important;
   touch-action: pan-y !important;
   -webkit-overflow-scrolling: touch !important;
 }
@@ -2559,8 +2572,14 @@ tbody td:last-child {
 #status.active {
   display: block !important;
   animation: fadeInStatusPage 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-  overflow-y: visible !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
   touch-action: pan-y !important;
+}
+
+#status > .modal-sheet-card {
+  margin: 0 auto 16px !important;
+  min-height: max-content;
 }
 
 @keyframes fadeInStatusPage {
@@ -4030,4 +4049,56 @@ button.loyalty-btn:active,
   margin: 20px auto;
 }
 
+
+
+
+/* Hotspot performance tuning for phones: same layout/colors, less expensive GPU effects. */
+@media (max-width: 768px) {
+  .brand-icon-wrap, .top-header .m, button#btn-whats-new, .slide-tag, .carousel-nav-btn,
+  .points-notice-alert, .login-card, .speed-modal-trigger-btn, .toggle-container-modern,
+  .bottom-nav-bar, .customer-support-section, .fab-support, .app, .loan-body,
+  #status .modal-sheet-card, .status-header-card, .status-badge-live, .metric-card-glass,
+  .statusdiv, .block-card-warning, .error, .loyalty-user-card, .loyalty-modal {
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  }
+  #mainLoginBtn.login-submit-btn:not(.processing)::before,
+  #login .button.login-submit:not(.processing)::before, .points-register-btn::before {
+    animation: none !important; display: none !important;
+  }
+}
+
+/* ======================================================================
+   LOGIN SCREEN SCROLL FIX FOR MIKROTIK / ANDROID CAPTIVE PORTAL WEBVIEWS
+   Keep login independently scrollable, just like #status. This avoids a
+   stale html/body modal scroll lock freezing the long login screen.
+   ====================================================================== */
+#login {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  max-width: 480px !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 14px calc(95px + env(safe-area-inset-bottom, 0px)) 14px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+  z-index: 10 !important;
+}
+
+#login.active {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  touch-action: pan-y !important;
+}
 
